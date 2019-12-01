@@ -30,10 +30,13 @@ exports.importConfsTech = async (_, res) => {
       )
   )
 
-  res.json({
+  const response = {
     'inserts': inserts.filter(it => it == "OK").length,
     'skips': inserts.filter(it => it == "NOK").length
-  })
+  };
+
+  console.log(response);
+  res.json(response);
   
 }
 
