@@ -1,0 +1,22 @@
+{
+  "name": "devevents-confstech",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/datastore": "^5.0.0",
+    "countries-list": "^2.5.0",
+    "dayjs": "^1.8.17",
+    "hash-sum": "^2.0.0",
+    "lodash": "^4.17.15",
+    "nodegit": "^0.26.2",
+    "normalize-url": "^4.5.0",
+    "rimraf": "^3.0.0"
+  }
+}
