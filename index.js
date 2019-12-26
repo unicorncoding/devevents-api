@@ -104,6 +104,7 @@ function normalizeCountry(country) {
   .replace("switzerland", "Switzerland")
   .replace("Netherland", "Netherlands")
   .replace("Netherlandss", "Netherlands")
+  .replace("Perú", "Peru")
   .replace("Niederlande", "Netherlands")
   .replace("Czech republic", "Czech Republic")
   .trim()
