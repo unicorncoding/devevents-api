@@ -29,6 +29,5 @@ before_install:
     fi
 
 script:
-
   - npm install
-  - gcloud functions deploy importConfsTech --runtime nodejs10 --trigger-http --project devevents --verbosity=debug --memory=1024MB --timeout=60s
+  - gcloud functions deploy api --runtime nodejs10 --trigger-http --project devevents --verbosity=debug --memory=1024MB --timeout=60s

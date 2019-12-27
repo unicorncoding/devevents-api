@@ -1,8 +1,9 @@
 [![Build Status](https://travis-ci.org/unicorncoding/devevents-confstech.svg?branch=master)](https://travis-ci.org/unicorncoding/devevents-confstech)
-# Dev.events | confs.tech data importer
+# dev.events API
 
-A simple script that imports data from `confs.tech` to `dev.events`.
-
+```
+  api.dev.events
+```
 
 👩‍💻 Written in JavaScript. 
 
@@ -10,4 +11,6 @@ A simple script that imports data from `confs.tech` to `dev.events`.
 
 🌎 Accessible over HTTP.
 
-⏰ Runs every day on Cloud Scheduler.
+⏰ Triggered when necessary via Cloud Scheduler.
+
+
