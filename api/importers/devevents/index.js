@@ -59,7 +59,7 @@ async function conferences(repo) {
     const allConferences = JSON.parse(fs.readFileSync(f))
     const includeTopic = it => ({
       ...it,
-      topic: path.basename(f, '.json')
+      topics: [ path.basename(f, '.json') ]
     })
 
     return allConferences
@@ -89,11 +89,12 @@ function normalize(it) {
     cfpUrl: it.cfpUrl ? normalizeUrl(it.cfpUrl) : undefined,
     city: it.city,
     country: country,
+    countryCode: countryCode(country),
     continent: continent(country),
     category: 'conference',
     source: 'confs.tech',
     name: it.name,
-    twitter: it.twitter
+    twitter: it.twitter ? it.twitter.replace("@", "") : undefined
   });
 }
 
@@ -111,10 +112,19 @@ function normalizeCountry(country) {
   .trim()
 }
 
+function countryCode(country) {
+  const match = Object.entries(countries).find(([_, it]) => it.name == country);
+  if (!match) {
+    throw "Cannot find country code for country " + country;
+  }
+  const [countryCode] = match; 
+  return countryCode;
+}
+
 function continent(country) {
   const match = Object.values(countries).find(it => it.name == country);
   if (!match || !match.continent) {
-    throw "Cannot find continent for country " + country
+    throw "Cannot find continent for country " + country;
   }
-  return match.continent
+  return match.continent;
 }
