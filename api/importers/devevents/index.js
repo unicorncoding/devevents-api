@@ -80,7 +80,9 @@ async function walk(dir) {
 }
 
 function normalize(it) {
-  const country = normalizeCountry(it.country)
+  const country = normalizeCountry(it.country);
+  const continent = continent(country);
+  const countryCode = countryCode(country);
   return ({
     creationDate: dayjs().toDate(),
     startDate: dayjs(it.startDate).toDate(),
@@ -90,7 +92,9 @@ function normalize(it) {
     cfpUrl: it.cfpUrl ? normalizeUrl(it.cfpUrl) : undefined,
     city: it.city,
     country: country,
-    location: continent(country) + "/" + countryCode(country),
+    countryCode: countryCode,
+    continent: continent,
+    location: continent + "/" + countryCode,
     category: 'conference',
     source: 'confs.tech',
     name: it.name,
