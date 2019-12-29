@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
   const limit = req.query.limit ? req.query.limit : 10;
   const start = req.query.start;
   const location = req.query.location;
-  const withLocation = q => location ? q.filter('location', '=', location) : q;
+  const withLocation = q => location ? q.filter('location', '>=', location) : q;
   const withStart = q => start ? q.start(start) : q;
 
   let totalQuery = datastore
