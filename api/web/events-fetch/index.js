@@ -21,8 +21,6 @@ module.exports = async (req, res) => {
     )
   );
 
-    
-
   const [keys] = (await datastore.runQuery(totalQuery));
   const total = keys.length;
 
@@ -31,7 +29,6 @@ module.exports = async (req, res) => {
         datastore
           .createQuery("Event")
           .order('startDate')
-          .filter('continent', continent)
           .filter('startDate', '>', new Date())
       )
   );
