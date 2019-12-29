@@ -6,40 +6,30 @@ module.exports = async (req, res) => {
 
   const limit = req.query.limit ? req.query.limit : 10;
   const start = req.query.start;
-  const continent = req.query.continent;
   const country = req.query.country;
+  const withCountry = q => country ? q.filter('country', '=', country) : q;
+  const withStart = q => start ? q.start(start) : q;
 
-  const withOptionalContinent = q => continent ? q.filter('continent', '=', continent) : q;
-  const withOptionalCountry = q => country ? q.filter('countryCode', '=', country) : q;
-
-  const totalQuery = withOptionalCountry(
-    withOptionalContinent(
-      datastore
+  let totalQuery = datastore
         .createQuery("Event")
         .select('__key__')
-        .filter('startDate', '>', new Date())
-    )
-  );
+        .filter('startDate', '>', new Date());
+  totalQuery = withCountry(totalQuery);
 
   const [keys] = (await datastore.runQuery(totalQuery));
   const total = keys.length;
 
-  let fetchQuery = withOptionalCountry(
-      withOptionalContinent(
-        datastore
+  let fetchQuery = datastore
           .createQuery("Event")
-          .order('startDate')
-          .limit(limit)
           .filter('startDate', '>', new Date())
-      )
-  );
-
-  if (start) { fetchQuery = fetchQuery.start(start); }
-    
+          .limit(limit)
+          .order('startDate');
+  fetchQuery = withCountry(fetchQuery);
+  fetchQuery = withStart(fetchQuery);
+  
   const [entities, info] = await datastore.runQuery(fetchQuery);
 
   res.json([entities, { limit: limit, total: total, info }]);
-
 
 }
 

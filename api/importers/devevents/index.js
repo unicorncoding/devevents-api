@@ -12,10 +12,10 @@ const { resolve } = require('path');
 const { readdir } = require('fs').promises;
 const { Datastore } = require('@google-cloud/datastore');
 
+const datastore = new Datastore();
 
 module.exports = async (_, res) => {
 
-  const datastore = new Datastore();
   const cloneDir = await cloneConferences()
   const confs = await conferences(cloneDir)
   console.log("Confs.tech returned" + confs.length + " conferences");
@@ -59,7 +59,7 @@ async function conferences(repo) {
     const allConferences = JSON.parse(fs.readFileSync(f))
     const includeTopic = it => ({
       ...it,
-      topics: [ path.basename(f, '.json') ]
+      topic: path.basename(f, '.json')
     })
 
     return allConferences
@@ -82,6 +82,7 @@ async function walk(dir) {
 function normalize(it) {
   const country = normalizeCountry(it.country)
   return ({
+    creationDate: dayjs().toDate(),
     startDate: dayjs(it.startDate).toDate(),
     endDate: it.endDate ? dayjs(it.endDate).toDate() : undefined,
     cfpEndDate: it.cfpEndDate ? dayjs(it.cfpEndDate).toDate() : undefined,
