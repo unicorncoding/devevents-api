@@ -1,9 +1,9 @@
 const { Datastore } = require('@google-cloud/datastore');
 
+const datastore = new Datastore();
+
 module.exports = async (req, res) => {
 
-  const datastore = new Datastore();
-  
   const limit = req.query.limit ? req.query.limit : 10;
   const start = req.query.start;
   const continent = req.query.continent;
