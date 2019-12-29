@@ -2,6 +2,6 @@ indexes:
 
 - kind: Event
   properties:
-  - name: location
+  - name: continent
   - name: startDate
     direction: asc

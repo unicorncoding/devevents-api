@@ -29,8 +29,8 @@ module.exports = async (req, res) => {
           .filter('startDate', '>', new Date())
           .limit(limit)
           .order('startDate');
-          totalQuery = withContinent(totalQuery);
-          totalQuery = withCountry(totalQuery);
+          fetchQuery = withContinent(fetchQuery);
+  fetchQuery = withCountry(fetchQuery);
   fetchQuery = withStart(fetchQuery);
   
   const [entities, info] = await datastore.runQuery(fetchQuery);
