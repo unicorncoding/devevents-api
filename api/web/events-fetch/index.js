@@ -6,15 +6,15 @@ module.exports = async (req, res) => {
 
   const limit = req.query.limit ? req.query.limit : 10;
   const start = req.query.start;
-  const country = req.query.country;
-  const withCountry = q => country ? q.filter('country', '=', country) : q;
+  const location = req.query.location;
+  const withLocation = q => location ? q.filter('location', '=', location) : q;
   const withStart = q => start ? q.start(start) : q;
 
   let totalQuery = datastore
         .createQuery("Event")
         .select('__key__')
         .filter('startDate', '>', new Date());
-  totalQuery = withCountry(totalQuery);
+  totalQuery = withLocation(totalQuery);
 
   const [keys] = (await datastore.runQuery(totalQuery));
   const total = keys.length;
@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
           .filter('startDate', '>', new Date())
           .limit(limit)
           .order('startDate');
-  fetchQuery = withCountry(fetchQuery);
+  fetchQuery = withLocation(fetchQuery);
   fetchQuery = withStart(fetchQuery);
   
   const [entities, info] = await datastore.runQuery(fetchQuery);
