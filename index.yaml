@@ -1,0 +1,7 @@
+indexes:
+
+- kind: Event
+  properties:
+  - name: location
+  - name: startDate
+    direction: asc

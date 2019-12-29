@@ -12,8 +12,8 @@ module.exports = async (req, res) => {
 
   let totalQuery = datastore
         .createQuery("Event")
-        .select('__key__')
-        .filter('startDate', '>', new Date());
+        .select('__key__');
+        // .filter('startDate', '>', new Date());
   totalQuery = withLocation(totalQuery);
 
   const [keys] = (await datastore.runQuery(totalQuery));
@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
 
   let fetchQuery = datastore
           .createQuery("Event")
-          .filter('startDate', '>', new Date())
+          // .filter('startDate', '>', new Date())
           .limit(limit)
           .order('startDate');
   fetchQuery = withLocation(fetchQuery);
