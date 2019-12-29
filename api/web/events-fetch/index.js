@@ -4,7 +4,7 @@ module.exports = async (req, res) => {
 
   const datastore = new Datastore();
   
-  const limit = req.query.limit;
+  const limit = req.query.limit ? req.query.limit : 10;
   const start = req.query.start;
   const continent = req.query.continent;
   const country = req.query.country;
@@ -29,16 +29,16 @@ module.exports = async (req, res) => {
         datastore
           .createQuery("Event")
           .order('startDate')
+          .limit(limit)
           .filter('startDate', '>', new Date())
       )
   );
 
-  if (limit) { fetchQuery = fetchQuery.limit(limit); }
   if (start) { fetchQuery = fetchQuery.start(start); }
     
   const [entities, info] = await datastore.runQuery(fetchQuery);
 
-  res.json([entities, { total: total, info }]);
+  res.json([entities, { limit: limit, total: total, info }]);
 
 
 }
