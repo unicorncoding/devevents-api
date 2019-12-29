@@ -5,18 +5,26 @@ module.exports = async (req, res) => {
   const datastore = new Datastore();
   
   const limit = req.query.limit;
+  const cursor = req.query.cursor;
 
-  let query = datastore
+  const totalQuery = datastore
     .createQuery("Event")
-    .filter('startDate', '>', new Date())
-    .order('startDate');
+    .select('__key__')
+    .filter('startDate', '>', new Date());
 
-  
-  if (limit) {
-    query = query.limit(limit);
-  }
+  const [keys] = (await datastore.runQuery(totalQuery));
+  const total = keys.length;
 
-  const [entities, info] = await datastore.runQuery(query);
 
-  res.json([entities, info]);
+  let fetchQuery = datastore
+    .createQuery("Event")
+    .order('startDate')
+    .filter('startDate', '>', new Date());
+
+  if (limit) { fetchQuery = fetchQuery.limit(limit); }
+  if (cursor) { fetchQuery = fetchQuery.start(start); }
+    
+  const [entities, info] = await datastore.runQuery(fetchQuery);
+
+  res.json([entities, { total: total, info }]);
 }
