@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "dev": "MODE=dev node index.js"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "dev": "nodemon index"
+  },
   "engines": {
     "node": "10"
   },
@@ -25,5 +25,8 @@
     "nodegit": "^0.26.2",
     "normalize-url": "^4.5.0",
     "rimraf": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }
