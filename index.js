@@ -1,20 +1,25 @@
-function handleCors(req, res) {
-  res.set('Access-Control-Allow-Origin', '*');
-  if (req.method === 'OPTIONS') {
-    res.set('Access-Control-Allow-Methods', 'GET');
-    res.set('Access-Control-Allow-Headers', 'Content-Type');
-    res.set('Access-Control-Max-Age', '3600');
-    res.status(204).send('');
-  }
-}
+const asyncHandler = require('express-async-handler');
+const express = require('express');
+const cors = require('cors');
+const app = express();
 
-exports.api = async (req, res) => {
-  handleCors(req, res);
-  const api = req.path;
-  if (!api || api == "/") {
-    res.send("Nothing valuable at this endpoint.")
-  }
-  console.log("requesting " + api)
-  return require("./api" + api)(req, res);
-}
+app.use(cors());
 
+// const PORT = process.env.PORT || 5555;
+
+// app.listen(PORT, () => {
+  // console.log(`Server running on port ${PORT}`);
+// });
+
+app.get('/hello', (req, res) => {
+  res.send("OK");
+})
+
+app.get('/api/:api', asyncHandler(async(req, res) => {
+  const api = req.params.api;
+  return await require("./api" + api)(req, res);
+}));
+
+module.exports = {
+  app
+};

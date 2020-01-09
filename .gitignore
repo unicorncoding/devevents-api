@@ -1,3 +1,5 @@
+firebase.json
+firebase-debug.log
 node_modules
 tmp
 infra-provisioner-account.json
