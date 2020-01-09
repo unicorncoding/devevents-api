@@ -20,6 +20,4 @@ app.get('/api/:api', asyncHandler(async(req, res) => {
   return await require("./api" + api)(req, res);
 }));
 
-module.exports = {
-  app
-};
+module.exports = app;
