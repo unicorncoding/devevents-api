@@ -1,17 +1,15 @@
+const asyncHandler = require('express-async-handler');
+const router = require('express').Router();
 const { Datastore } = require('@google-cloud/datastore');
 
 const datastore = new Datastore();
 
-module.exports = async (req, res) => {
+router.get('/search', asyncHandler(async(req, res) => {
 
-  const limit = req.query.limit ? req.query.limit : 10;
-  const start = req.query.start;
-  const continent = req.query.continent;
-  const country = req.query.country;
+  const { start, continent, country, limit = 10 } = req.query;
 
   const withContinent = q => continent ? q.filter('continent', '=', continent) : q;
   const withCountry = q => country ? q.filter('countryCode', '=', country) : q;
-
   const withStart = q => start ? q.start(start) : q;
 
   let totalQuery = datastore
@@ -37,5 +35,6 @@ module.exports = async (req, res) => {
 
   res.json([entities, { limit: limit, total: total, info }]);
 
-}
+}));
 
+module.exports = router;

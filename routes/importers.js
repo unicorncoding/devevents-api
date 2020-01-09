@@ -1,3 +1,6 @@
+const asyncHandler = require('express-async-handler');
+const router = require('express').Router();
+
 const _ = require('lodash');
 const fs = require('fs');
 const util = require('util');
@@ -14,7 +17,7 @@ const { Datastore } = require('@google-cloud/datastore');
 
 const datastore = new Datastore();
 
-module.exports = async (_, res) => {
+router.get('/devevents', asyncHandler(async(req, res) => {
 
   const cloneDir = await cloneConferences()
   const confs = await conferences(cloneDir)
@@ -38,8 +41,10 @@ module.exports = async (_, res) => {
 
   console.log(response);
   res.json(response);
-  
-}
+
+}));
+
+module.exports = router;
 
 async function cloneConferences() {
   const conferencesRepo = 'https://github.com/tech-conferences/conference-data'
