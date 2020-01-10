@@ -2,7 +2,7 @@
 # dev.events API
 
 ```
-  api.dev.events
+api.dev.events
 ```
 
 👩‍💻 Written in JavaScript. 
@@ -27,6 +27,6 @@ In order to run the project locally, please ask the project owner to create your
 Then: 
 
 ```
-  npm install
-  npm run dev
+npm install
+npm run dev
 ```
