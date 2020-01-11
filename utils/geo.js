@@ -31,11 +31,16 @@ function codeOf(country) {
   return countryCode;
 }
 
+function isContinent(code) {
+  return continents[code] != undefined;
+}
+
 function nameBy(code) {
-  return countries[code] ? countries[code].name : continents[code];
+  return continents[code] ? continents[code] : countries[code].name;
 }
 
 module.exports.nameBy = nameBy;
 module.exports.normalizedCountry = normalizedCountry;
 module.exports.continentOf = continentOf;
 module.exports.codeOf = codeOf;
+module.exports.isContinent = isContinent;
