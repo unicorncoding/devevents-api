@@ -1,4 +1,4 @@
-const { countries } = require('countries-list');
+const { countries, continents } = require('countries-list');
 
 function normalizedCountry(country) {
   return country
@@ -31,6 +31,11 @@ function codeOf(country) {
   return countryCode;
 }
 
+function nameBy(code) {
+  return countries[code] ? countries[code].name : continents[code];
+}
+
+module.exports.nameBy = nameBy;
 module.exports.normalizedCountry = normalizedCountry;
 module.exports.continentOf = continentOf;
 module.exports.codeOf = codeOf;
