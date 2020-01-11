@@ -13,7 +13,7 @@ router.get('/search', asyncHandler(async(req, res) => {
   const withStart = q => start ? q.start(start) : q;
 
   let totalQuery = datastore
-        .createQuery("Event")
+        .createQuery('Event')
         .select('__key__')
         .filter('startDate', '>', new Date());
   totalQuery = withContinent(totalQuery);
@@ -23,7 +23,7 @@ router.get('/search', asyncHandler(async(req, res) => {
   const total = keys.length;
 
   let fetchQuery = datastore
-          .createQuery("Event")
+          .createQuery('Event')
           .filter('startDate', '>', new Date())
           .limit(limit)
           .order('startDate');

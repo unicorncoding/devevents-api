@@ -79,8 +79,8 @@ class Stats {
       await tx.run();
       const [item] = await tx.get(itemKey);
       if (item) {
-        const itemCopy = { ...item, count: item.count + count };
-        tx.save(itemCopy);
+        const newItem = { key: itemKey, data: { count: item.count + count } };
+        tx.save(newItem);
         tx.commit();
       } else {
         const newItem = { key: itemKey, data: { count: count } };
