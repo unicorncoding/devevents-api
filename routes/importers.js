@@ -9,7 +9,7 @@ allSettled.shim();
 const hash = require('hash-sum');
 const { Datastore } = require('@google-cloud/datastore');
 
-const datastore = new Datastore();
+const datastore = new Datastore({ maxRetries: 5, autoRetry: true });
 
 router.get('/devevents', asyncHandler(async(req, res) => {
   const confs = await conferences();
@@ -36,8 +36,8 @@ async function storeIfNew(each, stats) {
       stats.skip()
     } else {
       const newItem = { key: itemKey, data: each };
-      tx.save(newItem);
-      tx.commit();
+      await tx.save(newItem);
+      await tx.commit();
       stats.inc(each.continent);
       stats.inc(each.countryCode);
     }
@@ -73,6 +73,7 @@ class Stats {
   }
 
   async storeEach(loc, count) {
+    console.log("Storing " + count + " at " + loc);
     const itemKey = datastore.key(['Location', loc]);
     const tx = datastore.transaction();
     try {
@@ -80,12 +81,12 @@ class Stats {
       const [item] = await tx.get(itemKey);
       if (item) {
         const newItem = { key: itemKey, data: { count: item.count + count } };
-        tx.save(newItem);
-        tx.commit();
+        await tx.save(newItem);
+        await tx.commit();
       } else {
         const newItem = { key: itemKey, data: { count: count } };
-        tx.save(newItem);
-        tx.commit();
+        await tx.save(newItem);
+        await tx.commit();
       }
     } catch (err) {
       console.error("Unable to store counter for " + loc, err);
