@@ -7,7 +7,7 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "dev": "nodemon index"
+    "serve": "nodemon index"
   },
   "engines": {
     "node": "10"
