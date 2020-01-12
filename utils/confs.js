@@ -17,7 +17,8 @@ const log = console.log;
 async function conferences(max = Number.MAX_VALUE) {
   const repo = await gitClone();
   const upcomingOnly = e => dayjs(e.startDate).isSame(dayjs()) || dayjs(e.startDate).isAfter(dayjs());
-  const offlineOnly = e => e.country != "Online";
+  const offlineOnly = e => e.country != 'Online';
+  const noOfftopic = e => e.topic != 'Networking' && e.topic != 'tech-comm';
   const files = await walk(repo + '/conferences')
   const confs = files.flatMap(f => {
     const allConferences = parseOrElse(f, []);
@@ -26,7 +27,8 @@ async function conferences(max = Number.MAX_VALUE) {
       .filter(upcomingOnly)
       .filter(offlineOnly)
       .map(normalize)
-      .map(includeTopic);
+      .map(includeTopic)
+      .filter(noOfftopic);
   });
   log(`Confs.tech conferences: ${confs.length}`);
   return confs.slice(0, max);
@@ -44,7 +46,7 @@ async function gitClone() {
 
 function normalize(it) {
   const country = normalizedCountry(it.country);
-  const continent = continentOf(country);
+  const continentCode = continentOf(country);
   const countryCode = codeOf(country);
   return ({
     creationDate: dayjs().toDate(),
@@ -55,9 +57,8 @@ function normalize(it) {
     cfpUrl: it.cfpUrl ? normalizeUrl(it.cfpUrl) : undefined,
     city: it.city,
     country: country,
-    countryCode: countryCode,
-    continent: continent,
-    location: continent + "/" + countryCode,
+    countryCode: continentCode + '/' + countryCode,
+    continentCode: continentCode,
     category: 'conference',
     source: 'confs.tech',
     name: it.name,

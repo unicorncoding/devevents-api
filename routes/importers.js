@@ -38,7 +38,7 @@ async function storeIfNew(each, stats) {
       const newItem = { key: itemKey, data: each };
       await tx.save(newItem);
       await tx.commit();
-      stats.inc(each.continent);
+      stats.inc(each.continentCode);
       stats.inc(each.countryCode);
     }
   } catch (err) {
