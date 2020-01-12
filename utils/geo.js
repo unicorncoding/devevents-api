@@ -32,7 +32,8 @@ function codeOf(country) {
 }
 
 function nameBy(code) {
-  return continents[code] ? continents[code] : countries[code].name;
+  const [continentCode, countryCode] = code.split("/");
+  return continents[code] ? continents[code] : countries[countryCode].name;
 }
 
 module.exports.nameBy = nameBy;
