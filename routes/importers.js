@@ -42,7 +42,7 @@ async function storeIfNew(each, stats) {
       stats.inc(each.countryCode);
     }
   } catch (err) {
-    error("Unable to store event " + each.name, err);
+    console.error("Unable to store event " + each.name, err);
     tx.rollback();
   }  
 }
