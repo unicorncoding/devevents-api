@@ -18,7 +18,7 @@ async function conferences(max = Number.MAX_VALUE) {
   const repo = await gitClone();
   const upcomingOnly = e => dayjs(e.startDate).isSame(dayjs()) || dayjs(e.startDate).isAfter(dayjs());
   const offlineOnly = e => e.country != 'Online';
-  const noOfftopic = e => e.topic != 'Networking' && e.topic != 'tech-comm';
+  const noOfftopic = e => e.topic != 'networking' && e.topic != 'tech-comm';
   const files = await walk(repo + '/conferences')
   const confs = files.flatMap(f => {
     const allConferences = parseOrElse(f, []);
@@ -27,7 +27,7 @@ async function conferences(max = Number.MAX_VALUE) {
       .filter(upcomingOnly)
       .filter(offlineOnly)
       .map(normalize)
-      .map(includeTopic)
+      .map(normalizeTopic(includeTopic))
       .filter(noOfftopic);
   });
   log(`Confs.tech conferences: ${confs.length}`);
@@ -42,6 +42,17 @@ async function gitClone() {
   await Git.Clone(conferencesRepo, cloneDir);
   log('Cloned');
   return cloneDir;
+}
+
+function normalizeTopic(topic) {
+  return topic
+  .replace("graphql", "javascript")
+  .replace("typescript", "javascript")
+  .replace("ios", "mobile")
+  .replace("android", "mobile")
+  .replace("css", "web")
+  .replace("leadership", "soft skills")
+  .trim()
 }
 
 function normalize(it) {

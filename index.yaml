@@ -1,7 +1,10 @@
 indexes:
+- kind: Event
+  properties:
+  - name: countryCode
+  - name: startDate
 
 - kind: Event
   properties:
-  - name: continent
-  - name: startDate
-    direction: asc
+  - name: countryCode
+  - name: cfpEndDate

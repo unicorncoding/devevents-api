@@ -36,7 +36,13 @@ function nameBy(code) {
   return continents[code] ? continents[code] : countries[countryCode].name;
 }
 
+function emojiBy(code) {
+  const [continentCode, countryCode] = code.split("/");
+  return countries[countryCode] ? countries[countryCode].emoji : undefined;
+}
+
 module.exports.nameBy = nameBy;
+module.exports.emojiBy = emojiBy;
 module.exports.normalizedCountry = normalizedCountry;
 module.exports.continentOf = continentOf;
 module.exports.codeOf = codeOf;
