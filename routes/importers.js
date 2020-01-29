@@ -17,7 +17,6 @@ router.get('/devevents', asyncHandler(async(req, res) => {
   await Promise.allSettled(
     confs.map(each => storeIfNew(each, stats))
   )
-  await stats.store();
   stats.dump(res);
 }));
 
@@ -65,32 +64,5 @@ class Stats {
       this.loc[item] = 0;
     }
     this.loc[item]++;
-  }
-  store() {
-    return Promise.allSettled(
-      Object.entries(this.loc).map(([key, value]) => this.storeEach(key, value))
-    )
-  }
-
-  async storeEach(loc, count) {
-    console.log("Storing " + count + " at " + loc);
-    const itemKey = datastore.key(['Location', loc]);
-    const tx = datastore.transaction();
-    try {
-      await tx.run();
-      const [item] = await tx.get(itemKey);
-      if (item) {
-        const newItem = { key: itemKey, data: { count: item.count + count } };
-        await tx.save(newItem);
-        await tx.commit();
-      } else {
-        const newItem = { key: itemKey, data: { count: count } };
-        await tx.save(newItem);
-        await tx.commit();
-      }
-    } catch (err) {
-      console.error("Unable to store counter for " + loc, err);
-      tx.rollback();
-    }      
   }
 }

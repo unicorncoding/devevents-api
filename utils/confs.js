@@ -4,6 +4,7 @@ const { promisify } = require('util');
 const rimraf = promisify(require('rimraf'));
 const Git = require('nodegit');
 const walk = require('./walk');
+const topics = require('./topics');
 const parseOrElse = require('./parse');
 const normalizeUrl = require('normalize-url');
 
@@ -18,7 +19,7 @@ async function conferences(max = Number.MAX_VALUE) {
   const repo = await gitClone();
   const upcomingOnly = e => dayjs(e.startDate).isSame(dayjs()) || dayjs(e.startDate).isAfter(dayjs());
   const offlineOnly = e => e.country != 'Online';
-  const noOfftopic = e => e.topic != 'networking' && e.topic != 'tech-comm';
+  const noOfftopic = e => e.topic != undefined;
   const files = await walk(repo + '/conferences')
   const confs = files.flatMap(f => {
     const allConferences = parseOrElse(f, []);
@@ -26,8 +27,8 @@ async function conferences(max = Number.MAX_VALUE) {
     return allConferences
       .filter(upcomingOnly)
       .filter(offlineOnly)
+      .map(includeTopic)
       .map(normalize)
-      .map(normalizeTopic(includeTopic))
       .filter(noOfftopic);
   });
   log(`Confs.tech conferences: ${confs.length}`);
@@ -44,17 +45,6 @@ async function gitClone() {
   return cloneDir;
 }
 
-function normalizeTopic(topic) {
-  return topic
-  .replace("graphql", "javascript")
-  .replace("typescript", "javascript")
-  .replace("ios", "mobile")
-  .replace("android", "mobile")
-  .replace("css", "web")
-  .replace("leadership", "soft skills")
-  .trim()
-}
-
 function normalize(it) {
   const country = normalizedCountry(it.country);
   const continentCode = continentOf(country);
@@ -65,16 +55,22 @@ function normalize(it) {
     endDate: it.endDate ? dayjs(it.endDate).toDate() : undefined,
     cfpEndDate: it.cfpEndDate ? dayjs(it.cfpEndDate).toDate() : undefined,
     url: normalizeUrl(it.url),
-    cfpUrl: it.cfpUrl ? normalizeUrl(it.cfpUrl) : undefined,
+    cfpUrl: normalizeUrl(it.cfpUrl || it.url),
     city: it.city,
     country: country,
-    countryCode: continentCode + '/' + countryCode,
+    countryCode: countryCode,
     continentCode: continentCode,
     category: 'conference',
     source: 'confs.tech',
     name: it.name,
-    twitter: it.twitter ? it.twitter.replace("@", "") : undefined
+    twitter: it.twitter ? it.twitter.replace("@", "") : undefined,
+    ...normalizeTopic(it.topic),
   });
+}
+
+function normalizeTopic(topic) {
+  const hit = topics.find(it => it.topic == topic || (it.aliases || []).includes(topic))
+  return hit ? { topicCode: hit.topic, topic: hit.name } : hit;
 }
 
 module.exports = conferences;

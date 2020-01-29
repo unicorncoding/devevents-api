@@ -1,24 +1,5 @@
 indexes:
 - kind: Event
   properties:
-  - name: countryCode
-  - name: topic
-  - name: startDate
-
-- kind: Event
-  properties:
-  - name: countryCode
-  - name: topic
-  - name: cfpEndDate
-
-- kind: Event
-  properties:
   - name: continentCode
-  - name: topic  
   - name: startDate
-
-- kind: Event
-  properties:
-  - name: continentCode
-  - name: topic  
-  - name: cfpEndDate  

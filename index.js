@@ -4,6 +4,7 @@ const app = express();
 
 app.use(cors());
 
+require('./utils/mixins');
 require('./routes/index')(app);
 
 if (process.env.MODE === "dev") {

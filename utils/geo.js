@@ -7,6 +7,7 @@ function normalizedCountry(country) {
   .replace("Deutschland", "Germany")
   .replace("switzerland", "Switzerland")
   .replace("Netherland", "Netherlands")
+  .replace("Germnay", "Germany")
   .replace("Netherlandss", "Netherlands")
   .replace("Perú", "Peru")
   .replace("Niederlande", "Netherlands")
@@ -19,7 +20,9 @@ function continentOf(country) {
   if (!match || !match.continent) {
     throw "Cannot find continent for country " + country;
   }
-  return match.continent;
+  return match.continent
+    .replace("NA", "AM")
+    .replace("SA", "AM")
 }
 
 function codeOf(country) {
@@ -31,9 +34,8 @@ function codeOf(country) {
   return countryCode;
 }
 
-function nameBy(code) {
-  const [continentCode, countryCode] = code.split("/");
-  return continents[code] ? continents[code] : countries[countryCode].name;
+function nameBy(countryCode) {
+  return countries[countryCode].name;
 }
 
 function emojiBy(code) {
