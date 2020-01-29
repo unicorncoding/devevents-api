@@ -22,6 +22,7 @@ router.get('/search', asyncHandler(async(req, res) => {
 
   if (!continent) {
     res.status(404).send("Query param 'continent' is missing");
+    return;
   }
 
   const [ events ] = await searchForever(continent);
