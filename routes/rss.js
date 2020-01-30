@@ -38,6 +38,8 @@ router.get('/:continent([A-Z]{2})', asyncHandler(async(req, res) => {
     description: infoAbout(event) + cfpIfAvailable(event)
   })
 
+
+  
   const feed = new Feed({
     title: title,
     description: title,

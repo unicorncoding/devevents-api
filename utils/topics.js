@@ -71,6 +71,10 @@ module.exports = [
     name: "Kotlin"
   },
   {
+    topic: "scala",
+    name: "Scala"
+  },
+  {
     topic: "javascript",
     name: "JavaScript",
     aliases: [ "graphql", "typescript" ]
