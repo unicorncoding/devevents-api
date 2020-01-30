@@ -3,21 +3,28 @@ const router = require('express').Router();
 const hash = require('hash-sum');
 const dayjs = require('dayjs');
 const { isFuture } = require('../utils/dates');
+const { continents } = require('../utils/geo');
 const { Feed } = require('feed');
 const { searchForever } = require('../utils/datastore');
 
 const pretty = it => dayjs(it).format("D MMMM");
 const domain = 'https://dev.events';
-const title = 'dev.events: Upcoming developer events';
 
 router.get('/:continent([A-Z]{2})', asyncHandler(async(req, res) => {
 
   const continent = req.params.continent;
+  const continentName = continents[continent];
+  if (!continentName) {
+    res.status(404).send(`Unknown continent ${continent}.`);
+    return;
+  }  
 
   const [ events ] = await searchForever(continent);
 
+  const title = `dev.events: Upcoming developer events in ${continentName}`;
+
   const infoAbout = ( { name, topic, category, startDate, city, country }) => `
-    ${name} is a ${topic} ${category} happening on ${pretty(startDate)} in ${city}, ${country}. `
+  ${topic} ${category} ${name} is happening on ${pretty(startDate)} in ${city}, ${country}. `
 
   const cfpIfAvailable = ( { cfpEndDate, cfpUrl } ) => isFuture(cfpEndDate) 
     ? `Submit your talk proposal at ${cfpUrl} before ${pretty(cfpEndDate)}.` 

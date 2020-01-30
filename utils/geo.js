@@ -1,4 +1,4 @@
-const { countries, continents } = require('countries-list');
+const { countries } = require('countries-list');
 
 function normalizedCountry(country) {
   return country
@@ -43,8 +43,17 @@ function emojiBy(code) {
   return countries[countryCode] ? countries[countryCode].emoji : undefined;
 }
 
+const continents = {
+  EU: "Europe",
+  AM: "Americas",
+  AS: "Asia",
+  AF: "Africa",
+  OC: "Oceania"
+}
+
 module.exports.nameBy = nameBy;
 module.exports.emojiBy = emojiBy;
 module.exports.normalizedCountry = normalizedCountry;
 module.exports.continentOf = continentOf;
 module.exports.codeOf = codeOf;
+module.exports.continents = continents;
