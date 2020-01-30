@@ -1,27 +1,16 @@
 const asyncHandler = require('express-async-handler');
 const router = require('express').Router();
-const memoize = require('memoizee');
 const { isFuture } = require('../utils/dates');
 const { count } = require('../utils/arrays');
-const { Datastore } = require('@google-cloud/datastore');
-const datastore = new Datastore();
+const { searchForever } = require('../utils/datastore');
 const _ = require('lodash');
 
-const search = continent => datastore.runQuery(
-  datastore
-    .createQuery('Event')
-    .filter('startDate',     '>=', new Date())
-    .filter('continentCode', '=',  continent)
-  );
+router.get('/', asyncHandler(async(req, res) => {
 
-const searchForever = memoize(search, { promise: true });
-
-router.get('/search', asyncHandler(async(req, res) => {
-
-  const { cfp, continent, country, topic, limit = 30, start = 0 } = req.query;
+  const { continent, cfp, country, topic, limit = 30, start = 0 } = req.query;
 
   if (!continent) {
-    res.status(404).send("Query param 'continent' is missing");
+    res.status(404).send("Query param [continent] is missing");
     return;
   }
 
