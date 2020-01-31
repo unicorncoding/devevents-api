@@ -10,6 +10,7 @@ const search = continent => datastore.runQuery(
     .filter('continentCode', '=',  continent)
   );
 
-const searchForever = memoize(search, { promise: true });
+const threeMinutes = 1000 * 60 * 3;
+const searchForever = memoize(search, { promise: true, maxAge: threeMinutes });
 
 module.exports.searchForever = searchForever;
