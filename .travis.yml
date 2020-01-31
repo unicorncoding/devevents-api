@@ -12,8 +12,6 @@ cache:
     - node_modules
 
 env:
-  global:
-    # - secure: "eeuhASPfOvjwdGadQsej82RDP/at1pB7Q2h4uRyAMEaJ1W5x2PcHarcq8bMQYC4q+s2lNBz5zBAOxC54dQouDDN5H8IprWMj3yfUdEGKIkwwQvzCx51B1fJU0glbzE8jGBfsS77wFUclPWmHFvcF/PYs3BBguM54CVPzH0k+oJ8nasg5HvpBNuZnCwaz92vOJwwR32DwaaS8BVdgMWHt+gLVSN+fN59tVn8RdXwUlOb0cEvNTk+TETjy4ilG8QfWnqEfJh2AMWT8nsHHuxDoenmvgYPeVluH69jGAo6nTUkBOGRrlxT8MoxLXzJjEmFh2THzxM1ZvzLJ3tdfgH+tU97xaf2f0j27D+FJtsKXy9TRLs4UiAiFl41aZVXb/NZdIJduAjiP0tm51OjMsb7hJkxFVd0oD86xK5XEvbrS8M6wNWOKn8Bw67WDrbqbRnXYKoEy6SIicrrD+LVThUf7xvLQaob7MknBfWFYSNrr7JWtFegcF8D6C4264iFMWa7YG8fvgZLMezbRPcsL6lU0mcxJN4Czh9QOqW0uWMe6KrojMgTEXhm9bePLHXhdJ5kyEWRsHr0VC1kosGd4XPK51B0XQ12/e5Mu+0CTmFeG6/V0vaD0zgtV3NqL9GWrf6nbh9ZzaXzCQ/Cm3/QbYeehjPmlNOFiehtK2Anvh3Nnl04="   
   matrix:
     - PATH=$PATH:$HOME/gcloud/google-cloud-sdk/bin GOOGLE_APPLICATION_CREDENTIALS=$TRAVIS_BUILD_DIR/.gcloud-travis.json
 
@@ -30,4 +28,4 @@ before_install:
 
 script:
   - npm install
-  - gcloud functions deploy api --runtime nodejs10 --trigger-http --project devevents --verbosity=debug --memory=1024MB --timeout=60s
+  - gcloud functions deploy api --runtime nodejs10 --trigger-http --project devevents --verbosity=debug --memory=512MB --timeout=30s

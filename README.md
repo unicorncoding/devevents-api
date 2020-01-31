@@ -15,6 +15,8 @@ api.dev.events
 
 ### Running in dev mode
 
+> Make sure you have [direnv](https://direnv.net/) installed.
+
 Put the following `.envrc` file in project's root directory:
 
 ```

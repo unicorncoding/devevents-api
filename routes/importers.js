@@ -37,7 +37,6 @@ async function storeIfNew(each, stats) {
       const newItem = { key: itemKey, data: each };
       await tx.save(newItem);
       await tx.commit();
-      stats.inc(each.continentCode);
       stats.inc(each.countryCode);
     }
   } catch (err) {
@@ -48,7 +47,7 @@ async function storeIfNew(each, stats) {
 
 class Stats {
   constructor() {
-    this.loc = {}
+    this.added = {}
   }
   dump(res) {
     res.json(this);
@@ -60,9 +59,9 @@ class Stats {
     this.skipped++;
   }
   inc(item) {
-    if (!this.loc[item]) {
-      this.loc[item] = 0;
+    if (!this.added[item]) {
+      this.added[item] = 0;
     }
-    this.loc[item]++;
+    this.added[item]++;
   }
 }

@@ -51,9 +51,9 @@ function normalize(it) {
   const countryCode = codeOf(country);
   return ({
     creationDate: dayjs().toDate(),
-    startDate: dayjs(it.startDate).toDate(),
-    endDate: it.endDate ? dayjs(it.endDate).toDate() : undefined,
-    cfpEndDate: it.cfpEndDate ? dayjs(it.cfpEndDate).toDate() : undefined,
+    startDate: dayjs(it.startDate).startOf('day').toDate(),
+    endDate: it.endDate ? dayjs(it.endDate).endOf('day').toDate() : undefined,
+    cfpEndDate: it.cfpEndDate ? dayjs(it.cfpEndDate).endOf('day').toDate() : undefined,
     url: normalizeUrl(it.url),
     cfpUrl: normalizeUrl(it.cfpUrl || it.url),
     city: it.city,
