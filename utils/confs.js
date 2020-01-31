@@ -8,6 +8,9 @@ const topics = require('./topics');
 const parseOrElse = require('./parse');
 const normalizeUrl = require('normalize-url');
 
+const utc = require('dayjs/plugin/utc');
+dayjs.extend(utc);
+
 // remove in Node 11
 const flatMap = require('array.prototype.flatmap');
 flatMap.shim();
@@ -50,10 +53,10 @@ function normalize(it) {
   const continentCode = continentOf(country);
   const countryCode = codeOf(country);
   return ({
-    creationDate: dayjs().toDate(),
-    startDate: dayjs(it.startDate).startOf('day').toDate(),
-    endDate: it.endDate ? dayjs(it.endDate).endOf('day').toDate() : undefined,
-    cfpEndDate: it.cfpEndDate ? dayjs(it.cfpEndDate).endOf('day').toDate() : undefined,
+    creationDate: dayjs().utc().toDate(),
+    startDate: dayjs(it.startDate).utc().toDate(),
+    endDate: it.endDate ? dayjs(it.endDate).utc().toDate() : undefined,
+    cfpEndDate: it.cfpEndDate ? dayjs(it.cfpEndDate).utc().toDate() : undefined,
     url: normalizeUrl(it.url),
     cfpUrl: normalizeUrl(it.cfpUrl || it.url),
     city: it.city,
