@@ -48,6 +48,7 @@ class Stats {
     this.added = {}
   }
   dump(res) {
+    console.log(this);
     res.json(this);
   }
   skip() {
