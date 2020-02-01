@@ -1,27 +1,32 @@
 const asyncHandler = require('express-async-handler');
 const router = require('express').Router();
 const dayjs = require('dayjs');
+const topics = require('../utils/topics');
+const { countries } = require('countries-list');
 const { hash } = require('../utils/hash');
 const { isFuture } = require('../utils/dates');
 const { continents } = require('../utils/geo');
 const { Feed } = require('feed');
-const { searchForever } = require('../utils/datastore');
+const { searchForever, byCfp, byCountry, byTopic } = require('../utils/datastore');
 
 const pretty = it => dayjs(it).format("D MMMM");
 const domain = 'https://dev.events';
 
-router.get('/:continent([A-Z]{2})', asyncHandler(async(req, res) => {
+router.get('/:cfp(cfp)?/:continent([A-Z]{2})/:country([A-Z]{2})?/:topic(\\w+)?', asyncHandler(async(req, res) => {
 
-  const continent = req.params.continent;
-  const continentName = continents[continent];
-  if (!continentName) {
-    res.status(404).send(`Unknown continent ${continent}.`);
-    return;
-  }  
-
+  const { cfp, continent, country, topic } = req.params;
   const [ events ] = await searchForever(continent);
 
-  const title = `dev.events: Upcoming developer events in ${continentName}`;
+  const someEvents = events
+    .filter(byCfp(cfp))
+    .filter(byCountry(country))
+    .filter(byTopic(topic));
+
+  const where = country ? countries[country].name : continents[continent];
+  const what = topic ? topics.find(it => it.topic == topic).name : 'developer';
+  const title = cfp 
+    ? `dev.events: Upcoming CFP in ${where}`
+    : `dev.events: Upcoming ${what} events in ${where}`;
 
   const infoAbout = ( { name, topic, category, startDate, city, country }) => `
   ${topic} ${category} ${name} is happening on ${pretty(startDate)} in ${city}, ${country}. `
@@ -38,15 +43,13 @@ router.get('/:continent([A-Z]{2})', asyncHandler(async(req, res) => {
     description: infoAbout(event) + cfpIfAvailable(event)
   })
 
-
-  
   const feed = new Feed({
     title: title,
     description: title,
     link: domain,
     image: `${domain}/logo.png`,
   });
-  events.map(toFeedItem).forEach(feed.addItem);
+  someEvents.map(toFeedItem).forEach(feed.addItem);
 
   res.set('Content-Type', 'text/xml');
   res.send(feed.rss2());

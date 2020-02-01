@@ -1,8 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const router = require('express').Router();
-const { isFuture } = require('../utils/dates');
 const { count } = require('../utils/arrays');
-const { searchForever } = require('../utils/datastore');
+const { searchForever, byCountry, byTopic, byCfp, byName } = require('../utils/datastore');
 const _ = require('lodash');
 
 router.get('/', asyncHandler(async(req, res) => {
@@ -15,28 +14,23 @@ router.get('/', asyncHandler(async(req, res) => {
   }
 
   const [ events ] = await searchForever(continent);
-
-  const byCountry = it => !country || country === it.countryCode;
-  const byTopic = it => !topic || topic === it.topicCode;
-  const byCfp = it => !cfp || isFuture(it.cfpEndDate);
-  const byName = (it, that) => it.name.localeCompare(that.name);
   
   const countries = events
-    .filter(byTopic)
-    .filter(byCfp)
+    .filter(byTopic(topic))
+    .filter(byCfp(cfp))
     .reduce(count(it => it.countryCode, it => it.country), [])
     .ordered(byName);
   
   const topics = events
-    .filter(byCountry)
-    .filter(byCfp)
+    .filter(byCountry(country))
+    .filter(byCfp(cfp))
     .reduce(count(it => it.topicCode, it => it.topic), [])
     .ordered(byName);
 
   const matches = events
-    .filter(byTopic)
-    .filter(byCountry)
-    .filter(byCfp);
+    .filter(byTopic(topic))
+    .filter(byCountry(country))
+    .filter(byCfp(cfp));
 
   const shown = _.chunk(matches, limit)[start] || [];
 
