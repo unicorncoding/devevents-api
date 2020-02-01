@@ -6,7 +6,7 @@ const conferences = require('../utils/confs');
 const allSettled = require('promise.allsettled');
 allSettled.shim();
 
-const hash = require('hash-sum');
+const { hash } = require('../utils/hash');
 const { Datastore } = require('@google-cloud/datastore');
 
 const datastore = new Datastore({ maxRetries: 5, autoRetry: true });
@@ -23,15 +23,14 @@ router.get('/devevents', asyncHandler(async(req, res) => {
 module.exports = router;
 
 async function storeIfNew(each, stats) {
-  const itemHash = hash([each.startDate, each.url]);
+  const itemHash = hash(each);
   const itemKey = datastore.key([ 'Event', itemHash ]);
-
   const tx = datastore.transaction();
   try {
     await tx.run();
     const [event] = await tx.get(itemKey);
     if (event) {
-      tx.rollback();
+      await tx.rollback();
       stats.skip()
     } else {
       const newItem = { key: itemKey, data: each };
@@ -41,7 +40,6 @@ async function storeIfNew(each, stats) {
     }
   } catch (err) {
     console.error("Unable to store event " + each.name, err);
-    tx.rollback();
   }  
 }
 

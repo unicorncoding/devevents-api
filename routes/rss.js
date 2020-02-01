@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const router = require('express').Router();
-const hash = require('hash-sum');
 const dayjs = require('dayjs');
+const { hash } = require('../utils/hash');
 const { isFuture } = require('../utils/dates');
 const { continents } = require('../utils/geo');
 const { Feed } = require('feed');
@@ -32,7 +32,7 @@ router.get('/:continent([A-Z]{2})', asyncHandler(async(req, res) => {
 
   const toFeedItem = event => ({
     title: event.name,
-    id: hash([event.url, event.startDate]),
+    id: hash(event),
     link: event.url,
     category: [ { name: event.topic } ],
     description: infoAbout(event) + cfpIfAvailable(event)

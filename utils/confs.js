@@ -53,10 +53,10 @@ function normalize(it) {
   const continentCode = continentOf(country);
   const countryCode = codeOf(country);
   return ({
-    creationDate: dayjs().utc().toDate(),
-    startDate: dayjs(it.startDate).utc().toDate(),
-    endDate: it.endDate ? dayjs(it.endDate).utc().toDate() : undefined,
-    cfpEndDate: it.cfpEndDate ? dayjs(it.cfpEndDate).utc().toDate() : undefined,
+    creationDate: new Date(),
+    startDate: new Date(it.startDate),
+    endDate: it.endDate ? new Date(it.endDate) : undefined,
+    cfpEndDate: it.cfpEndDate ? new Date(it.cfpEndDate) : undefined,
     url: normalizeUrl(it.url),
     cfpUrl: normalizeUrl(it.cfpUrl || it.url),
     city: it.city,
