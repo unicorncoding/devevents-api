@@ -25,7 +25,7 @@ router.get('/:cfp(cfp)?/:continent([A-Z]{2})/:country([A-Z]{2})?/:topic(\\w+)?',
   const where = country ? countries[country].name : continents[continent];
   const what = topic ? topics.find(it => it.topic == topic).name : 'developer';
   const title = cfp 
-    ? `dev.events: Upcoming CFP in ${where}`
+    ? `dev.events: Upcoming ${what} events CFP in ${where}`
     : `dev.events: Upcoming ${what} events in ${where}`;
 
   const infoAbout = ( { name, topic, category, startDate, city, country }) => `
