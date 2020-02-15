@@ -29,7 +29,7 @@ router.get('/:cfp(cfp)?/:continent([A-Z]{2})/:country([A-Z]{2})?/:topic(\\w+)?',
     : `dev.events: Upcoming ${what} events in ${where}`;
 
   const infoAbout = ( { name, topic, category, startDate, city, country }) => `
-  ${topic} ${category} ${name} is happening on ${pretty(startDate)} in ${city}, ${country}. `
+  ${topic} ${category} ${name} is happening on ${pretty(startDate)} in ${city}, ${country}. `.trim();
 
   const cfpIfAvailable = ( { cfpEndDate, cfpUrl } ) => isFuture(cfpEndDate) 
     ? `Submit your talk proposal at ${cfpUrl} before ${pretty(cfpEndDate)}.` 
