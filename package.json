@@ -23,6 +23,7 @@
     "express-async-handler": "^1.1.4",
     "feed": "^4.1.0",
     "hash-sum": "^2.0.0",
+    "ical-generator": "^1.9.2",
     "lodash": "^4.17.15",
     "memoizee": "^0.4.14",
     "morgan": "^1.9.1",

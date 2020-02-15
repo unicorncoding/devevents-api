@@ -1,4 +1,4 @@
-module.exports = [
+const topics = [
   {
     topic: "other",
     name: "Other"
@@ -116,3 +116,7 @@ module.exports = [
     name: "UX"
   }
 ];
+
+module.exports = topics;
+module.exports.topicName = topic => topics.find(it => it.topic == topic).name;
+module.exports.topics = topics;

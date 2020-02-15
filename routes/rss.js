@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const router = require('express').Router();
 const dayjs = require('dayjs');
-const topics = require('../utils/topics');
+const { topicName } = require('../utils/topics');
 const { countries } = require('countries-list');
 const { hash } = require('../utils/hash');
 const { isFuture } = require('../utils/dates');
@@ -23,9 +23,9 @@ router.get('/:cfp(cfp)?/:continent([A-Z]{2})/:country([A-Z]{2})?/:topic(\\w+)?',
     .filter(byTopic(topic));
 
   const where = country ? countries[country].name : continents[continent];
-  const what = topic ? topics.find(it => it.topic == topic).name : 'developer';
+  const what = topic ? topicName(topic) : 'developer';
   const title = cfp 
-    ? `dev.events: Upcoming ${what} events CFP in ${where}`
+    ? `dev.events: Upcoming ${what} events with CFP in ${where}`
     : `dev.events: Upcoming ${what} events in ${where}`;
 
   const infoAbout = ( { name, topic, category, startDate, city, country }) => `
