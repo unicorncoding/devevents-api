@@ -23,6 +23,7 @@ async function conferences(max = Number.MAX_VALUE) {
   const upcomingOnly = e => dayjs(e.startDate).isSame(dayjs()) || dayjs(e.startDate).isAfter(dayjs());
   const offlineOnly = e => e.country != 'Online';
   const noOfftopic = e => e.topic != undefined;
+  const noSuspiciouslyLong = e => !suspiciouslyLong(e.startDate, e.endDate);
   const files = await walk(repo + '/conferences')
   const confs = files.flatMap(f => {
     const allConferences = parseOrElse(f, []);
@@ -32,6 +33,7 @@ async function conferences(max = Number.MAX_VALUE) {
       .filter(offlineOnly)
       .map(includeTopic)
       .map(normalize)
+      .filter(noSuspiciouslyLong)
       .filter(noOfftopic);
   });
   log(`Confs.tech conferences: ${confs.length}`);
@@ -69,6 +71,12 @@ function normalize(it) {
     twitter: it.twitter ? it.twitter.replace("@", "") : undefined,
     ...normalizeTopic(it.topic),
   });
+}
+
+function suspiciouslyLong(startDate, endDate) {
+  const diffTime = Math.abs(startDate - endDate);
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return endDate && diffDays > 10;
 }
 
 function normalizeTopic(topic) {
