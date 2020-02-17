@@ -1,8 +1,11 @@
 const asyncHandler = require('express-async-handler');
 const router = require('express').Router();
+const { nameBy } = require('../utils/geo');
 const { count } = require('../utils/arrays');
+const { topicName } = require('../utils/topics');
 const { searchForever, byCountry, byTopic, byCfp, byName } = require('../utils/datastore');
 const _ = require('lodash');
+
 
 router.get('/', asyncHandler(async(req, res) => {
 
@@ -45,6 +48,8 @@ router.get('/', asyncHandler(async(req, res) => {
       more: more, 
       total: matches.length, 
       countries: countries, 
+      topicName: topic ? topicName(topic) : undefined,
+      countryName : country ? nameBy(country) : undefined,
       topics: topics 
     }
   ]);
