@@ -16,7 +16,7 @@ router.get('/', asyncHandler(async(req, res) => {
     return;
   }
 
-  const [ events ] = await searchForever(continent);
+  const events = await searchForever(continent);
   
   const countries = events
     .filter(byTopic(topic))

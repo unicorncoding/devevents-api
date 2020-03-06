@@ -3,12 +3,13 @@ const { isFuture } = require('./dates');
 const { Datastore } = require('@google-cloud/datastore');
 const datastore = new Datastore();
 
+const topFirst = (it, that) => Boolean(that.top) - Boolean(it.top);
 const search = continent => datastore.runQuery(
   datastore
     .createQuery('Event')
     .filter('startDate',     '>=', new Date())
     .filter('continentCode', '=',  continent)
-  );
+  ).then(([hits]) => hits.ordered(topFirst));
 
 const threeMinutes = 1000 * 60 * 3;
 const searchForever = memoize(search, { promise: true, maxAge: threeMinutes });
