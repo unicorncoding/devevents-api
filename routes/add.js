@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const router = require('express').Router();
+const dayjs = require('dayjs');
 const emojiStrip = require('emoji-strip')
 const normalizeUrl = url => url ? require('normalize-url')(url, { stripHash: true }) : url;
 const _ = require('lodash');
@@ -32,52 +33,50 @@ router.post('/', required.concat(optionals), asyncHandler(async(req, res) => {
 
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).json( errors.mapped() );
+    return res.status(422).json(errors.mapped());
   }
 
-  const {
-    name, 
-    countryCode, 
-    city,
-    topicCode, 
-    startDate, 
-    endDate, 
-    cfpEndDate,
-    cfpUrl,
-    twitter,
-    url,
-    category } = req.body;
-
-  const event = {
-    category: category,
-    countryCode: countryCode,
-    continentCode: countries[countryCode].continent,
-    country: countries[countryCode].name,
-    topicCode: topicCode,
-    topic: topics[topicCode].name,
-    source: 'devevents',
-    creationDate: new Date(),
-    startDate: startDate,
-    endDate: endDate ? endDate : startDate,
-    cfpEndDate: cfpEndDate,
-    name: name,
-    twitter: twitter,
-    city: city,
-    url: url,
-    cfpUrl: cfpUrl,
-    pending: true
-  }
-
+  const event = newEventFrom(req);
   const stats = new Stats();
   await storeIfNew(event, stats);
 
-  const added = stats.total > 0;
-  if (added) {
+  const stored = stats.total > 0;
+  if (stored) {
     res.json(event);
   } else {
-    res.json(`${event.name} ${event.category} has already been scheduled in ${event.city}, ${event.country}.`);
+    res.status(409).send(conflictsWith(event));
   }
 
 }));
+
+function newEventFrom(req) {
+  const body = req.body;
+  return ({
+    category: body.category,
+    countryCode: body.countryCode,
+    continentCode: countries[body.countryCode].continent,
+    country: countries[body.countryCode].name,
+    topicCode: body.topicCode,
+    topic: topics[body.topicCode].name,
+    source: 'devevents',
+    creationDate: new Date(),
+    startDate: body.startDate,
+    endDate: body.endDate ? body.endDate : body.startDate,
+    cfpEndDate: body.cfpEndDate,
+    name: body.name,
+    twitter: body.twitter,
+    city: body.city,
+    url: body.url,
+    cfpUrl: body.cfpUrl,
+    pending: true
+  });
+}
+
+function conflictsWith(conflictingEvent) {
+  const what = `${conflictingEvent.name} ${conflictingEvent.category}`;
+  const when = dayjs(conflictingEvent.startDate).format("YYYY-MM-DD");
+  const where = `${conflictingEvent.city}, ${conflictingEvent.country}`;
+  return `${what} is hapenning on ${when} in ${where}.`;
+}
 
 module.exports = router;
