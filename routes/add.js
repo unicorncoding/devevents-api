@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler');
 const router = require('express').Router();
 const dayjs = require('dayjs');
 const emojiStrip = require('emoji-strip')
-const normalizeUrl = url => url ? require('normalize-url')(url, { stripHash: true }) : url;
+
 const _ = require('lodash');
 
 const Stats = require('../utils/stats')
@@ -11,11 +11,12 @@ const { body, validationResult } = require('express-validator');
 const { storeIfNew } = require('../utils/datastore');
 const { countries } = require('../utils/geo');
 const { topics } = require('../utils/topics');
+const { normalizedUrl } = require('../utils/urls');
 
 const required = [
   body('category').isIn(['conference', 'training', 'meetup']),
   body('city').exists(),
-  body('url').customSanitizer(normalizeUrl).isURL(),
+  body('url').customSanitizer(normalizedUrl).isURL(),
   body('topicCode').isIn(topics),
   body('countryCode').isIn(countries),
   body('name').customSanitizer(emojiStrip).trim().notEmpty(),
@@ -25,7 +26,7 @@ const required = [
 const optionals = [
   body('twitter').optional(),
   body('cfpEndDate').optional().toDate(),
-  body('cfpUrl').optional().customSanitizer(normalizeUrl).isURL(),
+  body('cfpUrl').optional().customSanitizer(normalizedUrl).isURL(),
   body('endDate').optional().isISO8601().toDate()
 ];
 

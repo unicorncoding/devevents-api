@@ -6,7 +6,7 @@ const rimraf = promisify(require('rimraf'));
 const Git = require('nodegit');
 const walk = require('./walk');
 const parseOrElse = require('./parse');
-const normalizeUrl = require('normalize-url');
+const { normalizedUrl } = require('./urls');
 
 const utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
@@ -59,8 +59,8 @@ function normalize(it) {
     startDate: new Date(it.startDate),
     endDate: it.endDate ? new Date(it.endDate) : undefined,
     cfpEndDate: it.cfpEndDate ? new Date(it.cfpEndDate) : undefined,
-    url: normalizeUrl(it.url, { stripHash: true } ),
-    cfpUrl: normalizeUrl(it.cfpUrl || it.url, { stripHash: true }),
+    url: normalizedUrl(it.url),
+    cfpUrl: normalizedUrl(it.cfpUrl || it.url),
     city: it.city,
     country: country,
     countryCode: countryCode,
