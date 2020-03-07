@@ -9,7 +9,7 @@ const topFirst = (it, that) => Boolean(that.top) - Boolean(it.top);
 const search = continent => datastore.runQuery(
   datastore
     .createQuery('Event')
-    .filter('pending',       '!=', true)
+    // .filter('pending',       '=', true)
     .filter('startDate',     '>=', new Date())
     .filter('continentCode', '=',  continent)
   ).then(([hits]) => hits.ordered(topFirst));
