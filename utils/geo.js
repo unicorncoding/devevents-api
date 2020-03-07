@@ -1,5 +1,24 @@
-const { countries } = require('countries-list');
+const countries = require('countries-list').countries;
+const continents = {
+  EU: "Europe",
+  AM: "Americas",
+  AS: "Asia",
+  AF: "Africa",
+  OC: "Oceania"
+}
 
+Object
+  .values(countries)
+  .forEach(it => it.continent = normalizedContinent(it.continent));
+
+function normalizedContinent(continent) {
+  return continent
+    .replace("NA", "AM")
+    .replace("SA", "AM")
+}
+
+
+  
 function normalizedCountry(country) {
   return country
   .replace("U.S.A.", "United States")
@@ -20,13 +39,11 @@ function continentOf(country) {
   if (!match || !match.continent) {
     throw "Cannot find continent for country " + country;
   }
-  return match.continent
-    .replace("NA", "AM")
-    .replace("SA", "AM")
+  return match.continent;
 }
 
 function codeOf(country) {
-  const match = Object.entries(countries).find(([_, it]) => it.name == country);
+  const match = Object.entries(countries).find(([, it]) => it.name == country);
   if (!match) {
     throw "Cannot find country code for country " + country;
   }
@@ -39,16 +56,8 @@ function nameBy(countryCode) {
 }
 
 function emojiBy(code) {
-  const [continentCode, countryCode] = code.split("/");
+  const [, countryCode] = code.split("/");
   return countries[countryCode] ? countries[countryCode].emoji : undefined;
-}
-
-const continents = {
-  EU: "Europe",
-  AM: "Americas",
-  AS: "Asia",
-  AF: "Africa",
-  OC: "Oceania"
 }
 
 module.exports.nameBy = nameBy;
@@ -57,3 +66,4 @@ module.exports.normalizedCountry = normalizedCountry;
 module.exports.continentOf = continentOf;
 module.exports.codeOf = codeOf;
 module.exports.continents = continents;
+module.exports.countries = countries;

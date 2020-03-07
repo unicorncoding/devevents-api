@@ -1,10 +1,10 @@
 const path = require('path');
 const dayjs = require('dayjs');
 const { promisify } = require('util');
+const { topics } = require('./topics');
 const rimraf = promisify(require('rimraf'));
 const Git = require('nodegit');
 const walk = require('./walk');
-const topics = require('./topics');
 const parseOrElse = require('./parse');
 const normalizeUrl = require('normalize-url');
 
@@ -59,8 +59,8 @@ function normalize(it) {
     startDate: new Date(it.startDate),
     endDate: it.endDate ? new Date(it.endDate) : undefined,
     cfpEndDate: it.cfpEndDate ? new Date(it.cfpEndDate) : undefined,
-    url: normalizeUrl(it.url),
-    cfpUrl: normalizeUrl(it.cfpUrl || it.url),
+    url: normalizeUrl(it.url, { stripHash: true } ),
+    cfpUrl: normalizeUrl(it.cfpUrl || it.url, { stripHash: true }),
     city: it.city,
     country: country,
     countryCode: countryCode,
@@ -79,9 +79,19 @@ function suspiciouslyLong(startDate, endDate) {
   return endDate && diffDays > 10;
 }
 
-function normalizeTopic(topic) {
-  const hit = topics.find(it => it.topic == topic || (it.aliases || []).includes(topic))
-  return hit ? { topicCode: hit.topic, topic: hit.name } : hit;
+function normalizeTopic(topicCode) {
+  const aliases = {
+    graphql: 'javascript',
+    typescript: 'javascript',
+    ios: 'mobile',
+    android: 'mobile',
+    general: 'fullstack',
+    css: 'web',
+    elm: 'web'
+  }  
+  const code = aliases[topicCode] || topicCode
+  const hit = topics[code];
+  return hit ? { topicCode: code, topic: hit.name } : hit;
 }
 
 module.exports = conferences;

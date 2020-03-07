@@ -1,10 +1,12 @@
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
+const bodyParser = require('body-parser')
 const app = express();
 
 app.use(cors());
 app.use(morgan('combined'));
+app.use(bodyParser.json());
 
 require('./utils/mixins');
 require('./routes/index')(app);

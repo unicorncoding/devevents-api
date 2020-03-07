@@ -1,122 +1,89 @@
-const topics = [
-  {
-    topic: "other",
+const topics = {
+  other: {
     name: "Other"
   },  
-  {
-    topic: "ddd",
+  ddd: {
     name: "DDD"
   },
-  {
-    topic: "microsoft",
+  microsoft: {
     name: "Microsoft"
   },
-  {
-    topic: "clojure",
+  clojure: {
     name: "Clojure"
   },
-  {
-    topic: "cpp",
+  cpp: {
     name: "C and C++"
   },
-  {
-    topic: "mobile",
-    name: "Mobile",
-    aliases: [ "ios", "android" ]
+  mobile: {
+    name: "Mobile"
   },
-  {
-    topic: "iot",
+  iot: {
     name: "IoT"
   },
-  {
-    topic: "web",
-    name: "Web",
-    aliases: [ "css", "elm" ]
+  web: {
+    name: "Web"
   },
-  {
-    topic: "data",
+  data: {
     name: "Data science"
   },
-  {
-    topic: "devops",
+  devops: {
     name: "DevOps"
   },
-  {
-    topic: "dotnet",
+  dotnet: {
     name: ".NET"
   },
-  {
-    topic: "elixir",
+  elixir: {
     name: "Elixir"
   },
-  {
-    topic: "erlang",
+  erlang: {
     name: "Erlang"
   },
-  {
-    topic: "fullstack",
-    name: "Full-stack",
-    aliases: [ "general" ]
+  fullstack: {
+    name: "Full-stack"
   },
-  {
-    topic: "golang",
+  golang: {
     name: "Golang"
   },
-  {
-    topic: "java",
+  java: {
     name: "Java",
   },
-  {
-    topic: "kotlin",
+  kotlin: {
     name: "Kotlin"
   },
-  {
-    topic: "scala",
+  scala: {
     name: "Scala"
   },
-  {
-    topic: "javascript",
-    name: "JavaScript",
-    aliases: [ "graphql", "typescript" ]
+  javascript: {
+    name: "JavaScript"
   },
-  {
-    topic: "leadership",
+  leadership: {
     name: "Leadership",
   },
-  {
-    topic: "management",
+  management: {
     name: "Management"
   },
-  {
-    topic: "agile",
+  agile: {
     name: "Agile"
   },
-  {
-    topic: "php",
+  php: {
     name: "PHP"
   },
-  {
-    topic: "product",
+  product: {
     name: "Product"
   },
-  {
-    topic: "python",
+  python: {
     name: "Python",
   },
-  {
-    topic: "ruby",
+  ruby: {
     name: "Ruby and Rails"
   },
-  {
-    topic: "security",
+  security: {
     name: "Security"
   },
-  {
-    topic: "ux",
+  ux: {
     name: "UX"
   }
-];
+};
 
-module.exports = topics;
-module.exports.topicName = topic => topics.find(it => it.topic == topic).name;
+module.exports.topicName = topic => topics[topic].name;
 module.exports.topics = topics;

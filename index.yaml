@@ -3,3 +3,9 @@ indexes:
   properties:
   - name: continentCode
   - name: startDate
+
+- kind: Event
+  properties:
+  - name: continentCode
+  - name: startDate  
+  - name: pending
