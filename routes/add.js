@@ -1,7 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const router = require('express').Router();
 const dayjs = require('dayjs');
-const emojiStrip = require('emoji-strip')
 
 const _ = require('lodash');
 
@@ -9,9 +8,10 @@ const Stats = require('../utils/stats')
 
 const { body, validationResult } = require('express-validator');
 const { storeIfNew } = require('../utils/datastore');
-const { countries } = require('../utils/geo');
-const { topics } = require('../utils/topics');
+const { countries, countriesOrdered } = require('../utils/geo');
+const { topics, topicsOrdered } = require('../utils/topics');
 const { normalizedUrl } = require('../utils/urls');
+const { emojiStrip } = require('../utils/emoji')
 
 const required = [
   body('category').isIn(['conference', 'training', 'meetup']),
@@ -24,11 +24,19 @@ const required = [
 ]
 
 const optionals = [
-  body('twitter').optional(),
-  body('cfpEndDate').optional().toDate(),
-  body('cfpUrl').optional().customSanitizer(normalizedUrl).isURL(),
-  body('endDate').optional().isISO8601().toDate()
+  body('twitter').optional( { checkFalsy : true} ),
+  body('cfpEndDate').optional( { checkFalsy : true}).isISO8601().toDate(),
+  body('cfpUrl').optional( { checkFalsy : true} ).customSanitizer(normalizedUrl).isURL(),
+  body('endDate').optional( { checkFalsy : true} ).isISO8601().toDate()
 ];
+
+router.get('/prepare', asyncHandler(async(req, res) => {
+  const info = {
+    countries: countriesOrdered,
+    topics: topicsOrdered
+  }
+  res.json(info);
+}));
 
 router.post('/', required.concat(optionals), asyncHandler(async(req, res) => {
 
@@ -74,7 +82,7 @@ function newEventFrom(req) {
 }
 
 function conflictsWith(conflictingEvent) {
-  const what = `${conflictingEvent.name} ${conflictingEvent.category}`;
+  const what = `${conflictingEvent.name}`;
   const when = dayjs(conflictingEvent.startDate).format("YYYY-MM-DD");
   const where = `${conflictingEvent.city}, ${conflictingEvent.country}`;
   return `${what} is hapenning on ${when} in ${where}.`;

@@ -87,3 +87,4 @@ const topics = {
 
 module.exports.topicName = topic => topics[topic].name;
 module.exports.topics = topics;
+module.exports.topicsOrdered = Object.keys(topics).map(code => ({ code: code, name: topics[code].name })).ordered((it, that) => it.name.localeCompare(that.name));
