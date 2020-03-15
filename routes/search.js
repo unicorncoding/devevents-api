@@ -3,6 +3,7 @@ const router = require('express').Router();
 const { nameBy } = require('../utils/geo');
 const { count } = require('../utils/arrays');
 const { topicName } = require('../utils/topics');
+const { jwtTokenAsync } = require('../utils/auth');
 const { searchForever, byCountry, byTopic, byCfp, byName } = require('../utils/datastore');
 const _ = require('lodash');
 
@@ -10,13 +11,24 @@ const _ = require('lodash');
 router.get('/', asyncHandler(async(req, res) => {
 
   const { continent, cfp, country, topic, limit = 30, start = 0 } = req.query;
+  const { cacheOff } = req.headers;
 
   if (!continent) {
     res.status(404).send("Query param [continent] is missing");
     return;
   }
 
-  const events = await searchForever(continent);
+  // if (cacheOff) {
+    // searchForever.clear();
+  // }
+
+  let uid = undefined;
+  if (req.headers.authorization != 'undefined') {
+    const jwtToken = await jwtTokenAsync(req);
+    uid = jwtToken.uid;
+  }
+  console.log(uid);
+  const events = await searchForever(continent, uid);
   
   const countries = events
     .filter(byTopic(topic))

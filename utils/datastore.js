@@ -6,17 +6,18 @@ const { Datastore } = require('@google-cloud/datastore');
 const datastore = new Datastore({ maxRetries: 5, autoRetry: true });
 
 const topFirst = (it, that) => Boolean(that.top) - Boolean(it.top);
-const noPending = it => it.pending !== true;
+const onlyPendingBy = me => it => !it.pending || it.creator == me;
 
-const search = continent => datastore.runQuery(
+const search = (continent, me = undefined) => datastore.runQuery(
   datastore
     .createQuery('Event')
     .filter('startDate',     '>=', new Date())
     .filter('continentCode', '=' ,  continent)
-  ).then(([hits]) => hits.filter(noPending).ordered(topFirst));
+  ).then(([hits]) => hits.filter(onlyPendingBy(me)).ordered(topFirst));
 
-const threeMinutes = 1000 * 60 * 3;
-const searchForever = memoize(search, { promise: true, maxAge: threeMinutes });
+// const threeMinutes = 1000 * 60 * 3;
+// const searchForever = memoize(search, { promise: true, maxAge: threeMinutes });
+const searchForever = search;
 
 const storeIfNew = async (each, stats) => {
   const itemHash = hash(each);

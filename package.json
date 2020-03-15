@@ -25,6 +25,7 @@
     "express-async-handler": "^1.1.4",
     "express-validator": "^6.4.0",
     "feed": "^4.1.0",
+    "firebase-admin": "^8.10.0",
     "hash-sum": "^2.0.0",
     "ical-generator": "^1.9.2",
     "lodash": "^4.17.15",
@@ -36,6 +37,7 @@
     "rimraf": "^3.0.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
     "nodemon": "^2.0.2"
   }
 }

@@ -6,14 +6,16 @@ const _ = require('lodash');
 
 const Stats = require('../utils/stats')
 
-const { body, validationResult } = require('express-validator');
+const { body, header, validationResult } = require('express-validator');
 const { storeIfNew } = require('../utils/datastore');
 const { countries, countriesOrdered } = require('../utils/geo');
 const { topics, topicsOrdered } = require('../utils/topics');
 const { normalizedUrl } = require('../utils/urls');
-const { emojiStrip } = require('../utils/emoji')
+const { emojiStrip } = require('../utils/emoji');
+const { jwtTokenAsync } = require('../utils/auth');
 
 const required = [
+  header('authorization').exists().notEmpty(),
   body('category').isIn(['conference', 'training', 'meetup']),
   body('city').exists(),
   body('url').customSanitizer(normalizedUrl).isURL(),
@@ -45,7 +47,7 @@ router.post('/', required.concat(optionals), asyncHandler(async(req, res) => {
     return res.status(422).json(errors.mapped());
   }
 
-  const event = newEventFrom(req);
+  const event = await newEventFrom(req);
   const stats = new Stats();
   await storeIfNew(event, stats);
 
@@ -58,7 +60,11 @@ router.post('/', required.concat(optionals), asyncHandler(async(req, res) => {
 
 }));
 
-function newEventFrom(req) {
+async function newEventFrom(req) {
+
+  const jwtToken = await jwtTokenAsync(authorization);
+  const creator = jwtToken.uid;
+
   const body = req.body;
   return ({
     category: body.category,
@@ -68,6 +74,7 @@ function newEventFrom(req) {
     topicCode: body.topicCode,
     topic: topics[body.topicCode].name,
     source: 'devevents',
+    creator: creator,
     creationDate: new Date(),
     startDate: body.startDate,
     endDate: body.endDate ? body.endDate : body.startDate,
