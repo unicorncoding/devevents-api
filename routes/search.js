@@ -11,19 +11,14 @@ const _ = require('lodash');
 router.get('/', asyncHandler(async(req, res) => {
 
   const { continent, cfp, country, topic, limit = 30, start = 0 } = req.query;
-  const { cacheOff } = req.headers;
 
   if (!continent) {
     res.status(404).send("Query param [continent] is missing");
     return;
   }
 
-  // if (cacheOff) {
-    // searchForever.clear();
-  // }
-
   let uid = undefined;
-  if (req.headers.authorization != 'undefined') {
+  if (req.headers.authorization && req.headers.authorization != 'undefined') {
     const jwtToken = await jwtTokenAsync(req);
     uid = jwtToken.uid;
   }
