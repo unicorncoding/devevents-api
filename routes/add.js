@@ -12,7 +12,7 @@ const { countries, countriesOrdered } = require('../utils/geo');
 const { topics, topicsOrdered } = require('../utils/topics');
 const { normalizedUrl } = require('../utils/urls');
 const { emojiStrip } = require('../utils/emoji');
-const { jwtTokenAsync } = require('../utils/auth');
+const { whois } = require('../utils/auth');
 
 const required = [
   header('authorization').exists().notEmpty(),
@@ -61,10 +61,7 @@ router.post('/', required.concat(optionals), asyncHandler(async(req, res) => {
 }));
 
 async function newEventFrom(req) {
-
-  const jwtToken = await jwtTokenAsync(authorization);
-  const creator = jwtToken.uid;
-
+  const me = await whois(req);
   const body = req.body;
   return ({
     category: body.category,
@@ -74,7 +71,7 @@ async function newEventFrom(req) {
     topicCode: body.topicCode,
     topic: topics[body.topicCode].name,
     source: 'devevents',
-    creator: creator,
+    creator: me,
     creationDate: new Date(),
     startDate: body.startDate,
     endDate: body.endDate ? body.endDate : body.startDate,

@@ -3,7 +3,7 @@ const router = require('express').Router();
 const { nameBy } = require('../utils/geo');
 const { count } = require('../utils/arrays');
 const { topicName } = require('../utils/topics');
-const { jwtTokenAsync } = require('../utils/auth');
+const { whois } = require('../utils/auth');
 const { searchForever, byCountry, byTopic, byCfp, byName } = require('../utils/datastore');
 const _ = require('lodash');
 
@@ -17,13 +17,8 @@ router.get('/', asyncHandler(async(req, res) => {
     return;
   }
 
-  let uid = undefined;
-  if (req.headers.authorization && req.headers.authorization != 'undefined') {
-    const jwtToken = await jwtTokenAsync(req);
-    uid = jwtToken.uid;
-  }
-  console.log(uid);
-  const events = await searchForever(continent, uid);
+  const me = await whois(req);
+  const events = await searchForever(continent, me);
   
   const countries = events
     .filter(byTopic(topic))

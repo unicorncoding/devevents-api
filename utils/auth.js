@@ -1,4 +1,10 @@
 const admin = require('firebase-admin');
 admin.initializeApp();
 
-module.exports.jwtTokenAsync = req => admin.auth().verifyIdToken(req.headers.authorization);
+module.exports.whois = req => {
+  if (!!req.headers.authorization) {
+    return admin.auth().verifyIdToken(req.headers.authorization).then(tkn => tkn.uid);
+  } else {
+    return undefined;
+  }
+}
