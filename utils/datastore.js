@@ -5,6 +5,7 @@ const { hash } = require('./hash');
 const { Datastore } = require('@google-cloud/datastore');
 const datastore = new Datastore({ maxRetries: 5, autoRetry: true });
 
+const includeId = it => ({ ...it, id: it[datastore.KEY].name });
 const topFirst = (it, that) => Boolean(that.top) - Boolean(it.top);
 const pendingFirst = (it, that) => Boolean(that.pending) - Boolean(it.pending);
 
@@ -16,7 +17,7 @@ const search = (continent, me) => datastore.runQuery(
     .createQuery('Event')
     .filter('startDate',     '>=', new Date())
     .filter('continentCode', '=' ,  continent)
-  ).then(([hits]) => hits.filter(filtering(me)).ordered(ordering(me)));
+  ).then(([hits]) => hits.map(includeId).filter(filtering(me)).ordered(ordering(me)));
 
 // const threeMinutes = 1000 * 60 * 3;
 // const searchForever = memoize(search, { promise: true, maxAge: threeMinutes });
@@ -43,6 +44,24 @@ const storeIfNew = async (each, stats) => {
   }  
 }
 
+const confirm = async (id) => {
+  const key = datastore.key([ 'Event', id ]);
+  const item = {
+    key: key,
+    data: {
+        pending: false
+    },
+  };
+  await datastore.merge(item);
+};
+
+const reject = async (id) => {
+  const key = datastore.key([ 'Event', id ]);
+  await datastore.delete(key);
+};
+
+module.exports.confirm = confirm;
+module.exports.reject = reject;
 module.exports.searchForever = searchForever;
 module.exports.storeIfNew = storeIfNew;
 module.exports.byCountry = country => it => !country || country === it.countryCode;
