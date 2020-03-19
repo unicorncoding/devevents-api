@@ -6,14 +6,17 @@ const { Datastore } = require('@google-cloud/datastore');
 const datastore = new Datastore({ maxRetries: 5, autoRetry: true });
 
 const topFirst = (it, that) => Boolean(that.top) - Boolean(it.top);
-const onlyPendingBy = me => it => !it.pending || it.creator == me;
+const pendingFirst = (it, that) => Boolean(that.pending) - Boolean(it.pending);
 
-const search = (continent, me = undefined) => datastore.runQuery(
+const ordering = ( {admin} ) => (it, that) => admin ? pendingFirst(it, that) : topFirst(it, that);
+const filtering = ( {uid, admin} ) => it => admin || !it.pending || it.creator == uid;
+
+const search = (continent, me) => datastore.runQuery(
   datastore
     .createQuery('Event')
     .filter('startDate',     '>=', new Date())
     .filter('continentCode', '=' ,  continent)
-  ).then(([hits]) => hits.filter(onlyPendingBy(me)).ordered(topFirst));
+  ).then(([hits]) => hits.filter(filtering(me)).ordered(ordering(me)));
 
 // const threeMinutes = 1000 * 60 * 3;
 // const searchForever = memoize(search, { promise: true, maxAge: threeMinutes });

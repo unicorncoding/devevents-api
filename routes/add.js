@@ -61,7 +61,7 @@ router.post('/', required.concat(optionals), asyncHandler(async(req, res) => {
 }));
 
 async function newEventFrom(req) {
-  const me = await whois(req);
+  const { uid } = await whois(req);
   const body = req.body;
   return ({
     category: body.category,
@@ -71,7 +71,7 @@ async function newEventFrom(req) {
     topicCode: body.topicCode,
     topic: topics[body.topicCode].name,
     source: 'devevents',
-    creator: me,
+    creator: uid,
     creationDate: new Date(),
     startDate: body.startDate,
     endDate: body.endDate ? body.endDate : body.startDate,
