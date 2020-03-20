@@ -14,7 +14,7 @@ const pretty = it => dayjs(it).format("D MMMM");
 router.get('/:cfp(cfp)?/:continent([A-Z]{2})/:country([A-Z]{2})?/:topic(\\w+)?', asyncHandler(async(req, res) => {
 
   const { cfp, continent, country, topic } = req.params;
-  const [ events ] = await searchForever(continent, {});
+  const events = await searchForever(continent, {});
 
   const infoAbout = ( { name, topic, category, startDate, city, country }) => `
   ${topic} ${category} ${name} is happening on ${pretty(startDate)} in ${city}, ${country}. `.trim();
