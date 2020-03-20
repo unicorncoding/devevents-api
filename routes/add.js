@@ -1,12 +1,16 @@
 const asyncHandler = require('express-async-handler');
 const router = require('express').Router();
 const dayjs = require('dayjs');
+dayjs.extend(require('dayjs/plugin/isSameOrAfter'));
+dayjs.extend(require('dayjs/plugin/utc'));
+
+const utc = dayjs.utc;
 
 const _ = require('lodash');
 
 const Stats = require('../utils/stats')
 
-const { body, header, validationResult } = require('express-validator');
+const { check, body, header, validationResult } = require('express-validator');
 const { storeIfNew } = require('../utils/datastore');
 const { countries, countriesOrdered } = require('../utils/geo');
 const { topics, topicsOrdered } = require('../utils/topics');
@@ -22,14 +26,23 @@ const required = [
   body('topicCode').isIn(topics),
   body('countryCode').isIn(countries),
   body('name').customSanitizer(emojiStrip).trim().notEmpty(),
-  body('startDate').isISO8601().toDate(),
+  check('startDate').custom(value => utc(value).isAfter(utc(), 'day')).customSanitizer(utc)
 ]
 
 const optionals = [
   body('twitter').optional( { checkFalsy : true} ),
-  body('cfpEndDate').optional( { checkFalsy : true}).isISO8601().toDate(),
+  body('cfpEndDate')
+    .optional( { checkFalsy : true})
+    .custom(value => utc(value).isAfter(utc(), 'day'))
+    .customSanitizer(utc),
   body('cfpUrl').optional( { checkFalsy : true} ).customSanitizer(normalizedUrl).isURL(),
-  body('endDate').optional( { checkFalsy : true} ).isISO8601().toDate()
+  body('endDate')
+    .optional( { checkFalsy : true} )
+    .custom((value, { req }) => {
+      const it = utc(value);
+      return it.isAfter(utc(), 'day') && it.isSameOrAfter(req.body.startDate, 'day')
+    })
+    .customSanitizer(utc)
 ];
 
 router.get('/prepare', asyncHandler(async(req, res) => {
@@ -73,9 +86,9 @@ async function newEventFrom(req) {
     source: 'devevents',
     creator: uid,
     creationDate: new Date(),
-    startDate: body.startDate,
-    endDate: body.endDate ? body.endDate : body.startDate,
-    cfpEndDate: body.cfpEndDate,
+    startDate: body.startDate.toDate(),
+    endDate: body.endDate ? body.endDate.toDate() : body.startDate.toDate(),
+    cfpEndDate: body.cfpEndDate ? body.cfpEndDate.toDate() : body.cfpEndDate,
     name: body.name,
     twitter: body.twitter,
     city: body.city,
