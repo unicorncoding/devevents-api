@@ -7,7 +7,7 @@ router.get('/', asyncHandler(async(req, res) => {
 
   const { uid } = await whois(req);
   if (!uid) {
-    res.status(403).send("Sorry, you don't have access to karma");
+    res.send('0');
     return;
   }
 
