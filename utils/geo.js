@@ -4,6 +4,7 @@ const unpopularCountries = [
   "HM", 
   "UM", 
   "AX",
+  "AQ",
   "VI"];
 const countries = require('countries-list').countries;
 const continents = {
@@ -23,8 +24,6 @@ function normalizedContinent(continent) {
     .replace("NA", "AM")
     .replace("SA", "AM")
 }
-
-
   
 function normalizedCountry(country) {
   return country
@@ -74,4 +73,4 @@ module.exports.continentOf = continentOf;
 module.exports.codeOf = codeOf;
 module.exports.continents = continents;
 module.exports.countries = countries;
-module.exports.countriesOrdered = Object.keys(countries).map(code => ({ code: code, name: countries[code].name })).filter(code => !unpopularCountries.includes(code)).ordered((it, that) => it.name.localeCompare(that.name));
+module.exports.countriesOrdered = Object.keys(countries).map(code => ({ code: code, name: countries[code].name })).filter(it => !unpopularCountries.includes(it.code)).ordered((it, that) => it.name.localeCompare(that.name));

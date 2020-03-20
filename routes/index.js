@@ -5,4 +5,5 @@ module.exports = app => {
   app.use('/api/events/rss', require('./rss'));
   app.use('/api/events/cal', require('./ical'));
   app.use('/api/admin', require('./admin'));
+  app.use('/api/karma', require('./karma'));
 };

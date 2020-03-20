@@ -1,7 +1,4 @@
 const topics = {
-  other: {
-    name: "Other"
-  },  
   ddd: {
     name: "DDD"
   },

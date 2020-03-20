@@ -19,6 +19,13 @@ const search = (continent, me) => datastore.runQuery(
     .filter('continentCode', '=' ,  continent)
   ).then(([hits]) => hits.map(includeId).filter(filtering(me)).ordered(ordering(me)));
 
+const karma = uid => datastore.runQuery(
+  datastore
+    .createQuery('Event')
+    .select('__key__')
+    .filter('creator', uid)
+).then(([hits]) => hits.length);
+
 // const threeMinutes = 1000 * 60 * 3;
 // const searchForever = memoize(search, { promise: true, maxAge: threeMinutes });
 const searchForever = search;
@@ -62,6 +69,7 @@ const reject = async (id) => {
 
 module.exports.confirm = confirm;
 module.exports.reject = reject;
+module.exports.karma = karma;
 module.exports.searchForever = searchForever;
 module.exports.storeIfNew = storeIfNew;
 module.exports.byCountry = country => it => !country || country === it.countryCode;
