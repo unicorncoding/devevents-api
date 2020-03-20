@@ -15,7 +15,7 @@ const domain = 'https://dev.events';
 router.get('/:cfp(cfp)?/:continent([A-Z]{2})/:country([A-Z]{2})?/:topic(\\w+)?', asyncHandler(async(req, res) => {
 
   const { cfp, continent, country, topic } = req.params;
-  const [ events ] = await searchForever(continent);
+  const [ events ] = await searchForever(continent, {});
 
   const someEvents = events
     .filter(byCfp(cfp))
