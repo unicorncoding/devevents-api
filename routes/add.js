@@ -102,7 +102,7 @@ function conflictsWith(conflictingEvent) {
   const what = `${conflictingEvent.name}`;
   const when = dayjs(conflictingEvent.startDate).format("YYYY-MM-DD");
   const where = `${conflictingEvent.city}, ${conflictingEvent.country}`;
-  return `${what} is hapenning on ${when} in ${where}.`;
+  return `${what} is hapenning on ${when}.`;
 }
 
 module.exports = router;
