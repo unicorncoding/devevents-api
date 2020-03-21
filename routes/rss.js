@@ -15,7 +15,11 @@ const domain = 'https://dev.events';
 router.get('/:cfp(cfp)?/:continent([A-Z]{2})/:country([A-Z]{2})?/:topic(\\w+)?', asyncHandler(async(req, res) => {
 
   const { cfp, continent, country, topic } = req.params;
+  const isOnline = continent === "ON";
+
+  console.time('rss fetch');
   const events = await searchForever(continent, {});
+  console.timeEnd('rss fetch');
 
   const someEvents = events
     .filter(byCfp(cfp))
@@ -23,16 +27,19 @@ router.get('/:cfp(cfp)?/:continent([A-Z]{2})/:country([A-Z]{2})?/:topic(\\w+)?',
     .filter(byTopic(topic));
 
   const where = country ? countries[country].name : continents[continent];
-  const what = topic ? topicName(topic) : 'developer';
-  const title = cfp 
-    ? `dev.events: Upcoming ${what} events with CFP in ${where}`
-    : `dev.events: Upcoming ${what} events in ${where}`;
+  const what = topic ? topicName(topic) : '';
+  const papers = cfp ? 'with CFP' : ''
+  
+  const title = isOnline 
+    ? `dev.events: Online ${what} events ${papers}`.normalizeSpaces()
+    : `dev.events: ${what} events ${papers} in ${where}`.normalizeSpaces();
 
-  const infoAbout = ( { name, topic, category, startDate, city, country }) => `
-  ${topic} ${category} ${name} is happening on ${pretty(startDate)} in ${city}, ${country}. `.trim();
+  const infoAbout = ( { name, topic, category, startDate, city, country }) => isOnline
+    ? `Online ${topic} ${category} ${name} is happening on ${pretty(startDate)}. `.normalizeSpaces()
+    : `${topic} ${category} ${name} is happening on ${pretty(startDate)} in ${city}, ${country}. `.normalizeSpaces()
 
   const cfpIfAvailable = ( { cfpEndDate, cfpUrl } ) => isFuture(cfpEndDate) 
-    ? `Submit your talk proposal at ${cfpUrl} before ${pretty(cfpEndDate)}.` 
+    ? `Submit your talk proposal at ${cfpUrl} before ${pretty(cfpEndDate)}`.normalizeSpaces() 
     : ''
 
   const toFeedItem = event => ({

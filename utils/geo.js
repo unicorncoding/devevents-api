@@ -7,12 +7,18 @@ const unpopularCountries = [
   "AQ",
   "VI"];
 const countries = require('countries-list').countries;
+countries['ON'] = {
+  name: "Online",
+  continent: "ON"
+}
+
 const continents = {
   EU: "Europe",
   AM: "Americas",
   AS: "Asia",
   AF: "Africa",
-  OC: "Oceania"
+  OC: "Oceania",
+  ON: "Online"
 }
 
 Object
