@@ -21,7 +21,6 @@ const log = console.log;
 async function conferences(max = Number.MAX_VALUE) {
   const repo = await gitClone();
   const upcomingOnly = e => dayjs(e.startDate).isSame(dayjs()) || dayjs(e.startDate).isAfter(dayjs());
-  const offlineOnly = e => e.country != 'Online';
   const noOfftopic = e => e.topic != undefined;
   const noSuspiciouslyLong = e => !suspiciouslyLong(e.startDate, e.endDate);
   const files = await walk(repo + '/conferences')
@@ -30,7 +29,6 @@ async function conferences(max = Number.MAX_VALUE) {
     const includeTopic = it => ({ ...it, topic: path.basename(f, '.json') })
     return allConferences
       .filter(upcomingOnly)
-      .filter(offlineOnly)
       .map(includeTopic)
       .map(normalize)
       .filter(noSuspiciouslyLong)
