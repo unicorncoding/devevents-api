@@ -10,6 +10,10 @@ const { createGzip } = require('zlib');
 const allSettled = require('promise.allsettled');
 allSettled.shim();
 
+// remove in Node 11
+const flat = require('array.prototype.flat');
+flat.shim();
+
 router.get('/', asyncHandler(async(req, res) => {
 
   res.header('Content-Type', 'application/xml');
@@ -17,7 +21,7 @@ router.get('/', asyncHandler(async(req, res) => {
 
   const links = new Set();
 
-  const events = await Promise.all(continents.map(it => searchForever(it, {})));
+  const events = (await Promise.all(continents.map(it => searchForever(it, {})))).flat();
 
   events.forEach(it => {
     links.add(`/${it.continentCode}`);
