@@ -12,31 +12,30 @@ allSettled.shim();
 
 router.get('/', asyncHandler(async(req, res) => {
 
+  res.header('Content-Type', 'application/xml');
+  res.header('Content-Encoding', 'gzip');
+
   const links = new Set();
 
-  const allEvents = await Promise.all(continents.map(it => searchForever(it, {})));
+  const events = await Promise.all(continents.map(it => searchForever(it, {})));
 
-  allEvents.forEach(it => {
+  events.forEach(it => {
     links.add(`/${it.continentCode}`);
     links.add(`/${it.continentCode}/${it.topicCode}`);
     links.add(`/${it.continentCode}/${it.countryCode}`);
-    links.add(`/${it.continentCode}/${it.countryCode}/${it.topicCode}`)
-  })
+    links.add(`/${it.continentCode}/${it.countryCode}/${it.topicCode}`);
+  });
   
   try {
     const stream = new SitemapStream({ hostname: 'https://dev.events/' });
     const pipeline = stream.pipe(createGzip());
-    links.forEach(link => stream.write({ url: link,  changefreq: 'daily' }))
+    links.forEach(link => stream.write({ url: link,  changefreq: 'daily' }));
     stream.end();
     pipeline.pipe(res).on('error', (e) => { throw e });
   } catch (e) {
     console.error(e);
     res.status(500).end();
   }
-
-  res.header('Content-Type', 'application/xml');
-  res.header('Content-Encoding', 'gzip');
-  res.send();
 
 }));
 
