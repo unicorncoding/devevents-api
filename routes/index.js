@@ -1,5 +1,6 @@
 module.exports = app => {
   app.use('/api/importers', require('./importers'));
+  app.use('/api/sitemap', require('./sitemap'));
   app.use('/api/events/search', require('./search'));
   app.use('/api/events/new', require('./add'));
   app.use('/api/events/rss', require('./rss'));

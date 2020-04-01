@@ -4,7 +4,7 @@ const { nameBy } = require('../utils/geo');
 const { count } = require('../utils/arrays');
 const { topicName } = require('../utils/topics');
 const { whois } = require('../utils/auth');
-const { searchForever, byCountry, byTopic, byCfp, byName } = require('../utils/datastore');
+const { search, byCountry, byTopic, byCfp, byName } = require('../utils/datastore');
 const _ = require('lodash');
 
 
@@ -18,7 +18,7 @@ router.get('/', asyncHandler(async(req, res) => {
   }
 
   const me = await whois(req);
-  const events = await searchForever(continent, me);
+  const events = await search(continent, me);
   
   const countries = events
     .filter(byTopic(topic))
