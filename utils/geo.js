@@ -14,7 +14,7 @@ countries['ON'] = {
 
 const continents = {
   EU: "Europe",
-  AM: "Americas",
+  AM: "America",
   AS: "Asia",
   AF: "Africa",
   OC: "Oceania",
