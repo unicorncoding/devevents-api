@@ -37,6 +37,7 @@ function normalizedCountry(country) {
   .replace("U.K.", "United Kingdom")
   .replace("Deutschland", "Germany")
   .replace("switzerland", "Switzerland")
+  .replace("online", "Online")
   .replace("Netherland", "Netherlands")
   .replace("Germnay", "Germany")
   .replace("Netherlandss", "Netherlands")
