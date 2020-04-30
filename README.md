@@ -13,25 +13,36 @@ api.dev.events
 
 ⏰ Triggered when necessary via Cloud Scheduler.
 
-### Running in dev mode
+## Running in dev mode
 
-> Make sure you have [direnv](https://direnv.net/) installed.
+#### Install [Google Cloud SDK](https://cloud.google.com/sdk/install):
 
-Put the following `.envrc` file in project's root directory:
-
-```
-export MODE=dev
-export GOOGLE_APPLICATION_CREDENTIALS="$PWD/.gcloud-dev.json"
+```bash
+brew cask install google-cloud-sdk
 ```
 
-In order to run the project locally, please ask the project owner to create your personal Google Service Account. Then put your credentials in the project directory under name `.gcloud-dev.json` 
+#### Datastore: Download test data
 
-Install dependencies:
+```bash
+gsutil cp -r gs://dev-events-data .
 ```
+#### Datastore: Run emulator
+
+```bash
+# run emulator
+gcloud beta emulators datastore start --project=dev-events
+
+# point environment variables to the emulator
+$(gcloud beta emulators datastore env-init)
+
+# populate Datastore Emulator
+curl -X POST localhost:8081/v1/projects/dev-events:import \
+-H 'Content-Type: application/json' \
+-d '{"input_url":"./dev-events-data/2020-04-30T12:18:56_61033/2020-04-30T12:18:56_61033.overall_export_metadata"}'
+```
+
+#### Run the app
+```bash
 npm install
-```
-
-Run dev server:
-```
 npm run serve
 ```

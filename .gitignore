@@ -1,6 +1,7 @@
 firebase.json
 firebase-debug.log
 node_modules
+dev-events-data
 tmp
 .gcloud-travis.json
 .gcloud-dev.json
