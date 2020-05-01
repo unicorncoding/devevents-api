@@ -29,36 +29,29 @@ const karma = uid => datastore.runQuery(
 
 const searchForever = memoize(search, { promise: true });
 
-const storeIfNew = async (each, stats) => {
-  const itemHash = hash(each);
-  const itemKey = datastore.key([ 'Event', itemHash ]);
+const storeIfNew = async (data, stats) => {
+  const key = datastore.key([ 'Event', hash(data) ]);
   const tx = datastore.transaction();
   try {
     await tx.run();
-    const [event] = await tx.get(itemKey);
+    const [event] = await tx.get(key);
     if (event) {
       await tx.rollback();
       stats.skip()
     } else {
-      const newItem = { key: itemKey, data: each };
-      await tx.save(newItem);
+      await tx.save({ key, data });
       await tx.commit();
       stats.inc();
     }
   } catch (err) {
-    console.error("Unable to store event " + each.name, err);
+    console.error(`Unable to store event ${data.name}`, new Error(err));
   }  
 }
 
 const confirm = async (id) => {
   const key = datastore.key([ 'Event', id ]);
-  const item = {
-    key: key,
-    data: {
-        pending: false
-    },
-  };
-  await datastore.merge(item);
+  const data = { pending: false };
+  await datastore.merge({ key, data });
 };
 
 const reject = async (id) => {
