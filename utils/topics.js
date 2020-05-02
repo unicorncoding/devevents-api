@@ -63,7 +63,7 @@ const topics = {
     name: "Management",
   },
   architecture: {
-    name: "Software architecture",
+    name: "Software Architecture",
   },
   agile: {
     name: "Agile",
