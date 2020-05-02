@@ -1,4 +1,7 @@
 const topics = {
+  softskills: {
+    name: "Soft Skills"
+  },
   ddd: {
     name: "DDD",
   },
