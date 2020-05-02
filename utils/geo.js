@@ -80,4 +80,4 @@ module.exports.continentOf = continentOf;
 module.exports.codeOf = codeOf;
 module.exports.continents = continents;
 module.exports.countries = countries;
-module.exports.countriesOrdered = Object.keys(countries).map(code => ({ code: code, name: countries[code].name })).filter(it => !unpopularCountries.includes(it.code)).ordered((it, that) => it.name.localeCompare(that.name));
+module.exports.countriesOrdered = Object.keys(countries).map(code => ({ code: code, name: countries[code].name })).filter(it => !unpopularCountries.includes(it.code)).sort((it, that) => it.name.localeCompare(that.name));

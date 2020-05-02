@@ -4,7 +4,7 @@ const { isFuture } = require('./dates');
 const { hash } = require('./hash');
 
 const { Datastore } = require('@google-cloud/datastore');
-const datastore = new Datastore({ maxRetries: 5, autoRetry: true });
+const datastore = new Datastore();
 
 const includeId = it => ({ ...it, id: it[datastore.KEY].name });
 const topFirst = (it, that) => Boolean(that.top) - Boolean(it.top);
@@ -54,12 +54,19 @@ const confirm = async (id) => {
   await datastore.merge({ key, data });
 };
 
+const findOne = async(id) => {
+  const key = datastore.key([ 'Event', id ]);
+  const [ event ] = await datastore.get(key);
+  return event;
+}
+
 const reject = async (id) => {
   const key = datastore.key([ 'Event', id ]);
   await datastore.delete(key);
 };
 
 module.exports.confirm = confirm;
+module.exports.findOne = findOne;
 module.exports.reject = reject;
 module.exports.karma = karma;
 module.exports.searchForever = searchForever;

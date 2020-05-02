@@ -7,7 +7,8 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "serve": "MODE=dev nodemon index"
+    "serve": "env GOOGLE_APPLICATION_CREDENTIALS=./firebase.credentials.json MODE=dev nodemon index",
+    "test": "jest --coverage"
   },
   "engines": {
     "node": "10"
@@ -21,6 +22,7 @@
     "cors": "^2.8.5",
     "countries-list": "^2.5.0",
     "dayjs": "^1.8.17",
+    "dotenv": "^8.2.0",
     "emoji-strip": "^1.0.1",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
@@ -37,10 +39,24 @@
     "promise.allsettled": "^1.0.2",
     "rimraf": "^3.0.0",
     "sitemap": "^6.1.0",
+    "twit": "^2.2.11",
     "zlib": "^1.0.5"
   },
   "devDependencies": {
     "@babel/plugin-proposal-optional-chaining": "^7.8.3",
-    "nodemon": "^2.0.2"
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "jest": "^25.5.3",
+    "nodemon": "^2.0.2",
+    "prettier": "2.0.5"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "tmp"
+    ],
+    "testMatch": [
+      "**/utils/*.test.js",
+      "**/routes/*.test.js"
+    ]
   }
 }

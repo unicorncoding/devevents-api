@@ -1,8 +1,11 @@
 firebase.json
+firebase.credentials.json
 firebase-debug.log
 node_modules
+coverage
 dev-events-data
 tmp
 .gcloud-travis.json
 .gcloud-dev.json
 .DS_Store
+.env
