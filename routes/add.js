@@ -6,8 +6,6 @@ dayjs.extend(require("dayjs/plugin/utc"));
 
 const utc = dayjs.utc;
 
-const _ = require("lodash");
-
 const Stats = require("../utils/stats");
 
 const { check, body, header, validationResult } = require("express-validator");
@@ -113,9 +111,8 @@ async function newEventFrom(req) {
 }
 
 function conflictsWith(conflictingEvent) {
-  const what = `${conflictingEvent.name}`;
   const when = dayjs(conflictingEvent.startDate).format("YYYY-MM-DD");
-  return `${what} is hapenning on ${when}.`;
+  return `There is an event happening on ${when} that points to the same web address ${conflictingEvent.url}.`;
 }
 
 module.exports = router;

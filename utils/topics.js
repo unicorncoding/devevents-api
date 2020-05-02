@@ -1,87 +1,92 @@
 const topics = {
   ddd: {
-    name: "DDD"
+    name: "DDD",
   },
   microsoft: {
-    name: "Microsoft"
+    name: "Microsoft",
   },
   clojure: {
-    name: "Clojure"
+    name: "Clojure",
   },
   cpp: {
-    name: "C and C++"
+    name: "C and C++",
   },
   mobile: {
-    name: "Mobile"
+    name: "Mobile",
   },
   iot: {
-    name: "IoT"
+    name: "IoT",
   },
   web: {
-    name: "Web"
+    name: "Web",
   },
   data: {
-    name: "Data science"
+    name: "Data science",
   },
   devops: {
-    name: "DevOps"
+    name: "DevOps",
   },
   dotnet: {
-    name: ".NET"
+    name: ".NET",
   },
   elixir: {
-    name: "Elixir"
+    name: "Elixir",
   },
   erlang: {
-    name: "Erlang"
+    name: "Erlang",
   },
   fullstack: {
-    name: "Full-stack"
+    name: "Full-stack",
   },
   golang: {
-    name: "Golang"
+    name: "Golang",
   },
   java: {
     name: "Java",
   },
   kotlin: {
-    name: "Kotlin"
+    name: "Kotlin",
   },
   scala: {
-    name: "Scala"
+    name: "Scala",
   },
   javascript: {
-    name: "JavaScript"
+    name: "JavaScript",
   },
   leadership: {
     name: "Leadership",
   },
   management: {
-    name: "Management"
+    name: "Management",
+  },
+  architecture: {
+    name: "Software architecture",
   },
   agile: {
-    name: "Agile"
+    name: "Agile",
   },
   php: {
-    name: "PHP"
+    name: "PHP",
   },
   product: {
-    name: "Product"
+    name: "Product",
   },
   python: {
     name: "Python",
   },
   ruby: {
-    name: "Ruby and Rails"
+    name: "Ruby and Rails",
   },
   security: {
-    name: "Security"
+    name: "Security",
   },
   ux: {
-    name: "UX"
-  }
+    name: "UX",
+  },
 };
 
-module.exports.topicName = topic => topics[topic].name;
+module.exports.topicName = (topic) => topics[topic].name;
 module.exports.topics = topics;
-module.exports.topicsOrdered = Object.keys(topics).map(code => ({ code: code, name: topics[code].name })).ordered((it, that) => it.name.localeCompare(that.name));
+module.exports.topicsOrdered = Object.keys(topics)
+  .map((code) => ({ code: code, name: topics[code].name }))
+  .ordered((it, that) => it.name.localeCompare(that.name));

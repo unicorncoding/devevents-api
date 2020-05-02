@@ -26,7 +26,7 @@ const offlineEvent = {
 test("posts a conference", async () => {
   await tweet(offlineEvent);
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
-    status: `🆕 DevTernity ⠿ Full-stack conference
+    status: `🆕 DevTernity conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 
@@ -38,7 +38,7 @@ test("posts a multi-day conference", async () => {
   const endDate = new Date("2020-11-04T00:00:00.000Z");
   await tweet({ ...offlineEvent, endDate });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
-    status: `🆕 DevTernity ⠿ Full-stack conference
+    status: `🆕 DevTernity conference
 🇱🇻 Riga, Latvia
 🗓 November 3-4 2020
 
@@ -50,7 +50,7 @@ test("posts a multi-day conference that spans multiple months", async () => {
   const endDate = new Date("2020-12-04T00:00:00.000Z");
   await tweet({ ...offlineEvent, endDate });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
-    status: `🆕 DevTernity ⠿ Full-stack conference
+    status: `🆕 DevTernity conference
 🇱🇻 Riga, Latvia
 🗓 November 3 - December 4 2020
 
@@ -63,7 +63,7 @@ test("posts a conference with cfp", async () => {
   const remainingDays = dayjs(cfpEndDate).fromNow(true);
   await tweet({ ...offlineEvent, cfpEndDate });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
-    status: `🆕 DevTernity ⠿ Full-stack conference
+    status: `🆕 DevTernity conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 📢 ${remainingDays} to submit a talk
@@ -75,11 +75,11 @@ More information: https://devternity.com`,
 test("posts a conference and mentions the organizer", async () => {
   await tweet({ ...offlineEvent, twitter: "devternity" });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
-    status: `🆕 DevTernity ⠿ Full-stack conference
+    status: `🆕 DevTernity conference by @devternity
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 
-Follow @devternity and find more info: https://devternity.com`,
+More information: https://devternity.com`,
   });
 });
 
@@ -97,7 +97,7 @@ const onlineEvent = {
 test("posts an online event", async () => {
   await tweet(onlineEvent);
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
-    status: `🆕 Webinario ⠿ DevOps webinar
+    status: `🆕 Webinario webinar
 🌍 Online
 🗓 October 10 2020
 

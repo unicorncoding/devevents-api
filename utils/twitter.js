@@ -13,11 +13,9 @@ const config = {
 const twitter = new Twit(config);
 
 module.exports.tweet = (event) => {
-  const { name, topic, category } = event;
-
   const status = [
     ...new Set([
-      `🆕 ${name} ⠿ ${topic} ${category}`,
+      what(event),
       location(event),
       `🗓 ${date(event)}`,
       cfpOrEmpty(event),
@@ -32,6 +30,14 @@ module.exports.tweet = (event) => {
       console.error(`Tweeting of ${event.name} failed`, new Error(e))
     );
 };
+
+function what({ name, category, twitter }) {
+  if (twitter) {
+    return `🆕 ${name} ${category} by @${twitter}`;
+  } else {
+    return `🆕 ${name} ${category}`;
+  }
+}
 
 function date({ startDate, endDate }) {
   const start = dayjs(startDate);
@@ -67,9 +73,5 @@ function location({ city, country, countryCode }) {
 }
 
 function callToAction({ twitter, url }) {
-  if (twitter) {
-    return `Follow @${twitter} and find more info: ${url}`;
-  } else {
-    return `More information: ${url}`;
-  }
+  return `More information: ${url}`;
 }
