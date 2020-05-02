@@ -32,7 +32,9 @@ const required = [
 ];
 
 const optionals = [
-  body("twitter").optional({ checkFalsy: true }),
+  body("twitter")
+    .optional({ checkFalsy: true })
+    .custom((value) => value.startsWith("@") && value.length > 3),
   body("cfpEndDate")
     .optional({ checkFalsy: true })
     .custom((value) => utc(value).isAfter(utc(), "day"))
