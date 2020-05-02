@@ -17,7 +17,8 @@ const offlineEvent = {
   country: "Latvia",
   countryCode: "LV",
   name: "DevTernity",
-  startDate: "2020-11-03T00:00:00.000Z",
+  startDate: new Date("2020-11-03T00:00:00.000Z"),
+  endDate: new Date("2020-11-03T00:00:00.000Z"),
   topic: "Full-stack",
   url: "https://devternity.com",
 };
@@ -34,7 +35,7 @@ More information: https://devternity.com`,
 });
 
 test("posts a multi-day conference", async () => {
-  const endDate = "2020-11-04T00:00:00.000Z";
+  const endDate = new Date("2020-11-04T00:00:00.000Z");
   await tweet({ ...offlineEvent, endDate });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity ⠿ Full-stack conference
@@ -46,7 +47,7 @@ More information: https://devternity.com`,
 });
 
 test("posts a multi-day conference that spans multiple months", async () => {
-  const endDate = "2020-12-04T00:00:00.000Z";
+  const endDate = new Date("2020-12-04T00:00:00.000Z");
   await tweet({ ...offlineEvent, endDate });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity ⠿ Full-stack conference
@@ -58,7 +59,7 @@ More information: https://devternity.com`,
 });
 
 test("posts a conference with cfp", async () => {
-  const cfpEndDate = "2030-12-04T00:00:00.000Z";
+  const cfpEndDate = new Date("2030-12-04T00:00:00.000Z");
   const remainingDays = dayjs(cfpEndDate).fromNow(true);
   await tweet({ ...offlineEvent, cfpEndDate });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
@@ -88,7 +89,7 @@ const onlineEvent = {
   country: "Online",
   countryCode: "ON",
   name: "Webinario",
-  startDate: "2020-10-10T00:00:00.000Z",
+  startDate: new Date("2020-10-10T00:00:00.000Z"),
   topic: "DevOps",
   url: "https://webinario.com",
 };

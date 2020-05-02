@@ -35,7 +35,7 @@ module.exports.tweet = (event) => {
 
 function date({ startDate, endDate }) {
   const start = dayjs(startDate);
-  const oneDayEvent = !endDate || endDate === startDate;
+  const oneDayEvent = !endDate || start.isSame(dayjs(endDate), "day");
   if (oneDayEvent) {
     return start.format("MMMM D YYYY");
   }

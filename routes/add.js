@@ -34,7 +34,8 @@ const required = [
 const optionals = [
   body("twitter")
     .optional({ checkFalsy: true })
-    .custom((value) => value.startsWith("@") && value.length > 3),
+    .custom((value) => value.startsWith("@") && value.length > 3)
+    .customSanitizer((value) => value.replace("@", "")),
   body("cfpEndDate")
     .optional({ checkFalsy: true })
     .custom((value) => utc(value).isAfter(utc(), "day"))
