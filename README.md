@@ -80,5 +80,5 @@ npm run serve
 ### Run tests
 
 ```bash
-  npm run test
+  npm test
 ```

@@ -1,17 +1,30 @@
 class Stats {
   constructor() {
-    this.total = 0;
     this.skipped = 0;
+    this.stored = [];
   }
   dump(res) {
-    console.log(this);
-    res.json(this);
+    const what = {
+      stored: this.stored.length,
+      skipped: this.skipped,
+    };
+    console.log(what);
+    res.json(what);
   }
   skip() {
     this.skipped++;
   }
-  inc() {
-    this.total++;
+
+  forEachStored(operation) {
+    this.stored.forEach((each) => operation(each));
+  }
+
+  hasAnyStored() {
+    return this.stored.length > 0;
+  }
+
+  store(item) {
+    this.stored.push(item);
   }
 }
 
