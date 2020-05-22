@@ -4,7 +4,7 @@ const { nameBy } = require('../utils/geo');
 const { count } = require('../utils/arrays');
 const { topicName } = require('../utils/topics');
 const { whois } = require('../utils/auth');
-const { search, byCountry, byTopic, byCfp, byName } = require('../utils/datastore');
+const { search, byName } = require('../utils/datastore');
 const _ = require('lodash');
 
 
@@ -21,21 +21,24 @@ router.get('/', asyncHandler(async(req, res) => {
   const events = await search(continent, me);
   
   const countries = events
-    .filter(byTopic(topic))
-    .filter(byCfp(cfp))
+    .filter(({topicCode, cfpEndDate}) => 
+      (!topic || topic === topicCode) && 
+      (!cfp || isFuture(cfpEndDate)))
     .reduce(count(it => it.countryCode, it => it.country), [])
     .ordered(byName);
-  
+   
   const topics = events
-    .filter(byCountry(country))
-    .filter(byCfp(cfp))
+    .filter(({countryCode, cfpEndDate}) => 
+      (!country || country === countryCode) && 
+      (!cfp || isFuture(cfpEndDate)))
     .reduce(count(it => it.topicCode, it => it.topic), [])
     .ordered(byName);
 
   const matches = events
-    .filter(byTopic(topic))
-    .filter(byCountry(country))
-    .filter(byCfp(cfp));
+    .filter(({topicCode, countryCode, cfpEndDate}) => 
+      (!topic || topic === topicCode) && 
+      (!country || country === countryCode) && 
+      (!cfp || isFuture(cfpEndDate)));
 
   const shown = _.chunk(matches, limit)[start] || [];
 
