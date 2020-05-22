@@ -1,6 +1,6 @@
 const topics = {
   softskills: {
-    name: "Soft Skills",
+    name: "Soft skills",
   },
   ddd: {
     name: "DDD",
@@ -63,7 +63,7 @@ const topics = {
     name: "Management",
   },
   architecture: {
-    name: "Software Architecture",
+    name: "Software architecture",
   },
   agile: {
     name: "Agile",
@@ -72,7 +72,7 @@ const topics = {
     name: "PHP",
   },
   product: {
-    name: "Product",
+    name: "Product development",
   },
   python: {
     name: "Python",
@@ -85,6 +85,9 @@ const topics = {
   },
   ux: {
     name: "UX",
+  },
+  qa: {
+    name: "Testing and QA",
   },
 };
 
