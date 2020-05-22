@@ -4,6 +4,7 @@ const conferences = require("../utils/confs");
 const Stats = require("../utils/stats");
 
 // remove in Node 12
+/* eslint-disable node/no-unsupported-features/es-builtins */
 const allSettled = require("promise.allsettled");
 allSettled.shim();
 

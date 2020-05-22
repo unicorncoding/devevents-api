@@ -1,5 +1,5 @@
-const hash = require('hash-sum');
-const dayjs = require('dayjs');
+const hash = require("hash-sum");
+const dayjs = require("dayjs");
 
 function hashOf({ startDate, url }) {
   if (!startDate || !url) {
@@ -9,4 +9,4 @@ function hashOf({ startDate, url }) {
   return hash([dateNoTime, url]);
 }
 
-module.exports.hash = hashOf
+module.exports.hash = hashOf;

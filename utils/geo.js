@@ -1,16 +1,9 @@
-const unpopularCountries = [
-  "GS", 
-  "IO", 
-  "HM", 
-  "UM", 
-  "AX",
-  "AQ",
-  "VI"];
-const countries = require('countries-list').countries;
-countries['ON'] = {
+const unpopularCountries = ["GS", "IO", "HM", "UM", "AX", "AQ", "VI"];
+const countries = require("countries-list").countries;
+countries["ON"] = {
   name: "Online",
-  continent: "ON"
-}
+  continent: "ON",
+};
 
 const continents = {
   EU: "Europe",
@@ -18,37 +11,35 @@ const continents = {
   AS: "Asia",
   AF: "Africa",
   OC: "Oceania",
-  ON: "Online"
-}
+  ON: "Online",
+};
 
-Object
-  .values(countries)
-  .forEach(it => it.continent = normalizedContinent(it.continent));
+Object.values(countries).forEach(
+  (it) => (it.continent = normalizedContinent(it.continent))
+);
 
 function normalizedContinent(continent) {
-  return continent
-    .replace("NA", "AM")
-    .replace("SA", "AM")
+  return continent.replace("NA", "AM").replace("SA", "AM");
 }
-  
+
 function normalizedCountry(country) {
   return country
-  .replace("U.S.A.", "United States")
-  .replace("U.K.", "United Kingdom")
-  .replace("Deutschland", "Germany")
-  .replace("switzerland", "Switzerland")
-  .replace("online", "Online")
-  .replace("Netherland", "Netherlands")
-  .replace("Germnay", "Germany")
-  .replace("Netherlandss", "Netherlands")
-  .replace("Perú", "Peru")
-  .replace("Niederlande", "Netherlands")
-  .replace("Czech republic", "Czech Republic")
-  .trim()
+    .replace("U.S.A.", "United States")
+    .replace("U.K.", "United Kingdom")
+    .replace("Deutschland", "Germany")
+    .replace("switzerland", "Switzerland")
+    .replace("online", "Online")
+    .replace("Netherland", "Netherlands")
+    .replace("Germnay", "Germany")
+    .replace("Netherlandss", "Netherlands")
+    .replace("Perú", "Peru")
+    .replace("Niederlande", "Netherlands")
+    .replace("Czech republic", "Czech Republic")
+    .trim();
 }
 
 function continentOf(country) {
-  const match = Object.values(countries).find(it => it.name == country);
+  const match = Object.values(countries).find((it) => it.name == country);
   if (!match || !match.continent) {
     throw "Cannot find continent for country " + country;
   }
@@ -60,7 +51,7 @@ function codeOf(country) {
   if (!match) {
     throw "Cannot find country code for country " + country;
   }
-  const [countryCode] = match; 
+  const [countryCode] = match;
   return countryCode;
 }
 
@@ -80,4 +71,7 @@ module.exports.continentOf = continentOf;
 module.exports.codeOf = codeOf;
 module.exports.continents = continents;
 module.exports.countries = countries;
-module.exports.countriesOrdered = Object.keys(countries).map(code => ({ code: code, name: countries[code].name })).filter(it => !unpopularCountries.includes(it.code)).sort((it, that) => it.name.localeCompare(that.name));
+module.exports.countriesOrdered = Object.keys(countries)
+  .map((code) => ({ code: code, name: countries[code].name }))
+  .filter((it) => !unpopularCountries.includes(it.code))
+  .sort((it, that) => it.name.localeCompare(that.name));

@@ -1,5 +1,8 @@
 {
-  "extends": ["plugin:prettier/recommended"],
+  "extends": [
+    "plugin:prettier/recommended",
+    "plugin:node/recommended"
+  ],
   "rules": {
     "prettier/prettier": "error"
   }
