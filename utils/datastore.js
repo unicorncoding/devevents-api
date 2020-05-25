@@ -7,11 +7,6 @@ const { Datastore } = require("@google-cloud/datastore");
 const datastore = new Datastore();
 
 const includeId = (it) => ({ ...it, id: it[datastore.KEY].name });
-const topFirst = (it, that) => Boolean(that.top) - Boolean(it.top);
-const pendingFirst = (it, that) => Boolean(that.pending) - Boolean(it.pending);
-
-const ordering = ({ admin }) => (it, that) =>
-  admin ? pendingFirst(it, that) : topFirst(it, that);
 
 const filtering = ({ uid, admin }) => (it) =>
   admin || !it.pending || it.creator == uid;
@@ -24,9 +19,7 @@ const search = (continent, me) =>
         .filter("startDate", ">=", new Date())
         .filter("continentCode", "=", continent)
     )
-    .then(([hits]) =>
-      hits.map(includeId).filter(filtering(me)).ordered(ordering(me))
-    );
+    .then(([hits]) => hits.map(includeId).filter(filtering(me)));
 
 const karma = (uid) =>
   datastore
