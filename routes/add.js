@@ -111,8 +111,8 @@ async function newEventFrom(req) {
 }
 
 function conflictsWith(conflictingEvent) {
-  const when = dayjs(conflictingEvent.startDate).format("YYYY-MM-DD");
-  return `There is an event happening on ${when} that points to the same web address ${conflictingEvent.url}.`;
+  const when = dayjs(conflictingEvent.startDate).format("DD MMMM YYYY");
+  return `${conflictingEvent.name} already scheduled in ${conflictingEvent.country} on ${when}`;
 }
 
 module.exports = router;

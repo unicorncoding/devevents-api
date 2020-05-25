@@ -1,7 +1,7 @@
 const memoize = require("memoizee");
 
 const { isFuture } = require("./dates");
-const { hash } = require("./hash");
+const { uid } = require("./uid");
 
 const { Datastore } = require("@google-cloud/datastore");
 const datastore = new Datastore();
@@ -38,7 +38,7 @@ const karma = (uid) =>
 const searchForever = memoize(search, { promise: true });
 
 const storeIfNew = async (data, stats) => {
-  const key = datastore.key(["Event", hash(data)]);
+  const key = datastore.key(["Event", uid(data)]);
   const tx = datastore.transaction();
   try {
     await tx.run();

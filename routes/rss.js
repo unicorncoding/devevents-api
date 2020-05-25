@@ -3,7 +3,7 @@ const router = require("express").Router();
 const dayjs = require("dayjs");
 const { topicName } = require("../utils/topics");
 const { countries } = require("countries-list");
-const { hash } = require("../utils/hash");
+const { uid } = require("../utils/uid");
 const { isFuture } = require("../utils/dates");
 const { continents } = require("../utils/geo");
 const { Feed } = require("feed");
@@ -58,7 +58,7 @@ router.get(
 
     const toFeedItem = (event) => ({
       title: event.name,
-      id: hash(event),
+      id: uid(event),
       link: event.url,
       category: [{ name: event.topic }],
       description: infoAbout(event) + cfpIfAvailable(event),

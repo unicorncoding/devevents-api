@@ -6,7 +6,7 @@ const { isFuture } = require("../utils/dates");
 const { topicName } = require("../utils/topics");
 const { countries } = require("countries-list");
 const { continents } = require("../utils/geo");
-const { hash } = require("../utils/hash");
+const { uid } = require("../utils/uid");
 const {
   searchForever,
   byCfp,
@@ -43,7 +43,7 @@ router.get(
     const inclusive = (date) => dayjs(date).add(1, "day").toDate();
 
     const toCalEvent = (it) => ({
-      uid: hash(it),
+      uid: uid(it),
       start: it.startDate,
       end: inclusive(it.endDate),
       summary: `${it.name} (${it.topic} ${it.category})`,
