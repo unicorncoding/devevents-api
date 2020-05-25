@@ -4,7 +4,6 @@ const { nameBy } = require("../utils/geo");
 const { count } = require("../utils/arrays");
 const { isFuture } = require("../utils/dates");
 const { topicName } = require("../utils/topics");
-const { whois } = require("../utils/auth");
 const { search, byName } = require("../utils/datastore");
 const _ = require("lodash");
 
@@ -18,9 +17,7 @@ router.get(
       return;
     }
 
-    const me = await whois(req);
-    const events = await search(continent, me);
-
+    const events = await search(continent);
     const countries = events
       .filter(
         ({ topicCode, cfpEndDate }) =>

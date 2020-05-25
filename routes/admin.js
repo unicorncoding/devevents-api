@@ -1,31 +1,22 @@
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const { makeAdmin, whois } = require("../utils/auth");
-const { confirm, deleteOne, findOne } = require("../utils/datastore");
+const { deleteOne } = require("../utils/datastore");
 const { tweet } = require("../utils/twitter");
 
 router.post(
-  "/:eventId/:action(confirm|delete)",
+  "/:eventId/delete",
   asyncHandler(async (req, res) => {
-    const { eventId, action } = req.params;
+    const { eventId } = req.params;
     const { admin } = await whois(req);
 
     if (!admin) {
-      res.status(403).send("Sorry, you don't have access to confirm events");
+      res.status(403).send("Sorry, you don't have access to delete events");
       return;
     }
 
-    if (action === "confirm") {
-      const info = await confirm(eventId);
-      const event = await findOne(eventId);
-      tweet(event);
-      res.send(info);
-    }
-
-    if (action === "delete") {
-      const info = await deleteOne(eventId);
-      res.send(info);
-    }
+    const info = await deleteOne(eventId);
+    res.send(info);
   })
 );
 

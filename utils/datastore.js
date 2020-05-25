@@ -6,12 +6,9 @@ const { uid } = require("./uid");
 const { Datastore } = require("@google-cloud/datastore");
 const datastore = new Datastore();
 
-const includeId = (it) => ({ ...it, id: it[datastore.KEY].name });
+const includeId = (it) => ({ ...it, id: uid(it) });
 
-const filtering = ({ uid, admin }) => (it) =>
-  admin || !it.pending || it.creator == uid;
-
-const search = (continent, me) =>
+const search = (continent) =>
   datastore
     .runQuery(
       datastore
@@ -19,12 +16,12 @@ const search = (continent, me) =>
         .filter("startDate", ">=", new Date())
         .filter("continentCode", "=", continent)
     )
-    .then(([hits]) => hits.map(includeId).filter(filtering(me)));
+    .then(([hits]) => hits.map(includeId));
 
-const karma = (uid) =>
+const karma = (userId) =>
   datastore
     .runQuery(
-      datastore.createQuery("Event").select("__key__").filter("creator", uid)
+      datastore.createQuery("Event").select("__key__").filter("creator", userId)
     )
     .then(([hits]) => hits.length);
 
@@ -49,25 +46,11 @@ const storeIfNew = async (data, stats) => {
   }
 };
 
-const confirm = async (id) => {
-  const key = datastore.key(["Event", id]);
-  const data = { pending: false };
-  await datastore.merge({ key, data });
-};
-
-const findOne = async (id) => {
-  const key = datastore.key(["Event", id]);
-  const [event] = await datastore.get(key);
-  return event;
-};
-
 const deleteOne = async (id) => {
   const key = datastore.key(["Event", id]);
   await datastore.delete(key);
 };
 
-module.exports.confirm = confirm;
-module.exports.findOne = findOne;
 module.exports.deleteOne = deleteOne;
 module.exports.karma = karma;
 module.exports.searchForever = searchForever;

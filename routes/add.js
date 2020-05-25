@@ -4,6 +4,8 @@ const dayjs = require("dayjs");
 dayjs.extend(require("dayjs/plugin/isSameOrAfter"));
 dayjs.extend(require("dayjs/plugin/utc"));
 
+const { tweet } = require("../utils/twitter");
+
 const utc = dayjs.utc;
 
 const Stats = require("../utils/stats");
@@ -78,6 +80,7 @@ router.post(
     await storeIfNew(event, stats);
 
     if (stats.hasAnyStored()) {
+      tweet(event);
       res.json(event);
     } else {
       res.status(409).send(conflictsWith(event));
@@ -106,7 +109,6 @@ async function newEventFrom(req) {
     city: body.city,
     url: body.url,
     cfpUrl: body.cfpUrl,
-    pending: true,
   };
 }
 
