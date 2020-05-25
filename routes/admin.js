@@ -1,11 +1,11 @@
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const { makeAdmin, whois } = require("../utils/auth");
-const { confirm, reject, findOne } = require("../utils/datastore");
+const { confirm, deleteOne, findOne } = require("../utils/datastore");
 const { tweet } = require("../utils/twitter");
 
 router.post(
-  "/:eventId/:action(confirm|reject)",
+  "/:eventId/:action(confirm|delete)",
   asyncHandler(async (req, res) => {
     const { eventId, action } = req.params;
     const { admin } = await whois(req);
@@ -22,8 +22,8 @@ router.post(
       res.send(info);
     }
 
-    if (action === "reject") {
-      const info = await reject(eventId);
+    if (action === "delete") {
+      const info = await deleteOne(eventId);
       res.send(info);
     }
   })

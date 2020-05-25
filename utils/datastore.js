@@ -68,14 +68,14 @@ const findOne = async (id) => {
   return event;
 };
 
-const reject = async (id) => {
+const deleteOne = async (id) => {
   const key = datastore.key(["Event", id]);
   await datastore.delete(key);
 };
 
 module.exports.confirm = confirm;
 module.exports.findOne = findOne;
-module.exports.reject = reject;
+module.exports.deleteOne = deleteOne;
 module.exports.karma = karma;
 module.exports.searchForever = searchForever;
 module.exports.search = search;
