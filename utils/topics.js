@@ -95,6 +95,30 @@ const topics = {
   blockchain: {
     name: "Blockchain",
   },
+  serverless: {
+    name: "Serverless",
+  },
+  cloud: {
+    name: "Cloud",
+  },
+  containers: {
+    name: "Containers",
+  },
+  docker: {
+    name: "Docker",
+  },
+  google: {
+    name: "Google",
+  },
+  aws: {
+    name: "AWS",
+  },
+  angular: {
+    name: "Angular",
+  },
+  vue: {
+    name: "Vue",
+  },
 };
 
 module.exports.topicName = (topic) => topics[topic].name;
