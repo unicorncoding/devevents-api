@@ -21,10 +21,13 @@ const topics = {
     name: "IoT",
   },
   web: {
-    name: "Web development",
+    name: "Web and front-end",
   },
   data: {
     name: "Data science",
+  },
+  database: {
+    name: "Database",
   },
   devops: {
     name: "DevOps",
@@ -121,6 +124,30 @@ const topics = {
   },
   scrum: {
     name: "Scrum",
+  },
+  ios: {
+    name: "iOS",
+  },
+  android: {
+    name: "Android",
+  },
+  fp: {
+    name: "Functional programming",
+  },
+  fsharp: {
+    name: "F sharp",
+  },
+  fintech: {
+    name: "Fintech",
+  },
+  rust: {
+    name: "Rust",
+  },
+  k8s: {
+    name: "Kubernetes",
+  },
+  ml: {
+    name: "Machine learning & AI",
   },
 };
 
