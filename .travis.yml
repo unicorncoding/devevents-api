@@ -1,28 +1,31 @@
 language: node_js
 node_js:
-  - 10
+- 10
 branches:
   only:
-    - master
+  - master
 cache:
   directories:
-    - "$HOME/gcloud/"
-    - node_modules
-env:
+  - "$HOME/gcloud/"
+  - node_modules
+env: 
   matrix:
-    - PATH=$PATH:$HOME/gcloud/google-cloud-sdk/bin GOOGLE_APPLICATION_CREDENTIALS=$TRAVIS_BUILD_DIR/.gcloud-travis.json
+  - PATH=$PATH:$HOME/gcloud/google-cloud-sdk/bin GOOGLE_APPLICATION_CREDENTIALS=$TRAVIS_BUILD_DIR/.gcloud-travis.json
+  global:
+  - secure: LPA0P/MGbLrRPBD5f30IwQEPJVZXaxIw811rE4XP/L30qwiO/NFGHMUFkftjhF6CgJOk8aRwoALdQiLckbDt6w75Cyyn30A07UXScofd8dGTTrlZyG1PRAPpyOheGQV/vytYLpkMou/fZCXBuVXOe+KnzkZmIzyLZAo3j8JjZ1xRnuG0fLSm4ofDOjh69K42uf5WFX815jJNzJDqaiIGoFclJTLL93/7KwWGPi9ZGLmkvWJ1PqZI1AEIrEytx5UsBptOkQHEP8pzL1idOODwx706tnT6Ft+rbpbxUst2alTRCBzF/6oJQHeoRNdR26jXbWfs0Eas/arPImhhrUZOhgEhacIreSl4lbKJ4Vdt4dBUJ5OAfnfsNPnOjqWH2uxfS4z5fVoIplQoVSojptWDf0CiMyNYGad1oNIuuqHArRF7NcD0xHBKRNlPoLY04u0NZr6fwceNAmMxY9WYHubifsSQdUN8wPcNw87d4C/34Ovb7BmP45aCIAj5BVXfQfJmlXdeq53Yxdvl8qlzIRsNz5zsbNB+L7qhlyki+Uoo6Or5OrIeJxs/ytlH2p9dVPS3FK0Y74bq0OhchJ1tFnsyCO8242vzeKBQzvp10UH73SExsahWwd7rnaOmrbfRrNYZ24kf8oEQgemos0TJ11dxhdlrTyOURyE0HMYCAwtLda4=
+  - secure: AUIkSMDuw3d4xRxMA0y+tebnrhap90B/eE4YwqpLE6xTbUZL8dxhpFeo+xmSutF7PB9n+0jcFWiH/hSzFZev96/gAA2bQp3aCRJjox7pTFcfebsC42Tb7nzv5ShcrmxMfxzV9Qspr9trk2M0N3PIoY3DfOEvklmB6GtGB9ptppkEbD+jFOtwj1ykyxq/j4vEZX41wlfVAjgA+elCsm/MZmZBhk34FKKPrzm44Srn770md/QoHIjmq8kKcOQQlMvEbva+r8SpbaHxJGQWcu4/dviNVjbG3GD2cJyqzl3KIq2FPkF4OghOx+LbFYHjnFlQF8fhqR1zO7A9e5ahlIpPqb31JrlGvuBFwwxTYcHLFmfNPFqViiZGWpBqlEYo12UveZqsl5dBsjiazEf8pPWOFybUnYq2S0wfQv7Zln5IUhMpy2KJ3FuccS1vh5wqKcX8oqQXEagGpO24FuYyHwsi8R5Yk3pgcSjIs8STnN1L+77hx/J/2YGUiNIQAjrKpF4NZTs3wW/nMFkYwOuUYdPP2jS75FJdGu/ZKPMHjbu3JWvEtUXmf5+qIxyxTUd14bO2lK8JcD4KKgiFHFCRUo/QnQmg/qfVvdECNO32NNxMXWK6RxKl/4lbNrkK1OxURt8PAyTUcPsqqfIyyWoqv0Q6FsbG2P2X7CZCzpCQXY8kHO4=
 before_install:
-  - openssl aes-256-cbc -K $encrypted_3c84dcdc6bbe_key -iv $encrypted_3c84dcdc6bbe_iv
-    -in .env.enc -out .env -d
-  - openssl aes-256-cbc -K $encrypted_3f48101487a4_key -iv $encrypted_3f48101487a4_iv
-    -in .gcloud-travis.json.enc -out .gcloud-travis.json -d
-  - export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && echo "deb http://packages.cloud.google.com/apt
-    $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-    && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
-    - && sudo apt-get update -y && sudo apt-get install google-cloud-sdk=216.0.0-0 -y
-  - if [ -a .gcloud-travis.json ]; then gcloud -q auth activate-service-account --key-file
-    .gcloud-travis.json; fi
+- openssl aes-256-cbc -K $encrypted_3c84dcdc6bbe_key -iv $encrypted_3c84dcdc6bbe_iv
+  -in .env.enc -out .env -d
+- openssl aes-256-cbc -K $encrypted_3f48101487a4_key -iv $encrypted_3f48101487a4_iv
+  -in .gcloud-travis.json.enc -out .gcloud-travis.json -d
+- export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && echo "deb http://packages.cloud.google.com/apt
+  $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+  && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+  - && sudo apt-get update -y && sudo apt-get install google-cloud-sdk=216.0.0-0 -y
+- if [ -a .gcloud-travis.json ]; then gcloud -q auth activate-service-account --key-file
+  .gcloud-travis.json; fi
 script:
-  - npm install
-  - gcloud functions deploy api --runtime nodejs10 --trigger-http --project devevents
-    --verbosity=debug --memory=512MB --timeout=30s
+- npm install
+- gcloud functions deploy api --runtime nodejs10 --trigger-http --project devevents
+  --verbosity=debug --memory=512MB --timeout=30s
