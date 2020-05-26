@@ -8,7 +8,7 @@ cache:
   directories:
   - "$HOME/gcloud/"
   - node_modules
-env: 
+env:
   matrix:
   - PATH=$PATH:$HOME/gcloud/google-cloud-sdk/bin GOOGLE_APPLICATION_CREDENTIALS=$TRAVIS_BUILD_DIR/.gcloud-travis.json
 before_install:
