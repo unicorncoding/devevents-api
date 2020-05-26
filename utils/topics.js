@@ -21,7 +21,7 @@ const topics = {
     name: "IoT",
   },
   web: {
-    name: "Web",
+    name: "Web development",
   },
   data: {
     name: "Data science",
