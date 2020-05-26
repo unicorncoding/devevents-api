@@ -41,9 +41,6 @@ const topics = {
   react: {
     name: "React",
   },
-  erlang: {
-    name: "Erlang",
-  },
   fullstack: {
     name: "Full-stack",
   },
