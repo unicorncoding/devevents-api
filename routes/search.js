@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const { nameBy } = require("../utils/geo");
-const { count } = require("../utils/arrays");
+const { count, orderBy } = require("../utils/arrays");
 const { isFuture } = require("../utils/dates");
 const { topicName } = require("../utils/topics");
 const { search, byName } = require("../utils/datastore");
@@ -10,7 +10,15 @@ const _ = require("lodash");
 router.get(
   "/",
   asyncHandler(async (req, res) => {
-    const { continent, cfp, country, topic, limit = 30, start = 0 } = req.query;
+    const {
+      continent,
+      cfp,
+      country,
+      topic,
+      sorting = "startDate", // remove dafault after a couple of deployments
+      limit = 30,
+      start = 0,
+    } = req.query;
 
     if (!continent) {
       res.status(404).send("Query param [continent] is missing");
@@ -47,11 +55,14 @@ router.get(
       )
       .ordered(byName);
 
-    const matches = events.filter(
-      ({ topicCode, countryCode, cfpEndDate }) =>
-        (!topic || topic === topicCode) &&
-        (!country || country === countryCode) &&
-        (!cfp || isFuture(cfpEndDate))
+    const matches = orderBy(
+      events.filter(
+        ({ topicCode, countryCode, cfpEndDate }) =>
+          (!topic || topic === topicCode) &&
+          (!country || country === countryCode) &&
+          (!cfp || isFuture(cfpEndDate))
+      ),
+      sorting
     );
 
     const shown = _.chunk(matches, limit)[start] || [];
