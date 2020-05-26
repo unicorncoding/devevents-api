@@ -31,13 +31,12 @@ const required = [
   body("stateCode").custom((value, { req }) => {
     return req.body.countryCode !== "US" || !!states[value];
   }),
+  body("twitter")
+    .custom((value) => value.startsWith("@") && value.length > 3)
+    .customSanitizer((value) => value.replace("@", ""))
 ];
 
 const optionals = [
-  body("twitter")
-    .optional({ checkFalsy: true })
-    .custom((value) => value.startsWith("@") && value.length > 3)
-    .customSanitizer((value) => value.replace("@", "")),
   body("cfpEndDate")
     .optional({ checkFalsy: true })
     .custom((value) => utc(value).isAfter(utc(), "day"))
