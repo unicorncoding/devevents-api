@@ -18,7 +18,7 @@ const search = (continent) =>
     .then(([events]) =>
       events.map((event) => ({
         ...event,
-        id: uid(event),
+        id: event[datastore.KEY].name,
         country: countryName(event.countryCode),
         topic: topicName(event.topicCode),
       }))
