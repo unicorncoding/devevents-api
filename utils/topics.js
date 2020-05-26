@@ -35,6 +35,9 @@ const topics = {
   elixir: {
     name: "Elixir",
   },
+  react: {
+    name: "React",
+  },
   erlang: {
     name: "Erlang",
   },
