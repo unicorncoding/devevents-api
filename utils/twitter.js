@@ -24,6 +24,12 @@ module.exports.tweet = (event) => {
     ]),
   ].join("\n");
 
+  if (!process.env.twitter_consumer_key) {
+    console.log("Twitter is not configured. Twitting to log:");
+    console.log(status);
+    return;
+  }
+
   return twitter
     .post("statuses/update", { status })
     .catch((e) =>

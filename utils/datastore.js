@@ -1,7 +1,7 @@
 const memoize = require("memoizee");
 const { isFuture } = require("./dates");
 const { topicName } = require("./topics");
-const { countryName } = require("./geo");
+const { countryName, stateName } = require("./geo");
 const { uid } = require("./uid");
 
 const { Datastore } = require("@google-cloud/datastore");
@@ -20,6 +20,7 @@ const search = (continent) =>
         ...event,
         id: event[datastore.KEY].name,
         country: countryName(event.countryCode),
+        state: stateName(event.stateCode),
         topic: topicName(event.topicCode),
       }))
     );

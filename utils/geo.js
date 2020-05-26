@@ -1,3 +1,4 @@
+const { states } = require("./states");
 const unpopularCountries = ["GS", "IO", "HM", "UM", "AX", "AQ", "VI"];
 const countries = require("countries-list").countries;
 countries["ON"] = {
@@ -26,8 +27,14 @@ function countryName(countryCode) {
   return countries[countryCode].name;
 }
 
+function stateName(stateCode) {
+  return states[stateCode];
+}
+
 module.exports.countryName = countryName;
 module.exports.continents = continents;
+module.exports.states = states;
+module.exports.stateName = stateName;
 module.exports.countries = countries;
 module.exports.countriesOrdered = Object.keys(countries)
   .map((code) => ({ code: code, name: countries[code].name }))

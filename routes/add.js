@@ -12,7 +12,7 @@ const Stats = require("../utils/stats");
 
 const { check, body, header, validationResult } = require("express-validator");
 const { storeIfNew } = require("../utils/datastore");
-const { countries, countriesOrdered } = require("../utils/geo");
+const { countries, countriesOrdered, states } = require("../utils/geo");
 const { topics, topicsOrdered } = require("../utils/topics");
 const { normalizedUrl } = require("../utils/urls");
 const { emojiStrip } = require("../utils/emoji");
@@ -28,6 +28,9 @@ const required = [
   check("startDate")
     .custom((value) => utc(value).isAfter(utc(), "day"))
     .customSanitizer(utc),
+  body("stateCode").custom((value, { req }) => {
+    return req.body.countryCode !== "US" || !!states[value];
+  }),
 ];
 
 const optionals = [
@@ -92,6 +95,7 @@ async function newEventFrom(req) {
   const body = req.body;
   return {
     countryCode: body.countryCode,
+    stateCode: body.stateCode,
     continentCode: countries[body.countryCode].continent,
     topicCode: body.topicCode,
     creator: uid,
