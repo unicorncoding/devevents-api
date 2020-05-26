@@ -15,7 +15,7 @@ router.get(
       cfp,
       country,
       topic,
-      sorting = "startDate", // remove dafault after a couple of deployments
+      sorting,
       limit = 30,
       start = 0,
     } = req.query;

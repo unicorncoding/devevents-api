@@ -20,7 +20,6 @@ const { whois } = require("../utils/auth");
 
 const required = [
   header("authorization").exists().notEmpty(),
-  body("category").isIn(["conference", "training", "meetup"]),
   body("city").exists(),
   body("url").customSanitizer(normalizedUrl).isURL(),
   body("topicCode").isIn(topics),
@@ -92,7 +91,7 @@ async function newEventFrom(req) {
   const { uid } = await whois(req);
   const body = req.body;
   return {
-    category: body.category,
+    category: "conference",
     countryCode: body.countryCode,
     continentCode: countries[body.countryCode].continent,
     country: countries[body.countryCode].name,
