@@ -119,6 +119,9 @@ const topics = {
   vue: {
     name: "Vue",
   },
+  scrum: {
+    name: "Scrum",
+  },
 };
 
 module.exports.topicName = (topic) => topics[topic].name;
