@@ -33,7 +33,7 @@ const required = [
   }),
   body("twitter")
     .custom((value) => value.startsWith("@") && value.length > 3)
-    .customSanitizer((value) => value.replace("@", ""))
+    .customSanitizer((value) => value && value.replace("@", ""))
 ];
 
 const optionals = [
