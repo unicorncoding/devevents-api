@@ -27,7 +27,7 @@ module.exports.tweet = (event) => {
   return twitter
     .post("statuses/update", { status })
     .catch((e) =>
-      console.error(`Tweeting of ${event.name} failed`, new Error(e))
+      console.error(new Error(`Tweeting of ${event.name} failed: ${e}`))
     );
 };
 
