@@ -91,13 +91,9 @@ async function newEventFrom(req) {
   const { uid } = await whois(req);
   const body = req.body;
   return {
-    category: "conference",
     countryCode: body.countryCode,
     continentCode: countries[body.countryCode].continent,
-    country: countries[body.countryCode].name,
     topicCode: body.topicCode,
-    topic: topics[body.topicCode].name,
-    source: "devevents",
     creator: uid,
     creationDate: new Date(),
     startDate: body.startDate.toDate(),

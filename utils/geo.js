@@ -22,11 +22,11 @@ function normalizedContinent(continent) {
   return continent.replace("NA", "AM").replace("SA", "AM");
 }
 
-function nameBy(countryCode) {
+function countryName(countryCode) {
   return countries[countryCode].name;
 }
 
-module.exports.nameBy = nameBy;
+module.exports.countryName = countryName;
 module.exports.continents = continents;
 module.exports.countries = countries;
 module.exports.countriesOrdered = Object.keys(countries)

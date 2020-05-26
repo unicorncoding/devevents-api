@@ -12,14 +12,11 @@ twitter.post
   .mockReturnValue(Promise.resolve({ status: "OK" }));
 
 const offlineEvent = {
-  category: "conference",
   city: "Riga",
-  country: "Latvia",
   countryCode: "LV",
   name: "DevTernity",
   startDate: new Date("2020-11-03T00:00:00.000Z"),
   endDate: new Date("2020-11-03T00:00:00.000Z"),
-  topic: "Full-stack",
   url: "https://devternity.com",
 };
 
@@ -84,20 +81,17 @@ More information: https://devternity.com`,
 });
 
 const onlineEvent = {
-  category: "webinar",
   city: "Online",
-  country: "Online",
   countryCode: "ON",
   name: "Webinario",
   startDate: new Date("2020-10-10T00:00:00.000Z"),
-  topic: "DevOps",
   url: "https://webinario.com",
 };
 
 test("posts an online event", async () => {
   await tweet(onlineEvent);
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
-    status: `🆕 Webinario webinar
+    status: `🆕 Webinario conference
 🌍 Online
 🗓 October 10 2020
 

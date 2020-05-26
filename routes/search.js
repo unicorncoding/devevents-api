@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
-const { nameBy } = require("../utils/geo");
+const { countryName } = require("../utils/geo");
 const { count, orderBy } = require("../utils/arrays");
 const { isFuture } = require("../utils/dates");
 const { topicName } = require("../utils/topics");
@@ -79,7 +79,7 @@ router.get(
         total: matches.length,
         countries: countries,
         topicName: topic ? topicName(topic) : undefined,
-        countryName: country ? nameBy(country) : undefined,
+        countryName: country ? countryName(country) : undefined,
         topics: topics,
       },
     ]);

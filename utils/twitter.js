@@ -31,11 +31,11 @@ module.exports.tweet = (event) => {
     );
 };
 
-function what({ name, category, twitter }) {
+function what({ name, twitter }) {
   if (twitter) {
-    return `🆕 ${name} ${category} by @${twitter}`;
+    return `🆕 ${name} conference by @${twitter}`;
   } else {
-    return `🆕 ${name} ${category}`;
+    return `🆕 ${name} conference`;
   }
 }
 
@@ -63,15 +63,15 @@ function cfpOrEmpty({ cfpEndDate }) {
   }
 }
 
-function location({ city, country, countryCode }) {
-  if (country === "Online") {
+function location({ city, countryCode }) {
+  if (countryCode === "ON") {
     return "🌍 Online";
   } else {
-    const flag = countries[countryCode].emoji;
-    return `${flag} ${city}, ${country}`;
+    const { emoji, name } = countries[countryCode];
+    return `${emoji} ${city}, ${name}`;
   }
 }
 
-function callToAction({ twitter, url }) {
+function callToAction({ url }) {
   return `More information: ${url}`;
 }

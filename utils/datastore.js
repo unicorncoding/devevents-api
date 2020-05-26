@@ -1,12 +1,11 @@
 const memoize = require("memoizee");
-
 const { isFuture } = require("./dates");
+const { topicName } = require("./topics");
+const { countryName } = require("./geo");
 const { uid } = require("./uid");
 
 const { Datastore } = require("@google-cloud/datastore");
 const datastore = new Datastore();
-
-const includeId = (it) => ({ ...it, id: uid(it) });
 
 const search = (continent) =>
   datastore
@@ -16,7 +15,14 @@ const search = (continent) =>
         .filter("startDate", ">=", new Date())
         .filter("continentCode", "=", continent)
     )
-    .then(([hits]) => hits.map(includeId));
+    .then(([events]) =>
+      events.map((event) => ({
+        ...event,
+        id: uid(event),
+        country: countryName(event.countryCode),
+        topic: topicName(event.topicCode),
+      }))
+    );
 
 const karma = (userId) =>
   datastore

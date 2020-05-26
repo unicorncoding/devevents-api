@@ -2,7 +2,6 @@ const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const { makeAdmin, whois } = require("../utils/auth");
 const { deleteOne } = require("../utils/datastore");
-const { tweet } = require("../utils/twitter");
 
 router.post(
   "/:eventId/delete",
@@ -23,7 +22,7 @@ router.post(
 router.get(
   "/grant",
   asyncHandler(async (req, res) => {
-    const admin = "co.unicorn.ding@gmail.co";
+    const admin = "co.unicorn.ding@gmail.com";
     const info = await makeAdmin(admin);
     res.send(info);
   })
