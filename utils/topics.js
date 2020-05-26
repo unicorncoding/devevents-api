@@ -92,6 +92,9 @@ const topics = {
   qa: {
     name: "Testing and QA",
   },
+  blockchain: {
+    name: "Blockchain",
+  },
 };
 
 module.exports.topicName = (topic) => topics[topic].name;
