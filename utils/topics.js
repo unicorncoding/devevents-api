@@ -2,12 +2,6 @@ const topics = {
   softskills: {
     name: "Soft skills",
   },
-  ddd: {
-    name: "DDD",
-  },
-  microsoft: {
-    name: "Microsoft",
-  },
   clojure: {
     name: "Clojure",
   },
@@ -21,7 +15,7 @@ const topics = {
     name: "IoT",
   },
   web: {
-    name: "Web and front-end",
+    name: "Web development",
   },
   data: {
     name: "Data science",
@@ -95,38 +89,14 @@ const topics = {
   blockchain: {
     name: "Blockchain",
   },
-  serverless: {
-    name: "Serverless",
-  },
   cloud: {
     name: "Cloud",
   },
-  containers: {
-    name: "Containers",
-  },
   docker: {
-    name: "Docker",
-  },
-  google: {
-    name: "Google",
-  },
-  aws: {
-    name: "AWS",
-  },
-  angular: {
-    name: "Angular",
+    name: "Docker and Kubernetes",
   },
   vue: {
     name: "Vue",
-  },
-  scrum: {
-    name: "Scrum",
-  },
-  ios: {
-    name: "iOS",
-  },
-  android: {
-    name: "Android",
   },
   fp: {
     name: "Functional programming",
@@ -139,9 +109,6 @@ const topics = {
   },
   rust: {
     name: "Rust",
-  },
-  k8s: {
-    name: "Kubernetes",
   },
   ml: {
     name: "Machine learning & AI",
