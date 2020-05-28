@@ -15,13 +15,13 @@ const topics = {
     name: "IoT",
   },
   web: {
-    name: "Web development",
+    name: "Frontend & web",
   },
   data: {
     name: "Data science",
   },
   database: {
-    name: "Database",
+    name: "Databases",
   },
   devops: {
     name: "DevOps",
@@ -54,10 +54,10 @@ const topics = {
     name: "JavaScript",
   },
   leadership: {
-    name: "Leadership",
+    name: "Leadership & management",
   },
-  management: {
-    name: "Management",
+  game: {
+    name: "Game development",
   },
   architecture: {
     name: "Software architecture",
@@ -94,9 +94,6 @@ const topics = {
   },
   docker: {
     name: "Docker and Kubernetes",
-  },
-  vue: {
-    name: "Vue",
   },
   fp: {
     name: "Functional programming",
