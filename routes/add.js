@@ -10,7 +10,7 @@ const utc = dayjs.utc;
 
 const Stats = require("../utils/stats");
 
-const { check, body, header, validationResult } = require("express-validator");
+const { body, header, validationResult } = require("express-validator");
 const { storeIfNew } = require("../utils/datastore");
 const { countries, countriesOrdered, states } = require("../utils/geo");
 const { topics, topicsOrdered } = require("../utils/topics");
@@ -25,15 +25,25 @@ const required = [
   body("topicCode").isIn(topics),
   body("countryCode").isIn(countries),
   body("name").customSanitizer(emojiStrip).trim().notEmpty(),
-  check("startDate")
-    .custom((value) => utc(value).isAfter(utc(), "day"))
-    .customSanitizer(utc),
+  body("dates")
+    .exists()
+    .bail()
+    .customSanitizer((range) => ({
+      start: utc(range.start),
+      end: utc(range.end),
+    }))
+    .custom((value) => {
+      const { start, end } = value;
+      const startsAtLeastToday = start.isSameOrAfter(utc(), "day");
+      const endsNoEarlierThanStarts = end.isSameOrAfter(start, "day");
+      return startsAtLeastToday && endsNoEarlierThanStarts;
+    }),
   body("stateCode").custom((value, { req }) => {
     return req.body.countryCode !== "US" || !!states[value];
   }),
   body("twitter")
     .custom((value) => value.startsWith("@") && value.length > 3)
-    .customSanitizer((value) => value && value.replace("@", ""))
+    .customSanitizer((value) => value && value.replace("@", "")),
 ];
 
 const optionals = [
@@ -45,15 +55,6 @@ const optionals = [
     .optional({ checkFalsy: true })
     .customSanitizer(normalizedUrl)
     .isURL(),
-  body("endDate")
-    .optional({ checkFalsy: true })
-    .custom((value, { req }) => {
-      const it = utc(value);
-      return (
-        it.isAfter(utc(), "day") && it.isSameOrAfter(req.body.startDate, "day")
-      );
-    })
-    .customSanitizer(utc),
 ];
 
 router.get(
@@ -99,8 +100,8 @@ async function newEventFrom(req) {
     topicCode: body.topicCode,
     creator: uid,
     creationDate: new Date(),
-    startDate: body.startDate.toDate(),
-    endDate: body.endDate ? body.endDate.toDate() : body.startDate.toDate(),
+    startDate: body.dates.start.toDate(),
+    endDate: body.dates.end.toDate(),
     cfpEndDate: body.cfpEndDate ? body.cfpEndDate.toDate() : body.cfpEndDate,
     name: body.name,
     twitter: body.twitter,
