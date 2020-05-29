@@ -20,7 +20,6 @@
     "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "countries-list": "^2.5.0",
     "dayjs": "^1.8.17",
     "dotenv": "^8.2.0",
     "emoji-strip": "^1.0.1",

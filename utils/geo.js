@@ -1,10 +1,5 @@
 const { states } = require("./states");
-const unpopularCountries = ["GS", "IO", "HM", "UM", "AX", "AQ", "VI"];
-const countries = require("countries-list").countries;
-countries["ON"] = {
-  name: "Online",
-  continent: "ON",
-};
+const countries = require("./countries");
 
 const continents = {
   EU: "Europe",
@@ -37,6 +32,5 @@ module.exports.states = states;
 module.exports.stateName = stateName;
 module.exports.countries = countries;
 module.exports.countriesOrdered = Object.keys(countries)
-  .map((code) => ({ code: code, name: countries[code].name }))
-  .filter((it) => !unpopularCountries.includes(it.code))
+  .map((code) => ({ code: code, currency: countries[code].currency, name: countries[code].name }))
   .sort((it, that) => it.name.localeCompare(that.name));
