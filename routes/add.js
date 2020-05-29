@@ -25,6 +25,17 @@ const required = [
   body("topicCode").isIn(topics),
   body("countryCode").isIn(countries),
   body("name").customSanitizer(emojiStrip).trim().notEmpty(),
+  body("price")
+    .exists()
+    .bail()
+    .customSanitizer(({ from = 0, to = 0, currency, free }) => {
+      return { from: +from, to: +to, currency, free };
+    })
+    .custom(({ from, to, currency, free }) => {
+      return (
+        free || (from > 0 && to > 0 && to >= from && currency.length === 3)
+      );
+    }),
   body("dates")
     .exists()
     .bail()
@@ -32,8 +43,7 @@ const required = [
       start: utc(range.start),
       end: utc(range.end),
     }))
-    .custom((value) => {
-      const { start, end } = value;
+    .custom(({ start, end }) => {
       const startsAtLeastToday = start.isSameOrAfter(utc(), "day");
       const endsNoEarlierThanStarts = end.isSameOrAfter(start, "day");
       return startsAtLeastToday && endsNoEarlierThanStarts;
@@ -98,6 +108,10 @@ async function newEventFrom(req) {
     stateCode: body.stateCode,
     continentCode: countries[body.countryCode].continent,
     topicCode: body.topicCode,
+    free: body.price.free,
+    priceFrom: body.price.from,
+    priceTo: body.price.to,
+    priceCurrency: body.price.currency,
     creator: uid,
     creationDate: new Date(),
     startDate: body.dates.start.toDate(),

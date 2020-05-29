@@ -32,5 +32,9 @@ module.exports.states = states;
 module.exports.stateName = stateName;
 module.exports.countries = countries;
 module.exports.countriesOrdered = Object.keys(countries)
-  .map((code) => ({ code: code, currency: countries[code].currency, name: countries[code].name }))
+  .map((code) => ({
+    code: code,
+    currency: countries[code].currency,
+    name: countries[code].name,
+  }))
   .sort((it, that) => it.name.localeCompare(that.name));
