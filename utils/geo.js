@@ -1,5 +1,6 @@
 const { states } = require("./states");
 const countries = require("./countries");
+const emojis = require("./countries-emoji.json");
 
 const continents = {
   EU: "Europe",
@@ -22,11 +23,16 @@ function countryName(countryCode) {
   return countries[countryCode].name;
 }
 
+function countryEmoji(countryCode) {
+  return emojis[countryCode].emoji;
+}
+
 function stateName(stateCode) {
   return states[stateCode];
 }
 
 module.exports.countryName = countryName;
+module.exports.countryEmoji = countryEmoji;
 module.exports.continents = continents;
 module.exports.states = states;
 module.exports.stateName = stateName;

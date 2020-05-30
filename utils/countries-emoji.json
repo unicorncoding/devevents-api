@@ -1,0 +1,752 @@
+{
+  "AD": {
+    "emoji": "🇦🇩"
+  },
+  "AE": {
+    "emoji": "🇦🇪"
+  },
+  "AF": {
+    "emoji": "🇦🇫"
+  },
+  "AG": {
+    "emoji": "🇦🇬"
+  },
+  "AI": {
+    "emoji": "🇦🇮"
+  },
+  "AL": {
+    "emoji": "🇦🇱"
+  },
+  "AM": {
+    "emoji": "🇦🇲"
+  },
+  "AO": {
+    "emoji": "🇦🇴"
+  },
+  "AQ": {
+    "emoji": "🇦🇶"
+  },
+  "AR": {
+    "emoji": "🇦🇷"
+  },
+  "AS": {
+    "emoji": "🇦🇸"
+  },
+  "AT": {
+    "emoji": "🇦🇹"
+  },
+  "AU": {
+    "emoji": "🇦🇺"
+  },
+  "AW": {
+    "emoji": "🇦🇼"
+  },
+  "AX": {
+    "emoji": "🇦🇽"
+  },
+  "AZ": {
+    "emoji": "🇦🇿"
+  },
+  "BA": {
+    "emoji": "🇧🇦"
+  },
+  "BB": {
+    "emoji": "🇧🇧"
+  },
+  "BD": {
+    "emoji": "🇧🇩"
+  },
+  "BE": {
+    "emoji": "🇧🇪"
+  },
+  "BF": {
+    "emoji": "🇧🇫"
+  },
+  "BG": {
+    "emoji": "🇧🇬"
+  },
+  "BH": {
+    "emoji": "🇧🇭"
+  },
+  "BI": {
+    "emoji": "🇧🇮"
+  },
+  "BJ": {
+    "emoji": "🇧🇯"
+  },
+  "BL": {
+    "emoji": "🇧🇱"
+  },
+  "BM": {
+    "emoji": "🇧🇲"
+  },
+  "BN": {
+    "emoji": "🇧🇳"
+  },
+  "BO": {
+    "emoji": "🇧🇴"
+  },
+  "BQ": {
+    "emoji": "🇧🇶"
+  },
+  "BR": {
+    "emoji": "🇧🇷"
+  },
+  "BS": {
+    "emoji": "🇧🇸"
+  },
+  "BT": {
+    "emoji": "🇧🇹"
+  },
+  "BV": {
+    "emoji": "🇧🇻"
+  },
+  "BW": {
+    "emoji": "🇧🇼"
+  },
+  "BY": {
+    "emoji": "🇧🇾"
+  },
+  "BZ": {
+    "emoji": "🇧🇿"
+  },
+  "CA": {
+    "emoji": "🇨🇦"
+  },
+  "CC": {
+    "emoji": "🇨🇨"
+  },
+  "CD": {
+    "emoji": "🇨🇩"
+  },
+  "CF": {
+    "emoji": "🇨🇫"
+  },
+  "CG": {
+    "emoji": "🇨🇬"
+  },
+  "CH": {
+    "emoji": "🇨🇭"
+  },
+  "CI": {
+    "emoji": "🇨🇮"
+  },
+  "CK": {
+    "emoji": "🇨🇰"
+  },
+  "CL": {
+    "emoji": "🇨🇱"
+  },
+  "CM": {
+    "emoji": "🇨🇲"
+  },
+  "CN": {
+    "emoji": "🇨🇳"
+  },
+  "CO": {
+    "emoji": "🇨🇴"
+  },
+  "CR": {
+    "emoji": "🇨🇷"
+  },
+  "CU": {
+    "emoji": "🇨🇺"
+  },
+  "CV": {
+    "emoji": "🇨🇻"
+  },
+  "CW": {
+    "emoji": "🇨🇼"
+  },
+  "CX": {
+    "emoji": "🇨🇽"
+  },
+  "CY": {
+    "emoji": "🇨🇾"
+  },
+  "CZ": {
+    "emoji": "🇨🇿"
+  },
+  "DE": {
+    "emoji": "🇩🇪"
+  },
+  "DJ": {
+    "emoji": "🇩🇯"
+  },
+  "DK": {
+    "emoji": "🇩🇰"
+  },
+  "DM": {
+    "emoji": "🇩🇲"
+  },
+  "DO": {
+    "emoji": "🇩🇴"
+  },
+  "DZ": {
+    "emoji": "🇩🇿"
+  },
+  "EC": {
+    "emoji": "🇪🇨"
+  },
+  "EE": {
+    "emoji": "🇪🇪"
+  },
+  "EG": {
+    "emoji": "🇪🇬"
+  },
+  "EH": {
+    "emoji": "🇪🇭"
+  },
+  "ER": {
+    "emoji": "🇪🇷"
+  },
+  "ES": {
+    "emoji": "🇪🇸"
+  },
+  "ET": {
+    "emoji": "🇪🇹"
+  },
+  "FI": {
+    "emoji": "🇫🇮"
+  },
+  "FJ": {
+    "emoji": "🇫🇯"
+  },
+  "FK": {
+    "emoji": "🇫🇰"
+  },
+  "FM": {
+    "emoji": "🇫🇲"
+  },
+  "FO": {
+    "emoji": "🇫🇴"
+  },
+  "FR": {
+    "emoji": "🇫🇷"
+  },
+  "GA": {
+    "emoji": "🇬🇦"
+  },
+  "GB": {
+    "emoji": "🇬🇧"
+  },
+  "GD": {
+    "emoji": "🇬🇩"
+  },
+  "GE": {
+    "emoji": "🇬🇪"
+  },
+  "GF": {
+    "emoji": "🇬🇫"
+  },
+  "GG": {
+    "emoji": "🇬🇬"
+  },
+  "GH": {
+    "emoji": "🇬🇭"
+  },
+  "GI": {
+    "emoji": "🇬🇮"
+  },
+  "GL": {
+    "emoji": "🇬🇱"
+  },
+  "GM": {
+    "emoji": "🇬🇲"
+  },
+  "GN": {
+    "emoji": "🇬🇳"
+  },
+  "GP": {
+    "emoji": "🇬🇵"
+  },
+  "GQ": {
+    "emoji": "🇬🇶"
+  },
+  "GR": {
+    "emoji": "🇬🇷"
+  },
+  "GS": {
+    "emoji": "🇬🇸"
+  },
+  "GT": {
+    "emoji": "🇬🇹"
+  },
+  "GU": {
+    "emoji": "🇬🇺"
+  },
+  "GW": {
+    "emoji": "🇬🇼"
+  },
+  "GY": {
+    "emoji": "🇬🇾"
+  },
+  "HK": {
+    "emoji": "🇭🇰"
+  },
+  "HM": {
+    "emoji": "🇭🇲"
+  },
+  "HN": {
+    "emoji": "🇭🇳"
+  },
+  "HR": {
+    "emoji": "🇭🇷"
+  },
+  "HT": {
+    "emoji": "🇭🇹"
+  },
+  "HU": {
+    "emoji": "🇭🇺"
+  },
+  "ID": {
+    "emoji": "🇮🇩"
+  },
+  "IE": {
+    "emoji": "🇮🇪"
+  },
+  "IL": {
+    "emoji": "🇮🇱"
+  },
+  "IM": {
+    "emoji": "🇮🇲"
+  },
+  "IN": {
+    "emoji": "🇮🇳"
+  },
+  "IO": {
+    "emoji": "🇮🇴"
+  },
+  "IQ": {
+    "emoji": "🇮🇶"
+  },
+  "IR": {
+    "emoji": "🇮🇷"
+  },
+  "IS": {
+    "emoji": "🇮🇸"
+  },
+  "IT": {
+    "emoji": "🇮🇹"
+  },
+  "JE": {
+    "emoji": "🇯🇪"
+  },
+  "JM": {
+    "emoji": "🇯🇲"
+  },
+  "JO": {
+    "emoji": "🇯🇴"
+  },
+  "JP": {
+    "emoji": "🇯🇵"
+  },
+  "KE": {
+    "emoji": "🇰🇪"
+  },
+  "KG": {
+    "emoji": "🇰🇬"
+  },
+  "KH": {
+    "emoji": "🇰🇭"
+  },
+  "KI": {
+    "emoji": "🇰🇮"
+  },
+  "KM": {
+    "emoji": "🇰🇲"
+  },
+  "KN": {
+    "emoji": "🇰🇳"
+  },
+  "KP": {
+    "emoji": "🇰🇵"
+  },
+  "KR": {
+    "emoji": "🇰🇷"
+  },
+  "KW": {
+    "emoji": "🇰🇼"
+  },
+  "KY": {
+    "emoji": "🇰🇾"
+  },
+  "KZ": {
+    "emoji": "🇰🇿"
+  },
+  "LA": {
+    "emoji": "🇱🇦"
+  },
+  "LB": {
+    "emoji": "🇱🇧"
+  },
+  "LC": {
+    "emoji": "🇱🇨"
+  },
+  "LI": {
+    "emoji": "🇱🇮"
+  },
+  "LK": {
+    "emoji": "🇱🇰"
+  },
+  "LR": {
+    "emoji": "🇱🇷"
+  },
+  "LS": {
+    "emoji": "🇱🇸"
+  },
+  "LT": {
+    "emoji": "🇱🇹"
+  },
+  "LU": {
+    "emoji": "🇱🇺"
+  },
+  "LV": {
+    "emoji": "🇱🇻"
+  },
+  "LY": {
+    "emoji": "🇱🇾"
+  },
+  "MA": {
+    "emoji": "🇲🇦"
+  },
+  "MC": {
+    "emoji": "🇲🇨"
+  },
+  "MD": {
+    "emoji": "🇲🇩"
+  },
+  "ME": {
+    "emoji": "🇲🇪"
+  },
+  "MF": {
+    "emoji": "🇲🇫"
+  },
+  "MG": {
+    "emoji": "🇲🇬"
+  },
+  "MH": {
+    "emoji": "🇲🇭"
+  },
+  "MK": {
+    "emoji": "🇲🇰"
+  },
+  "ML": {
+    "emoji": "🇲🇱"
+  },
+  "MM": {
+    "emoji": "🇲🇲"
+  },
+  "MN": {
+    "emoji": "🇲🇳"
+  },
+  "MO": {
+    "emoji": "🇲🇴"
+  },
+  "MP": {
+    "emoji": "🇲🇵"
+  },
+  "MQ": {
+    "emoji": "🇲🇶"
+  },
+  "MR": {
+    "emoji": "🇲🇷"
+  },
+  "MS": {
+    "emoji": "🇲🇸"
+  },
+  "MT": {
+    "emoji": "🇲🇹"
+  },
+  "MU": {
+    "emoji": "🇲🇺"
+  },
+  "MV": {
+    "emoji": "🇲🇻"
+  },
+  "MW": {
+    "emoji": "🇲🇼"
+  },
+  "MX": {
+    "emoji": "🇲🇽"
+  },
+  "MY": {
+    "emoji": "🇲🇾"
+  },
+  "MZ": {
+    "emoji": "🇲🇿"
+  },
+  "NA": {
+    "emoji": "🇳🇦"
+  },
+  "NC": {
+    "emoji": "🇳🇨"
+  },
+  "NE": {
+    "emoji": "🇳🇪"
+  },
+  "NF": {
+    "emoji": "🇳🇫"
+  },
+  "NG": {
+    "emoji": "🇳🇬"
+  },
+  "NI": {
+    "emoji": "🇳🇮"
+  },
+  "NL": {
+    "emoji": "🇳🇱"
+  },
+  "NO": {
+    "emoji": "🇳🇴"
+  },
+  "NP": {
+    "emoji": "🇳🇵"
+  },
+  "NR": {
+    "emoji": "🇳🇷"
+  },
+  "NU": {
+    "emoji": "🇳🇺"
+  },
+  "NZ": {
+    "emoji": "🇳🇿"
+  },
+  "OM": {
+    "emoji": "🇴🇲"
+  },
+  "PA": {
+    "emoji": "🇵🇦"
+  },
+  "PE": {
+    "emoji": "🇵🇪"
+  },
+  "PF": {
+    "emoji": "🇵🇫"
+  },
+  "PG": {
+    "emoji": "🇵🇬"
+  },
+  "PH": {
+    "emoji": "🇵🇭"
+  },
+  "PK": {
+    "emoji": "🇵🇰"
+  },
+  "PL": {
+    "emoji": "🇵🇱"
+  },
+  "PM": {
+    "emoji": "🇵🇲"
+  },
+  "PN": {
+    "emoji": "🇵🇳"
+  },
+  "PR": {
+    "emoji": "🇵🇷"
+  },
+  "PS": {
+    "emoji": "🇵🇸"
+  },
+  "PT": {
+    "emoji": "🇵🇹"
+  },
+  "PW": {
+    "emoji": "🇵🇼"
+  },
+  "PY": {
+    "emoji": "🇵🇾"
+  },
+  "QA": {
+    "emoji": "🇶🇦"
+  },
+  "RE": {
+    "emoji": "🇷🇪"
+  },
+  "RO": {
+    "emoji": "🇷🇴"
+  },
+  "RS": {
+    "emoji": "🇷🇸"
+  },
+  "RU": {
+    "emoji": "🇷🇺"
+  },
+  "RW": {
+    "emoji": "🇷🇼"
+  },
+  "SA": {
+    "emoji": "🇸🇦"
+  },
+  "SB": {
+    "emoji": "🇸🇧"
+  },
+  "SC": {
+    "emoji": "🇸🇨"
+  },
+  "SD": {
+    "emoji": "🇸🇩"
+  },
+  "SE": {
+    "emoji": "🇸🇪"
+  },
+  "SG": {
+    "emoji": "🇸🇬"
+  },
+  "SH": {
+    "emoji": "🇸🇭"
+  },
+  "SI": {
+    "emoji": "🇸🇮"
+  },
+  "SJ": {
+    "emoji": "🇸🇯"
+  },
+  "SK": {
+    "emoji": "🇸🇰"
+  },
+  "SL": {
+    "emoji": "🇸🇱"
+  },
+  "SM": {
+    "emoji": "🇸🇲"
+  },
+  "SN": {
+    "emoji": "🇸🇳"
+  },
+  "SO": {
+    "emoji": "🇸🇴"
+  },
+  "SR": {
+    "emoji": "🇸🇷"
+  },
+  "SS": {
+    "emoji": "🇸🇸"
+  },
+  "ST": {
+    "emoji": "🇸🇹"
+  },
+  "SV": {
+    "emoji": "🇸🇻"
+  },
+  "SX": {
+    "emoji": "🇸🇽"
+  },
+  "SY": {
+    "emoji": "🇸🇾"
+  },
+  "SZ": {
+    "emoji": "🇸🇿"
+  },
+  "TC": {
+    "emoji": "🇹🇨"
+  },
+  "TD": {
+    "emoji": "🇹🇩"
+  },
+  "TF": {
+    "emoji": "🇹🇫"
+  },
+  "TG": {
+    "emoji": "🇹🇬"
+  },
+  "TH": {
+    "emoji": "🇹🇭"
+  },
+  "TJ": {
+    "emoji": "🇹🇯"
+  },
+  "TK": {
+    "emoji": "🇹🇰"
+  },
+  "TL": {
+    "emoji": "🇹🇱"
+  },
+  "TM": {
+    "emoji": "🇹🇲"
+  },
+  "TN": {
+    "emoji": "🇹🇳"
+  },
+  "TO": {
+    "emoji": "🇹🇴"
+  },
+  "TR": {
+    "emoji": "🇹🇷"
+  },
+  "TT": {
+    "emoji": "🇹🇹"
+  },
+  "TV": {
+    "emoji": "🇹🇻"
+  },
+  "TW": {
+    "emoji": "🇹🇼"
+  },
+  "TZ": {
+    "emoji": "🇹🇿"
+  },
+  "UA": {
+    "emoji": "🇺🇦"
+  },
+  "UG": {
+    "emoji": "🇺🇬"
+  },
+  "UM": {
+    "emoji": "🇺🇲"
+  },
+  "US": {
+    "emoji": "🇺🇸"
+  },
+  "UY": {
+    "emoji": "🇺🇾"
+  },
+  "UZ": {
+    "emoji": "🇺🇿"
+  },
+  "VA": {
+    "emoji": "🇻🇦"
+  },
+  "VC": {
+    "emoji": "🇻🇨"
+  },
+  "VE": {
+    "emoji": "🇻🇪"
+  },
+  "VG": {
+    "emoji": "🇻🇬"
+  },
+  "VI": {
+    "emoji": "🇻🇮"
+  },
+  "VN": {
+    "emoji": "🇻🇳"
+  },
+  "VU": {
+    "emoji": "🇻🇺"
+  },
+  "WF": {
+    "emoji": "🇼🇫"
+  },
+  "WS": {
+    "emoji": "🇼🇸"
+  },
+  "XK": {
+    "emoji": "🇽🇰"
+  },
+  "YE": {
+    "emoji": "🇾🇪"
+  },
+  "YT": {
+    "emoji": "🇾🇹"
+  },
+  "ZA": {
+    "emoji": "🇿🇦"
+  },
+  "ZM": {
+    "emoji": "🇿🇲"
+  },
+  "ZW": {
+    "emoji": "🇿🇼"
+  }
+}

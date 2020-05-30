@@ -1,5 +1,5 @@
 const Twit = require("twit");
-const { countries } = require("./geo");
+const { countryName, countryEmoji } = require("./geo");
 const { isFuture } = require("./dates");
 const dayjs = require("dayjs");
 dayjs.extend(require("dayjs/plugin/relativeTime"));
@@ -24,11 +24,11 @@ module.exports.tweet = (event) => {
     ]),
   ].join("\n");
 
-  if (!process.env.twitter_consumer_key) {
-    console.log("Twitter is not configured. Twitting to log:");
-    console.log(status);
-    return;
-  }
+  // if (!process.env.twitter_consumer_key) {
+  //   console.log("Twitter is not configured. Dumping tweet to log:");
+  //   console.log(status);
+  //   return;
+  // }
 
   return twitter
     .post("statuses/update", { status })
@@ -73,7 +73,8 @@ function location({ city, countryCode }) {
   if (countryCode === "ON") {
     return "🌍 Online";
   } else {
-    const { emoji, name } = countries[countryCode];
+    const name = countryName(countryCode);
+    const emoji = countryEmoji(countryCode);
     return `${emoji} ${city}, ${name}`;
   }
 }
