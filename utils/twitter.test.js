@@ -31,6 +31,28 @@ test("posts a conference", async () => {
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 
+❤️ Retweet to support!
+
+More information: https://devternity.com`,
+  });
+});
+
+test("posts a conference with price", async () => {
+  await tweet({
+    ...offlineEvent,
+    free: false,
+    priceFrom: 100,
+    priceTo: 200,
+    priceCurrency: "EUR",
+  });
+  expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
+    status: `🆕 DevTernity
+🇱🇻 Riga, Latvia
+🗓 November 3 2020
+💰 100 – 200 EUR
+
+❤️ Retweet to support!
+
 More information: https://devternity.com`,
   });
 });
@@ -43,6 +65,8 @@ test("posts a multi-day conference", async () => {
 🇱🇻 Riga, Latvia
 🗓 November 3-4 2020
 
+❤️ Retweet to support!
+
 More information: https://devternity.com`,
   });
 });
@@ -54,6 +78,8 @@ test("posts a multi-day conference that spans multiple months", async () => {
     status: `🆕 DevTernity
 🇱🇻 Riga, Latvia
 🗓 November 3 - December 4 2020
+
+❤️ Retweet to support!
 
 More information: https://devternity.com`,
   });
@@ -69,6 +95,8 @@ test("posts a conference with cfp", async () => {
 🗓 November 3 2020
 📢 ${remainingDays} to submit a talk
 
+❤️ Retweet to support!
+
 More information: https://devternity.com`,
   });
 });
@@ -79,6 +107,8 @@ test("posts a conference and mentions the organizer", async () => {
     status: `🆕 DevTernity by @devternity
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
+
+❤️ Retweet to support!
 
 More information: https://devternity.com`,
   });
@@ -99,6 +129,8 @@ test("posts an online event", async () => {
 🌍 Online
 🗓 October 10 2020
 
+❤️ Retweet to support!
+
 More information: https://webinario.com`,
   });
 });
@@ -118,8 +150,9 @@ test("posts a free event", async () => {
     status: `🆕 Freebie
 🌍 Online
 🗓 October 3 2021
+💰 FREE
 
-🚀 Omg, it's free!
+❤️ Retweet to support!
 
 More information: https://freebie.net`,
   });
@@ -133,9 +166,10 @@ test("posts a free event with cfp", async () => {
     status: `🆕 Freebie
 🌍 Online
 🗓 October 3 2021
+💰 FREE
 📢 ${remainingDays} to submit a talk
 
-🚀 Omg, it's free!
+❤️ Retweet to support!
 
 More information: https://freebie.net`,
   });

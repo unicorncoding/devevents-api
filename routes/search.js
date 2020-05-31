@@ -1,4 +1,4 @@
-console.time('initializing search');
+console.time("initializing search");
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const { countryName } = require("../utils/geo");
@@ -8,7 +8,7 @@ const { topicName } = require("../utils/topics");
 const { search, byName } = require("../utils/datastore");
 const _ = require("lodash");
 
-console.time('initializing search');
+console.time("initializing search");
 
 router.get(
   "/",

@@ -18,8 +18,9 @@ module.exports.tweet = (event) => {
       what(event),
       location(event),
       `🗓 ${date(event)}`,
+      price(event),
       cfpOrUndefined(event),
-      itsFree(event),
+      retweetPlease(event),
       "",
       callToAction(event),
     ],
@@ -40,8 +41,20 @@ module.exports.tweet = (event) => {
     );
 };
 
-function itsFree({ free }) {
-  return free ? "\n🚀 Omg, it's free!" : undefined;
+function price({ free, priceFrom, priceTo, priceCurrency }) {
+  if (free === undefined) {
+    return undefined;
+  }
+
+  if (free) {
+    return "💰 FREE";
+  } else {
+    return `💰 ${priceFrom} – ${priceTo} ${priceCurrency}`;
+  }
+}
+
+function retweetPlease({ free }) {
+  return "\n❤️ Retweet to support!";
 }
 
 function what({ name, twitter }) {
