@@ -103,7 +103,6 @@ More information: https://webinario.com`,
   });
 });
 
-
 const freeEvent = {
   city: "Online",
   countryCode: "ON",

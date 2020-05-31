@@ -5,6 +5,7 @@ dayjs.extend(require("dayjs/plugin/isSameOrAfter"));
 dayjs.extend(require("dayjs/plugin/utc"));
 
 const { tweet } = require("../utils/twitter");
+const { twitterHandle } = require("../utils/twitter-handle");
 
 const utc = dayjs.utc;
 
@@ -52,8 +53,8 @@ const required = [
     return req.body.countryCode !== "US" || !!states[value];
   }),
   body("twitter")
-    .custom((value) => value.startsWith("@") && value.length > 3)
-    .customSanitizer((value) => value && value.replace("@", "")),
+    .customSanitizer((value) => twitterHandle(value))
+    .exists(),
 ];
 
 const optionals = [

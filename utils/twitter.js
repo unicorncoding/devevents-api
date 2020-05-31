@@ -20,10 +20,12 @@ module.exports.tweet = (event) => {
       `🗓 ${date(event)}`,
       cfpOrUndefined(event),
       itsFree(event),
-      '',
+      "",
       callToAction(event),
     ],
-  ].filter(line => line !== undefined).join("\n");
+  ]
+    .filter((line) => line !== undefined)
+    .join("\n");
 
   // if (!process.env.twitter_consumer_key) {
   //   console.log("Twitter is not configured. Dumping tweet to log:");
