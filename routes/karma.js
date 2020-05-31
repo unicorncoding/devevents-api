@@ -4,7 +4,7 @@ const router = require("express").Router();
 const { whois } = require("../utils/auth");
 const { karma } = require("../utils/datastore");
 
-console.time("initializing karma");
+console.timeEnd("initializing karma");
 router.get(
   "/",
   asyncHandler(async (req, res) => {

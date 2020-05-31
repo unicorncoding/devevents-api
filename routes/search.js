@@ -8,7 +8,7 @@ const { topicName } = require("../utils/topics");
 const { search, byName } = require("../utils/datastore");
 const _ = require("lodash");
 
-console.time("initializing search");
+console.timeEnd("initializing search");
 
 router.get(
   "/",

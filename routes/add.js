@@ -71,7 +71,7 @@ const optionals = [
     .isURL(),
 ];
 
-console.time("initializing add");
+console.timeEnd("initializing add");
 
 router.get(
   "/prepare",
