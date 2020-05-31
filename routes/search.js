@@ -7,6 +7,10 @@ const { topicName } = require("../utils/topics");
 const { search, byName } = require("../utils/datastore");
 const _ = require("lodash");
 
+// [x] digital innovation
+// [x] broke filtering
+// [x] accept twitter url
+// [x] separate dates from - to
 router.get(
   "/",
   asyncHandler(async (req, res) => {
@@ -16,6 +20,7 @@ router.get(
       country,
       topic,
       sorting,
+      freeOnly,
       limit = 30,
       start = 0,
     } = req.query;
@@ -40,6 +45,8 @@ router.get(
       )
       .ordered(byName);
 
+    const free = 0;
+
     const topics = events
       .filter(
         ({ countryCode, cfpEndDate }) =>
@@ -57,7 +64,8 @@ router.get(
 
     const matches = orderBy(
       events.filter(
-        ({ topicCode, countryCode, cfpEndDate }) =>
+        ({ topicCode, countryCode, cfpEndDate, free }) =>
+          (!Boolean(freeOnly) || free) &&
           (!topic || topic === topicCode) &&
           (!country || country === countryCode) &&
           (!cfp || isFuture(cfpEndDate))
@@ -73,14 +81,15 @@ router.get(
     res.json([
       shown,
       {
-        limit: limit,
+        limit,
+        more,
+        free,
+        countries,
+        topics,
         cursor: next,
-        more: more,
         total: matches.length,
-        countries: countries,
         topicName: topic ? topicName(topic) : undefined,
         countryName: country ? countryName(country) : undefined,
-        topics: topics,
       },
     ]);
   })

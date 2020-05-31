@@ -11,6 +11,10 @@ twitter.post
   .mockName("post")
   .mockReturnValue(Promise.resolve({ status: "OK" }));
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 const offlineEvent = {
   city: "Riga",
   countryCode: "LV",
@@ -96,5 +100,42 @@ test("posts an online event", async () => {
 🗓 October 10 2020
 
 More information: https://webinario.com`,
+  });
+});
+
+
+const freeEvent = {
+  city: "Online",
+  countryCode: "ON",
+  name: "Freebie",
+  free: true,
+  startDate: new Date("2021-10-03T00:00:00.000Z"),
+  url: "https://freebie.net",
+};
+
+test("posts a free event", async () => {
+  await tweet(freeEvent);
+  expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
+    status: `🆕 Freebie conference
+🌍 Online
+🗓 October 3 2021
+🚀 Omg, it's free!
+
+More information: https://freebie.net`,
+  });
+});
+
+test("posts a free event with cfp", async () => {
+  const cfpEndDate = new Date("2030-12-04T00:00:00.000Z");
+  const remainingDays = dayjs(cfpEndDate).fromNow(true);
+  await tweet({ ...freeEvent, cfpEndDate });
+  expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
+    status: `🆕 Freebie conference
+🌍 Online
+🗓 October 3 2021
+📢 ${remainingDays} to submit a talk
+🚀 Omg, it's free!
+
+More information: https://freebie.net`,
   });
 });

@@ -14,15 +14,16 @@ const twitter = new Twit(config);
 
 module.exports.tweet = (event) => {
   const status = [
-    ...new Set([
+    ...[
       what(event),
       location(event),
       `🗓 ${date(event)}`,
-      cfpOrEmpty(event),
-      ``,
+      cfpOrUndefined(event),
+      itsFree(event),
+      '',
       callToAction(event),
-    ]),
-  ].join("\n");
+    ],
+  ].filter(line => line !== undefined).join("\n");
 
   // if (!process.env.twitter_consumer_key) {
   //   console.log("Twitter is not configured. Dumping tweet to log:");
@@ -36,6 +37,10 @@ module.exports.tweet = (event) => {
       console.error(new Error(`Tweeting of ${event.name} failed: ${e}`))
     );
 };
+
+function itsFree({ free }) {
+  return free ? "🚀 Omg, it's free!" : undefined;
+}
 
 function what({ name, twitter }) {
   if (twitter) {
@@ -60,12 +65,12 @@ function date({ startDate, endDate }) {
   }
 }
 
-function cfpOrEmpty({ cfpEndDate }) {
+function cfpOrUndefined({ cfpEndDate }) {
   if (isFuture(cfpEndDate)) {
     const timeLeft = dayjs(cfpEndDate).fromNow(true);
     return `📢 ${timeLeft} to submit a talk`;
   } else {
-    return "";
+    return undefined;
   }
 }
 
