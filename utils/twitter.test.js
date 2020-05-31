@@ -73,6 +73,24 @@ More information: https://devternity.com`,
 
 More information: https://devternity.com`,
   });
+
+  await tweet({
+    ...offlineEvent,
+    free: false,
+    priceFrom: 101,
+    priceTo: undefined,
+    priceCurrency: "EUR",
+  });
+  expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
+    status: `🆕 DevTernity
+🇱🇻 Riga, Latvia
+🗓 November 3 2020
+💰 101 EUR
+
+❤️ Retweet to support!
+
+More information: https://devternity.com`,
+  });
 });
 
 test("posts a multi-day conference", async () => {
