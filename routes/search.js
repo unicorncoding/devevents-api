@@ -7,9 +7,6 @@ const { topicName } = require("../utils/topics");
 const { search, byName } = require("../utils/datastore");
 const _ = require("lodash");
 
-// [x] digital innovation
-// [x] broke filtering
-// [x] accept twitter url
 // [x] separate dates from - to
 router.get(
   "/",
