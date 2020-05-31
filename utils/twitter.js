@@ -44,9 +44,9 @@ function itsFree({ free }) {
 
 function what({ name, twitter }) {
   if (twitter) {
-    return `🆕 ${name} conference by @${twitter}`;
+    return `🆕 ${name} by @${twitter}`;
   } else {
-    return `🆕 ${name} conference`;
+    return `🆕 ${name}`;
   }
 }
 
