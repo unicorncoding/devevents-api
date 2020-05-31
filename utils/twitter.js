@@ -48,6 +48,8 @@ function price({ free, priceFrom, priceTo, priceCurrency }) {
 
   if (free) {
     return "💰 FREE";
+  } else if (priceFrom === priceTo) {
+    return `💰 ${priceFrom} ${priceCurrency}`;
   } else {
     return `💰 ${priceFrom} – ${priceTo} ${priceCurrency}`;
   }
