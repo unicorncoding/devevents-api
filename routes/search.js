@@ -7,7 +7,6 @@ const { topicName } = require("../utils/topics");
 const { search, byName } = require("../utils/datastore");
 const _ = require("lodash");
 
-// [x] separate dates from - to
 router.get(
   "/",
   asyncHandler(async (req, res) => {

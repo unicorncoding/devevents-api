@@ -7,6 +7,8 @@ dayjs.extend(require("dayjs/plugin/utc"));
 const { tweet } = require("../utils/twitter");
 const { twitterHandle } = require("../utils/twitter-handle");
 
+const is = require("is_js");
+
 const utc = dayjs.utc;
 
 const Stats = require("../utils/stats");
@@ -38,13 +40,15 @@ const required = [
       );
     }),
   body("dates")
-    .exists()
+    .custom(is.not.empty)
     .bail()
-    .customSanitizer((range) => ({
-      start: utc(range.start),
-      end: utc(range.end),
+    .customSanitizer(({ start, end = start }) => ({
+      start: utc(start),
+      end: utc(end),
     }))
     .custom(({ start, end }) => {
+      console.log(start);
+      console.log(end);
       const startsAtLeastToday = start.isSameOrAfter(utc(), "day");
       const endsNoEarlierThanStarts = end.isSameOrAfter(start, "day");
       return startsAtLeastToday && endsNoEarlierThanStarts;

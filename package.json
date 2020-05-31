@@ -7,7 +7,7 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "serve": "env GOOGLE_APPLICATION_CREDENTIALS=./firebase.credentials.json MODE=dev nodemon index",
+    "serve": "env GOOGLE_APPLICATION_CREDENTIALS=./firebase.credentials.json MODE=dev DATASTORE_EMULATOR_HOST=127.0.0.1:8081 nodemon index",
     "test": "jest --coverage",
     "lint": "eslint '**/*.js' --ignore-pattern 'tmp' --fix"
   },
@@ -28,6 +28,7 @@
     "express-validator": "^6.4.0",
     "firebase-admin": "^8.10.0",
     "hash-sum": "^2.0.0",
+    "is_js": "^0.9.0",
     "lodash": "^4.17.15",
     "memoizee": "^0.4.14",
     "morgan": "^1.9.1",
