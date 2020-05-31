@@ -1,3 +1,4 @@
+console.time('initializing add');
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const dayjs = require("dayjs");
@@ -69,6 +70,8 @@ const optionals = [
     .customSanitizer(normalizedUrl)
     .isURL(),
 ];
+
+console.time('initializing add');
 
 router.get(
   "/prepare",

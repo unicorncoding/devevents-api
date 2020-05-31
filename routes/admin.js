@@ -1,7 +1,9 @@
+console.time('initializing admin');
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const { makeAdmin, whois } = require("../utils/auth");
 const { deleteOne } = require("../utils/datastore");
+console.time('initializing admin');
 
 router.post(
   "/:eventId/delete",

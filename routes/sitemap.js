@@ -1,3 +1,4 @@
+console.time('initializing sitemap');
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const { searchForever } = require("../utils/datastore");
@@ -9,6 +10,8 @@ const { createGzip } = require("zlib");
 // remove in Node 11
 const flat = require("array.prototype.flat");
 flat.shim();
+
+console.timeEnd('initializing sitemap');
 
 router.get(
   "/",
