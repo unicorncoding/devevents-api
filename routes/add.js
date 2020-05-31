@@ -32,12 +32,11 @@ const required = [
   body("price")
     .exists()
     .bail()
-    .customSanitizer(({ from, to, currency, free }) => {
-      return { from: from ? +from : 0, to: to ? +to : +from, currency, free };
-    })
     .custom(({ from, to, currency, free }) => {
       return (
-        free || (from > 0 && to > 0 && to >= from && currency.length === 3)
+        free ||
+        (((from === 0 && to > 0) || (from > 0 && (!to || to > from))) &&
+          currency.length === 3)
       );
     }),
   body("dates")

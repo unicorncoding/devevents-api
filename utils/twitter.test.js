@@ -72,7 +72,7 @@ More information: https://devternity.com`,
 ❤️ Retweet to support!
 
 More information: https://devternity.com`,
-  });  
+  });
 });
 
 test("posts a multi-day conference", async () => {
