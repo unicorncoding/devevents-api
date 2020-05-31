@@ -2,6 +2,9 @@ const topics = {
   softskills: {
     name: "Soft skills",
   },
+  it: {
+    name: "General IT/Tech"
+  },
   clojure: {
     name: "Clojure",
   },
