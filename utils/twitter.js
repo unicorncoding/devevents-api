@@ -39,7 +39,7 @@ module.exports.tweet = (event) => {
 };
 
 function itsFree({ free }) {
-  return free ? "🚀 Omg, it's free!" : undefined;
+  return free ? "\n🚀 Omg, it's free!" : undefined;
 }
 
 function what({ name, twitter }) {

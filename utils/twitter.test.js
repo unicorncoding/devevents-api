@@ -119,6 +119,7 @@ test("posts a free event", async () => {
     status: `🆕 Freebie
 🌍 Online
 🗓 October 3 2021
+
 🚀 Omg, it's free!
 
 More information: https://freebie.net`,
@@ -134,6 +135,7 @@ test("posts a free event with cfp", async () => {
 🌍 Online
 🗓 October 3 2021
 📢 ${remainingDays} to submit a talk
+
 🚀 Omg, it's free!
 
 More information: https://freebie.net`,
