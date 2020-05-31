@@ -31,8 +31,8 @@ const required = [
   body("price")
     .exists()
     .bail()
-    .customSanitizer(({ from = 0, to = 0, currency, free }) => {
-      return { from: +from, to: +to, currency, free };
+    .customSanitizer(({ from, to, currency, free }) => {
+      return { from: from ? +from : 0, to: to ? +to : +from, currency, free };
     })
     .custom(({ from, to, currency, free }) => {
       return (
@@ -47,8 +47,6 @@ const required = [
       end: utc(end),
     }))
     .custom(({ start, end }) => {
-      console.log(start);
-      console.log(end);
       const startsAtLeastToday = start.isSameOrAfter(utc(), "day");
       const endsNoEarlierThanStarts = end.isSameOrAfter(start, "day");
       return startsAtLeastToday && endsNoEarlierThanStarts;
