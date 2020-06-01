@@ -10,8 +10,8 @@ module.exports.localPrice = (event, targetCurrency) => {
 
   const exchange = exchanges[targetCurrency];
   if (!exchange) {
-      console.warn(`No exchange for target currency: ${targetCurrency}`);
-      return undefined;
+    console.warn(`No exchange for target currency: ${targetCurrency}`);
+    return undefined;
   }
 
   const convert = exchange[priceCurrency];

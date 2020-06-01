@@ -8,8 +8,15 @@ const { topicName } = require("../utils/topics");
 const { search, byName } = require("../utils/datastore");
 const { localPrice } = require("../utils/pricing");
 const _ = require("lodash");
+const { startDate, cheapestFirst, newestFirst } = require("../utils/sortings");
 
 console.timeEnd("initializing search");
+
+const sortings = {
+  cheapestFirst: cheapestFirst,
+  newestFirst: newestFirst,
+  startDate: startDate,
+};
 
 router.get(
   "/",
@@ -67,15 +74,14 @@ router.get(
       )
       .ordered(byName);
 
-    const matches = orderBy(
+    const matches = sortings[sorting](
       events.filter(
         ({ topicCode, countryCode, cfpEndDate, free }) =>
           (!Boolean(freeOnly) || free) &&
           (!topic || topic === topicCode) &&
           (!country || country === countryCode) &&
           (!cfp || isFuture(cfpEndDate))
-      ),
-      sorting
+      )
     );
 
     const shown = _.chunk(matches, limit)[start] || [];

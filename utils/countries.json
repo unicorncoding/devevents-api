@@ -318,11 +318,6 @@
     "continent": "AF",
     "currency": "EGP"
   },
-  "EH": {
-    "name": "Western Sahara",
-    "continent": "AF",
-    "currency": "MRU"
-  },
   "ER": {
     "name": "Eritrea",
     "continent": "AF",
@@ -353,11 +348,6 @@
     "continent": "SA",
     "currency": "FKP"
   },
-  "FM": {
-    "name": "Micronesia",
-    "continent": "OC",
-    "currency": "USD"
-  },
   "FO": {
     "name": "Faroe Islands",
     "continent": "EU",
@@ -367,11 +357,6 @@
     "name": "France",
     "continent": "EU",
     "currency": "EUR"
-  },
-  "GA": {
-    "name": "Gabon",
-    "continent": "AF",
-    "currency": "XAF"
   },
   "GB": {
     "name": "United Kingdom",
@@ -423,11 +408,6 @@
     "continent": "AF",
     "currency": "GNF"
   },
-  "GP": {
-    "name": "Guadeloupe",
-    "continent": "NA",
-    "currency": "EUR"
-  },
   "GQ": {
     "name": "Equatorial Guinea",
     "continent": "AF",
@@ -452,11 +432,6 @@
     "name": "Guinea-Bissau",
     "continent": "AF",
     "currency": "XOF"
-  },
-  "GY": {
-    "name": "Guyana",
-    "continent": "SA",
-    "currency": "GYD"
   },
   "HK": {
     "name": "Hong Kong",
@@ -718,11 +693,6 @@
     "continent": "AS",
     "currency": "MOP"
   },
-  "MQ": {
-    "name": "Martinique",
-    "continent": "NA",
-    "currency": "EUR"
-  },
   "MR": {
     "name": "Mauritania",
     "continent": "AF",
@@ -773,11 +743,6 @@
     "continent": "AF",
     "currency": "NAD"
   },
-  "NC": {
-    "name": "New Caledonia",
-    "continent": "OC",
-    "currency": "XPF"
-  },
   "NE": {
     "name": "Niger",
     "continent": "AF",
@@ -817,11 +782,6 @@
     "name": "Nauru",
     "continent": "OC",
     "currency": "AUD"
-  },
-  "NU": {
-    "name": "Niue",
-    "continent": "OC",
-    "currency": "NZD"
   },
   "NZ": {
     "name": "New Zealand",
@@ -872,11 +832,6 @@
     "name": "Saint Pierre and Miquelon",
     "continent": "NA",
     "currency": "EUR"
-  },
-  "PN": {
-    "name": "Pitcairn Islands",
-    "continent": "OC",
-    "currency": "NZD"
   },
   "PR": {
     "name": "Puerto Rico",
@@ -1038,11 +993,6 @@
     "continent": "AF",
     "currency": "XAF"
   },
-  "TF": {
-    "name": "French Southern Territories",
-    "continent": "AN",
-    "currency": "EUR"
-  },
   "TG": {
     "name": "Togo",
     "continent": "AF",
@@ -1062,11 +1012,6 @@
     "name": "Tokelau",
     "continent": "OC",
     "currency": "NZD"
-  },
-  "TL": {
-    "name": "East Timor",
-    "continent": "OC",
-    "currency": "USD"
   },
   "TM": {
     "name": "Turkmenistan",
