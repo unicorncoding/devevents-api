@@ -27,7 +27,6 @@ router.get(
       country,
       topic,
       sorting,
-      freeOnly,
       limit = 30,
       start = 0,
     } = req.query;
@@ -57,8 +56,6 @@ router.get(
       )
       .ordered(byName);
 
-    const free = 0;
-
     const topics = events
       .filter(
         ({ countryCode, cfpEndDate }) =>
@@ -76,8 +73,7 @@ router.get(
 
     const matches = sortings[sorting](
       events.filter(
-        ({ topicCode, countryCode, cfpEndDate, free }) =>
-          (!Boolean(freeOnly) || free) &&
+        ({ topicCode, countryCode, cfpEndDate }) =>
           (!topic || topic === topicCode) &&
           (!country || country === countryCode) &&
           (!cfp || isFuture(cfpEndDate))
@@ -94,7 +90,6 @@ router.get(
       {
         limit,
         more,
-        free,
         countries,
         topics,
         cursor: next,
