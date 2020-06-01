@@ -973,11 +973,6 @@
     "continent": "EU",
     "currency": "EUR"
   },
-  "SJ": {
-    "name": "Svalbard and Jan Mayen",
-    "continent": "EU",
-    "currency": "NOK"
-  },
   "SK": {
     "name": "Slovakia",
     "continent": "EU",
@@ -1032,11 +1027,6 @@
     "name": "Syria",
     "continent": "AS",
     "currency": "SYP"
-  },
-  "SZ": {
-    "name": "Swaziland",
-    "continent": "AF",
-    "currency": "SZL"
   },
   "TC": {
     "name": "Turks and Caicos Islands",

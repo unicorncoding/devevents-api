@@ -6,6 +6,7 @@ const { count, orderBy } = require("../utils/arrays");
 const { isFuture } = require("../utils/dates");
 const { topicName } = require("../utils/topics");
 const { search, byName } = require("../utils/datastore");
+const { localPrice } = require("../utils/pricing");
 const _ = require("lodash");
 
 console.timeEnd("initializing search");
@@ -29,7 +30,12 @@ router.get(
       return;
     }
 
-    const events = await search(continent);
+    const targetCurrency = continent === "EU" ? "EUR" : "USD";
+
+    const events = (await search(continent)).map((event) => ({
+      ...event,
+      localPrice: localPrice(event, targetCurrency),
+    }));
     const countries = events
       .filter(
         ({ topicCode, cfpEndDate }) =>
