@@ -1,85 +1,77 @@
 console.time("initializing add");
 const asyncHandler = require("express-async-handler");
-
 const router = require("express").Router();
 
 const dayjs = require("dayjs");
-
 dayjs.extend(require("dayjs/plugin/isSameOrAfter"));
 dayjs.extend(require("dayjs/plugin/utc"));
 
-
 const { twitterHandle } = require("../utils/twitter-handle");
-
 const is = require("is_js");
-
 const utc = dayjs.utc;
-
 const Stats = require("../utils/stats");
-
-const { body, header, validationResult } = require("express-validator");
 const { storeIfNew } = require("../utils/datastore");
-const { countries, countriesOrdered, states } = require("../utils/geo");
-const { topics, topicsOrdered } = require("../utils/topics");
+const { countries, states } = require("../utils/geo");
+const { topics } = require("../utils/topics");
 const { normalizedUrl } = require("../utils/urls");
 const { emojiStrip } = require("../utils/emoji");
-const { whois } = require("../utils/auth");
+
+const required = () => {
+  const { body, header } = require("express-validator");
+  return [
+    header("authorization").exists().notEmpty(),
+    body("city").exists(),
+    body("url").customSanitizer(normalizedUrl).isURL(),
+    body("topicCode").isIn(topics),
+    body("countryCode").isIn(countries),
+    body("name").customSanitizer(emojiStrip).trim().notEmpty(),
+    body("price")
+      .exists()
+      .bail()
+      .custom(({ from, to, currency, free }) => {
+        return (
+          free ||
+          (((from === 0 && to > 0) || (from > 0 && (!to || to > from))) &&
+            currency.length === 3)
+        );
+      }),
+    body("dates")
+      .custom(is.not.empty)
+      .bail()
+      .customSanitizer(({ start, end = start }) => ({
+        start: utc(start),
+        end: utc(end),
+      }))
+      .custom(({ start, end }) => {
+        const startsAtLeastToday = start.isSameOrAfter(utc(), "day");
+        const endsNoEarlierThanStarts = end.isSameOrAfter(start, "day");
+        return startsAtLeastToday && endsNoEarlierThanStarts;
+      }),
+    body("stateCode").custom((value, { req }) => {
+      return req.body.countryCode !== "US" || !!states[value];
+    }),
+    body("twitter")
+      .customSanitizer((value) => twitterHandle(value))
+      .exists(),
+
+    body("cfpEndDate")
+      .optional({ checkFalsy: true })
+      .custom((value) => utc(value).isAfter(utc(), "day"))
+      .customSanitizer(utc),
+    body("cfpUrl")
+      .optional({ checkFalsy: true })
+      .customSanitizer(normalizedUrl)
+      .isURL(),
+  ];
+};
 
 console.timeEnd("initializing add");
-
-const required = [
-  header("authorization").exists().notEmpty(),
-  body("city").exists(),
-  body("url").customSanitizer(normalizedUrl).isURL(),
-  body("topicCode").isIn(topics),
-  body("countryCode").isIn(countries),
-  body("name").customSanitizer(emojiStrip).trim().notEmpty(),
-  body("price")
-    .exists()
-    .bail()
-    .custom(({ from, to, currency, free }) => {
-      return (
-        free ||
-        (((from === 0 && to > 0) || (from > 0 && (!to || to > from))) &&
-          currency.length === 3)
-      );
-    }),
-  body("dates")
-    .custom(is.not.empty)
-    .bail()
-    .customSanitizer(({ start, end = start }) => ({
-      start: utc(start),
-      end: utc(end),
-    }))
-    .custom(({ start, end }) => {
-      const startsAtLeastToday = start.isSameOrAfter(utc(), "day");
-      const endsNoEarlierThanStarts = end.isSameOrAfter(start, "day");
-      return startsAtLeastToday && endsNoEarlierThanStarts;
-    }),
-  body("stateCode").custom((value, { req }) => {
-    return req.body.countryCode !== "US" || !!states[value];
-  }),
-  body("twitter")
-    .customSanitizer((value) => twitterHandle(value))
-    .exists(),
-];
-
-const optionals = [
-  body("cfpEndDate")
-    .optional({ checkFalsy: true })
-    .custom((value) => utc(value).isAfter(utc(), "day"))
-    .customSanitizer(utc),
-  body("cfpUrl")
-    .optional({ checkFalsy: true })
-    .customSanitizer(normalizedUrl)
-    .isURL(),
-];
-
-
 
 router.get(
   "/prepare",
   asyncHandler(async (req, res) => {
+    const { countriesOrdered } = require("../utils/geo");
+    const { topicsOrdered } = require("../utils/topics");
     const info = {
       countries: countriesOrdered,
       topics: topicsOrdered,
@@ -90,8 +82,9 @@ router.get(
 
 router.post(
   "/",
-  required.concat(optionals),
+  required(),
   asyncHandler(async (req, res) => {
+    const { validationResult } = require("express-validator");
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json(errors.mapped());
@@ -112,6 +105,7 @@ router.post(
 );
 
 async function newEventFrom(req) {
+  const { whois } = require("../utils/auth");
   const { uid } = await whois(req);
   const body = req.body;
   return {

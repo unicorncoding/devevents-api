@@ -4,32 +4,38 @@ const router = require("express").Router();
 const { searchForever } = require("../utils/datastore");
 const continents = Object.keys(require("../utils/geo").continents);
 
-const { SitemapStream } = require("sitemap");
-const { createGzip } = require("zlib");
-
-// remove in Node 11
-const flat = require("array.prototype.flat");
-flat.shim();
-
 console.timeEnd("initializing sitemap");
+
+function flatten(arr) {
+  return arr.reduce((flat, toFlatten) => {
+    return flat.concat(
+      Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten
+    );
+  }, []);
+}
 
 router.get(
   "/",
   asyncHandler(async (req, res) => {
+    const { SitemapStream } = require("sitemap");
+    const { createGzip } = require("zlib");
+
     res.header("Content-Type", "application/xml");
     res.header("Content-Encoding", "gzip");
 
     const links = new Set();
 
-    const events = (
+    const events = flatten(
       await Promise.all(continents.map((it) => searchForever(it, {})))
-    ).flat();
+    );
 
     events.forEach((it) => {
       links.add(`/${it.continentCode}`);
       links.add(`/${it.continentCode}/${it.topicCode}`);
-      links.add(`/${it.continentCode}/${it.countryCode}`);
-      links.add(`/${it.continentCode}/${it.countryCode}/${it.topicCode}`);
+      if (it.continentCode !== "ON") {
+        links.add(`/${it.continentCode}/${it.countryCode}`);
+        links.add(`/${it.continentCode}/${it.countryCode}/${it.topicCode}`);
+      }
     });
 
     try {

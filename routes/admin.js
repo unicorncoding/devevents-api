@@ -1,13 +1,14 @@
 console.time("initializing admin");
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
-const { makeAdmin, whois } = require("../utils/auth");
 const { deleteOne } = require("../utils/datastore");
+
 console.timeEnd("initializing admin");
 
 router.post(
   "/:eventId/delete",
   asyncHandler(async (req, res) => {
+    const { whois } = require("../utils/auth");
     const { eventId } = req.params;
     const { admin } = await whois(req);
 
@@ -24,6 +25,7 @@ router.post(
 router.get(
   "/grant",
   asyncHandler(async (req, res) => {
+    const { makeAdmin } = require("../utils/auth");
     const admin = "co.unicorn.ding@gmail.com";
     const info = await makeAdmin(admin);
     res.send(info);

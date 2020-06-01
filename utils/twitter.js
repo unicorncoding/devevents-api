@@ -1,4 +1,4 @@
-console.time('initializing twitter');
+console.time("initializing twitter");
 const Twit = require("twit");
 const { countryName, countryEmoji } = require("./geo");
 const { isFuture } = require("./dates");
@@ -13,7 +13,7 @@ const config = {
 };
 const twitter = new Twit(config);
 
-console.timeEnd('initializing twitter');
+console.timeEnd("initializing twitter");
 module.exports.tweet = (event) => {
   const status = [
     ...[
