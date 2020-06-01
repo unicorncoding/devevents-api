@@ -1,3 +1,4 @@
+console.time("initializing datastore");
 const memoize = require("memoizee");
 const { isFuture } = require("./dates");
 const { topicName } = require("./topics");
@@ -6,6 +7,7 @@ const { uid } = require("./uid");
 
 const { Datastore } = require("@google-cloud/datastore");
 const datastore = new Datastore();
+console.timeEnd("initializing datastore");
 
 const search = (continent) =>
   datastore

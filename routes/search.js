@@ -2,14 +2,13 @@ console.time("initializing search");
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const { countryName } = require("../utils/geo");
-const { count, orderBy } = require("../utils/arrays");
+const { count } = require("../utils/arrays");
 const { isFuture } = require("../utils/dates");
 const { topicName } = require("../utils/topics");
 const { search, byName } = require("../utils/datastore");
 const { localPrice } = require("../utils/pricing");
-const _ = require("lodash");
+const { chunk } = require("lodash");
 const { startDate, cheapestFirst, newestFirst } = require("../utils/sortings");
-
 console.timeEnd("initializing search");
 
 const sortings = {
@@ -80,7 +79,7 @@ router.get(
       )
     );
 
-    const shown = _.chunk(matches, limit)[start] || [];
+    const shown = chunk(matches, limit)[start] || [];
 
     const next = +start + 1;
     const more = matches.length > limit * next;

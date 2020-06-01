@@ -1,11 +1,14 @@
 console.time("initializing add");
 const asyncHandler = require("express-async-handler");
+
 const router = require("express").Router();
+
 const dayjs = require("dayjs");
+
 dayjs.extend(require("dayjs/plugin/isSameOrAfter"));
 dayjs.extend(require("dayjs/plugin/utc"));
 
-const { tweet } = require("../utils/twitter");
+
 const { twitterHandle } = require("../utils/twitter-handle");
 
 const is = require("is_js");
@@ -21,6 +24,8 @@ const { topics, topicsOrdered } = require("../utils/topics");
 const { normalizedUrl } = require("../utils/urls");
 const { emojiStrip } = require("../utils/emoji");
 const { whois } = require("../utils/auth");
+
+console.timeEnd("initializing add");
 
 const required = [
   header("authorization").exists().notEmpty(),
@@ -70,7 +75,7 @@ const optionals = [
     .isURL(),
 ];
 
-console.timeEnd("initializing add");
+
 
 router.get(
   "/prepare",
@@ -97,6 +102,7 @@ router.post(
     await storeIfNew(event, stats);
 
     if (stats.hasAnyStored()) {
+      const { tweet } = require("../utils/twitter");
       tweet(event);
       res.json(event);
     } else {
