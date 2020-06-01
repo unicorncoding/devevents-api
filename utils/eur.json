@@ -1,4 +1,8 @@
 {
+  "EUR": {
+    "code": "EUR",
+    "rate": 1.0
+  },
   "USD": {
     "code": "USD",
     "rate": 0.89920557874279
