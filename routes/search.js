@@ -54,9 +54,6 @@ router.get(
       .filter(({ countryCode }) => !country || country === countryCode)
       .flatMap(({ topics }) => topics)
       .countBy()
-      .map((count, code) => ({ count, code }))
-      .sortBy("code")
-      .value();
 
     const matches = sortings[sorting](
       events.filter(
