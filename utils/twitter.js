@@ -30,12 +30,6 @@ module.exports.tweet = (event) => {
     .filter((line) => line !== undefined)
     .join("\n");
 
-  // if (!process.env.twitter_consumer_key) {
-  //   console.log("Twitter is not configured. Dumping tweet to log:");
-  //   console.log(status);
-  //   return;
-  // }
-
   return twitter
     .post("statuses/update", { status })
     .catch((e) =>
