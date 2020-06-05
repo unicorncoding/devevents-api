@@ -5,7 +5,7 @@ const { countryName } = require("../utils/geo");
 const { count } = require("../utils/arrays");
 const { search, byName } = require("../utils/datastore");
 const { localPrice } = require("../utils/pricing");
-const { chunk, flatten, countBy, chain } = require("lodash");
+const { chunk, chain } = require("lodash");
 const { startDate, cheapestFirst, newestFirst } = require("../utils/sortings");
 console.timeEnd("initializing search");
 

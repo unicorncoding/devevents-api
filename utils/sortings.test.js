@@ -9,13 +9,28 @@ test("start date sorting", () => {
     startDate: new Date(2020, 4, 10),
   };
 
+  const topStartingInMay = {
+    top: true,
+    startDate: new Date(2020, 5, 10),
+  };
+
   const startingInDecember = {
     startDate: new Date(2020, 12, 10),
   };
 
   expect(
-    startDate([startingInDecember, startingInMarch, startingInApril])
-  ).toEqual([startingInMarch, startingInApril, startingInDecember]);
+    startDate([
+      startingInDecember,
+      topStartingInMay,
+      startingInMarch,
+      startingInApril,
+    ])
+  ).toEqual([
+    topStartingInMay,
+    startingInMarch,
+    startingInApril,
+    startingInDecember,
+  ]);
 });
 
 test("newest first sorting", () => {
@@ -27,13 +42,28 @@ test("newest first sorting", () => {
     creationDate: new Date(2020, 4, 10),
   };
 
+  const topCreatedInMay = {
+    top: true,
+    creationDate: new Date(2020, 5, 10),
+  };
+
   const createdInDecember = {
     creationDate: new Date(2020, 12, 10),
   };
 
   expect(
-    newestFirst([createdInMarch, createdInApril, createdInDecember])
-  ).toEqual([createdInDecember, createdInApril, createdInMarch]);
+    newestFirst([
+      createdInMarch,
+      createdInApril,
+      topCreatedInMay,
+      createdInDecember,
+    ])
+  ).toEqual([
+    topCreatedInMay,
+    createdInDecember,
+    createdInApril,
+    createdInMarch,
+  ]);
 });
 
 test("cheapest first sorting", () => {
@@ -60,6 +90,14 @@ test("cheapest first sorting", () => {
     },
   };
 
+  const top = {
+    top: true,
+    free: false,
+    localPrice: {
+      from: 5,
+    },
+  };
+
   const twoBucks = {
     free: false,
     localPrice: {
@@ -68,6 +106,6 @@ test("cheapest first sorting", () => {
   };
 
   expect(
-    cheapestFirst([noPricing, free, oneBuck, startsAtZero, twoBucks])
-  ).toEqual([free, startsAtZero, oneBuck, twoBucks, noPricing]);
+    cheapestFirst([noPricing, free, top, oneBuck, startsAtZero, twoBucks])
+  ).toEqual([top, free, startsAtZero, oneBuck, twoBucks, noPricing]);
 });
