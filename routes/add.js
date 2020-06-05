@@ -52,15 +52,6 @@ const required = () => {
     body("twitter")
       .customSanitizer((value) => twitterHandle(value))
       .exists(),
-
-    body("cfpEndDate")
-      .optional({ checkFalsy: true })
-      .custom((value) => utc(value).isAfter(utc(), "day"))
-      .customSanitizer(utc),
-    body("cfpUrl")
-      .optional({ checkFalsy: true })
-      .customSanitizer(normalizedUrl)
-      .isURL(),
   ];
 };
 
@@ -118,12 +109,10 @@ async function newEventFrom(req) {
     creationDate: new Date(),
     startDate: body.dates.start.toDate(),
     endDate: body.dates.end.toDate(),
-    cfpEndDate: body.cfpEndDate ? body.cfpEndDate.toDate() : body.cfpEndDate,
     name: body.name,
     twitter: body.twitter,
     city: body.city,
     url: body.url,
-    cfpUrl: body.cfpUrl,
   };
 }
 

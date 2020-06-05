@@ -70,5 +70,4 @@ module.exports.byCountry = (country) => (it) =>
   !country || country === it.countryCode;
 
 module.exports.byTopic = (topic) => (it) => !topic || topic === it.topicCode;
-module.exports.byCfp = (cfp) => (it) => !cfp || isFuture(it.cfpEndDate);
 module.exports.byName = (it, that) => it.name.localeCompare(that.name);
