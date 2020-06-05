@@ -2,17 +2,10 @@ console.time("initializing sitemap");
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const { searchForever } = require("../utils/datastore");
+const { flatten } = require("../utils/arrays");
 const continents = Object.keys(require("../utils/geo").continents);
 
 console.timeEnd("initializing sitemap");
-
-function flatten(arr) {
-  return arr.reduce((flat, toFlatten) => {
-    return flat.concat(
-      Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten
-    );
-  }, []);
-}
 
 router.get(
   "/",
@@ -31,10 +24,14 @@ router.get(
 
     events.forEach((it) => {
       links.add(`/${it.continentCode}`);
-      links.add(`/${it.continentCode}/${it.topicCode}`);
+      it.topics.forEach((topic) => {
+        links.add(`/${it.continentCode}/${topic}`);
+      });
       if (it.continentCode !== "ON") {
         links.add(`/${it.continentCode}/${it.countryCode}`);
-        links.add(`/${it.continentCode}/${it.countryCode}/${it.topicCode}`);
+        it.topics.forEach((topic) => {
+          links.add(`/${it.continentCode}/${it.countryCode}/${topic}`);
+        });
       }
     });
 

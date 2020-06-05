@@ -1,9 +1,9 @@
 console.time("initializing datastore");
 const memoize = require("memoizee");
 const { isFuture } = require("./dates");
-const { topicName } = require("./topics");
 const { countryName, stateName } = require("./geo");
 const { uid } = require("./uid");
+const { flatten } = require("./arrays");
 
 const { Datastore } = require("@google-cloud/datastore");
 const datastore = new Datastore();
@@ -23,7 +23,7 @@ const search = (continent) =>
         id: event[datastore.KEY].name,
         country: countryName(event.countryCode),
         state: stateName(event.stateCode),
-        topic: topicName(event.topicCode),
+        topics: flatten([event.topicCode, event.topics]).filter(Boolean),
       }))
     );
 

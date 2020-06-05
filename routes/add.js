@@ -12,7 +12,6 @@ const utc = dayjs.utc;
 const Stats = require("../utils/stats");
 const { storeIfNew } = require("../utils/datastore");
 const { countries, states } = require("../utils/geo");
-const { topics } = require("../utils/topics");
 const { normalizedUrl } = require("../utils/urls");
 const { emojiStrip } = require("../utils/emoji");
 
@@ -22,7 +21,7 @@ const required = () => {
     header("authorization").exists().notEmpty(),
     body("city").exists(),
     body("url").customSanitizer(normalizedUrl).isURL(),
-    body("topicCode").isIn(topics),
+    body("topics").isArray({ min: 1, max: 3 }),
     body("countryCode").isIn(countries),
     body("name").customSanitizer(emojiStrip).trim().notEmpty(),
     body("price")
@@ -71,10 +70,8 @@ router.get(
   "/prepare",
   asyncHandler(async (req, res) => {
     const { countriesOrdered } = require("../utils/geo");
-    const { topicsOrdered } = require("../utils/topics");
     const info = {
       countries: countriesOrdered,
-      topics: topicsOrdered,
     };
     res.json(info);
   })
@@ -112,7 +109,7 @@ async function newEventFrom(req) {
     countryCode: body.countryCode,
     stateCode: body.stateCode,
     continentCode: countries[body.countryCode].continent,
-    topicCode: body.topicCode,
+    topics: body.topics,
     free: body.price.free,
     priceFrom: body.price.from,
     priceTo: body.price.to,

@@ -18,3 +18,12 @@ module.exports.orderBy = (items, sorting) => {
     sorting.includes("-") ? "desc" : "asc"
   );
 };
+
+const flatten = (arr) => {
+  return arr.reduce((flat, toFlatten) => {
+    return flat.concat(
+      Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten
+    );
+  }, []);
+};
+module.exports.flatten = flatten;
