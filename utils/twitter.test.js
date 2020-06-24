@@ -16,6 +16,7 @@ afterEach(() => {
 });
 
 const offlineEvent = {
+  id: "id-123",
   city: "Riga",
   countryCode: "LV",
   name: "DevTernity",
@@ -33,7 +34,7 @@ test("posts a conference", async () => {
 
 ❤️ Retweet to support!
 
-More information: https://devternity.com`,
+More information: https://dev.events/conferences/id-123`,
   });
 });
 
@@ -53,7 +54,7 @@ test("posts a conference with price", async () => {
 
 ❤️ Retweet to support!
 
-More information: https://devternity.com`,
+More information: https://dev.events/conferences/id-123`,
   });
 
   await tweet({
@@ -71,7 +72,7 @@ More information: https://devternity.com`,
 
 ❤️ Retweet to support!
 
-More information: https://devternity.com`,
+More information: https://dev.events/conferences/id-123`,
   });
 
   await tweet({
@@ -89,7 +90,7 @@ More information: https://devternity.com`,
 
 ❤️ Retweet to support!
 
-More information: https://devternity.com`,
+More information: https://dev.events/conferences/id-123`,
   });
 });
 
@@ -103,7 +104,7 @@ test("posts a multi-day conference", async () => {
 
 ❤️ Retweet to support!
 
-More information: https://devternity.com`,
+More information: https://dev.events/conferences/id-123`,
   });
 });
 
@@ -117,7 +118,7 @@ test("posts a multi-day conference that spans multiple months", async () => {
 
 ❤️ Retweet to support!
 
-More information: https://devternity.com`,
+More information: https://dev.events/conferences/id-123`,
   });
 });
 
@@ -133,7 +134,7 @@ test("posts a conference with cfp", async () => {
 
 ❤️ Retweet to support!
 
-More information: https://devternity.com`,
+More information: https://dev.events/conferences/id-123`,
   });
 });
 
@@ -146,11 +147,12 @@ test("posts a conference and mentions the organizer", async () => {
 
 ❤️ Retweet to support!
 
-More information: https://devternity.com`,
+More information: https://dev.events/conferences/id-123`,
   });
 });
 
 const onlineEvent = {
+  id: "666",
   city: "Online",
   countryCode: "ON",
   name: "Webinario",
@@ -167,11 +169,12 @@ test("posts an online event", async () => {
 
 ❤️ Retweet to support!
 
-More information: https://webinario.com`,
+More information: https://dev.events/conferences/666`,
   });
 });
 
 const freeEvent = {
+  id: "frb-123",
   city: "Online",
   countryCode: "ON",
   name: "Freebie",
@@ -190,7 +193,7 @@ test("posts a free event", async () => {
 
 ❤️ Retweet to support!
 
-More information: https://freebie.net`,
+More information: https://dev.events/conferences/frb-123`,
   });
 });
 
@@ -207,6 +210,6 @@ test("posts a free event with cfp", async () => {
 
 ❤️ Retweet to support!
 
-More information: https://freebie.net`,
+More information: https://dev.events/conferences/frb-123`,
   });
 });

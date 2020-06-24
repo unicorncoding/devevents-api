@@ -1,8 +1,6 @@
 console.time("initializing datastore");
 const memoize = require("memoizee");
-const { isFuture } = require("./dates");
 const { countryName, stateName } = require("./geo");
-const { uid } = require("./uid");
 const { flatten } = require("./arrays");
 
 const { Datastore } = require("@google-cloud/datastore");
@@ -36,8 +34,8 @@ const karma = (userId) =>
 
 const searchForever = memoize(search, { promise: true });
 
-const storeIfNew = async (data, stats) => {
-  const key = datastore.key(["Event", uid(data)]);
+const storeIfNew = async (id, data, stats) => {
+  const key = datastore.key(["Event", id]);
   const tx = datastore.transaction();
   try {
     await tx.run();
@@ -46,7 +44,7 @@ const storeIfNew = async (data, stats) => {
       await tx.rollback();
       stats.skip();
     } else {
-      await tx.save({ key, data });
+      await tx.save({ key, data, excludeFromIndexes: ["description"] });
       await tx.commit();
       stats.store(data);
     }
@@ -60,7 +58,19 @@ const deleteOne = async (id) => {
   await datastore.delete(key);
 };
 
+const fetchOne = async (id) => {
+  const key = datastore.key(["Event", id]);
+  return datastore.get(key).then(([event]) => ({
+    ...event,
+    country: countryName(event.countryCode),
+    state: stateName(event.stateCode),
+    id: event[datastore.KEY].name,
+    topics: flatten([event.topicCode, event.topics]).filter(Boolean),
+  }));
+};
+
 module.exports.deleteOne = deleteOne;
+module.exports.fetchOne = fetchOne;
 module.exports.karma = karma;
 module.exports.searchForever = searchForever;
 module.exports.search = search;

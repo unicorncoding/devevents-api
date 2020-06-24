@@ -2,10 +2,17 @@ const { uid } = require("./uid");
 
 test("calculates uid", () => {
   const date = new Date(2020, 10, 10);
-  const id = uid({
+  const id1 = uid({
     name: "DevTernity 2020",
-    countryCode: "LV",
+    city: "Riga",
     startDate: date,
   });
-  expect(id).toEqual(expect.stringMatching("devternity-2020-aaa59b5e"));
+  expect(id1).toEqual(expect.stringMatching("dev-ternity-riga-2020"));
+
+  const id2 = uid({
+    name: "DevTernity",
+    city: "Riga",
+    startDate: date,
+  });
+  expect(id2).toEqual(expect.stringMatching("dev-ternity-riga-2020"));
 });

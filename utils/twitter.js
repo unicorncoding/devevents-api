@@ -15,6 +15,10 @@ const twitter = new Twit(config);
 
 console.timeEnd("initializing twitter");
 module.exports.tweet = (event) => {
+  if (!event.id) {
+    throw new Error("Cannot tweet event without id");
+  }
+
   const status = [
     ...[
       what(event),
@@ -22,7 +26,7 @@ module.exports.tweet = (event) => {
       `🗓 ${date(event)}`,
       price(event),
       cfpOrUndefined(event),
-      retweetPlease(event),
+      retweetPlease(),
       "",
       callToAction(event),
     ],
@@ -51,7 +55,7 @@ function price({ free, priceFrom, priceTo, priceCurrency }) {
   }
 }
 
-function retweetPlease({ free }) {
+function retweetPlease() {
   return "\n❤️ Retweet to support!";
 }
 
@@ -97,6 +101,6 @@ function location({ city, countryCode }) {
   }
 }
 
-function callToAction({ url }) {
-  return `More information: ${url}`;
+function callToAction({ id }) {
+  return `More information: https://dev.events/conferences/${id}`;
 }

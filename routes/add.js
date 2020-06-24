@@ -80,11 +80,13 @@ router.post(
 
     const event = await newEventFrom(req);
     const stats = new Stats();
-    await storeIfNew(event, stats);
+    const { uid } = require("../utils/uid");
+    const id = uid(event);
+    await storeIfNew(id, event, stats);
 
     if (stats.hasAnyStored()) {
       const { tweet } = require("../utils/twitter");
-      tweet(event);
+      tweet({ ...event, id });
       res.json(event);
     } else {
       res.status(409).send(conflictsWith(event));
@@ -102,6 +104,7 @@ async function newEventFrom(req) {
     continentCode: countries[body.countryCode].continent,
     topics: body.topics,
     free: body.price.free,
+    description: body.description,
     priceFrom: body.price.from,
     priceTo: body.price.to,
     priceCurrency: body.price.currency,
