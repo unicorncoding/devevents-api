@@ -22,11 +22,12 @@ module.exports.tweet = (event) => {
   const status = [
     ...[
       what(event),
+      about(event),
       location(event),
       `🗓 ${date(event)}`,
       price(event),
       cfpOrUndefined(event),
-      retweetPlease(),
+      retweetPlease(event),
       "",
       callToAction(event),
     ],
@@ -55,16 +56,20 @@ function price({ free, priceFrom, priceTo, priceCurrency }) {
   }
 }
 
-function retweetPlease() {
-  return "\n❤️ Retweet to support!";
+function retweetPlease({ twitter }) {
+  if (twitter) {
+    return `\n❤️ Retweet to support! @${twitter}`;
+  } else {
+    return "\n❤️ Retweet to support!";
+  }
 }
 
-function what({ name, twitter }) {
-  if (twitter) {
-    return `🆕 ${name} by @${twitter}`;
-  } else {
-    return `🆕 ${name}`;
-  }
+function what({ name }) {
+  return `🆕 ${name}`;
+}
+
+function about({ topics }) {
+  return `ℹ️ ${topics.map((each) => "#" + each).join(" · ")} conference`;
 }
 
 function date({ startDate, endDate }) {

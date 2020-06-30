@@ -18,6 +18,7 @@ afterEach(() => {
 const offlineEvent = {
   id: "id-123",
   city: "Riga",
+  topics: ["fullstack"],
   countryCode: "LV",
   name: "DevTernity",
   startDate: new Date("2020-11-03T00:00:00.000Z"),
@@ -29,6 +30,7 @@ test("posts a conference", async () => {
   await tweet(offlineEvent);
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
+ℹ️ #fullstack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 
@@ -48,6 +50,7 @@ test("posts a conference with price", async () => {
   });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
+ℹ️ #fullstack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 💰 100 – 200 EUR
@@ -66,6 +69,7 @@ More information: https://dev.events/conferences/id-123`,
   });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
+ℹ️ #fullstack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 💰 100 EUR
@@ -78,12 +82,14 @@ More information: https://dev.events/conferences/id-123`,
   await tweet({
     ...offlineEvent,
     free: false,
+    topics: ["fullstack", "softskills"],
     priceFrom: 101,
     priceTo: undefined,
     priceCurrency: "EUR",
   });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
+ℹ️ #fullstack · #softskills conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 💰 101 EUR
@@ -99,6 +105,7 @@ test("posts a multi-day conference", async () => {
   await tweet({ ...offlineEvent, endDate });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
+ℹ️ #fullstack conference
 🇱🇻 Riga, Latvia
 🗓 November 3-4 2020
 
@@ -113,6 +120,7 @@ test("posts a multi-day conference that spans multiple months", async () => {
   await tweet({ ...offlineEvent, endDate });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
+ℹ️ #fullstack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 - December 4 2020
 
@@ -128,6 +136,7 @@ test("posts a conference with cfp", async () => {
   await tweet({ ...offlineEvent, cfpEndDate });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
+ℹ️ #fullstack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 📢 ${remainingDays} to submit a talk
@@ -141,11 +150,12 @@ More information: https://dev.events/conferences/id-123`,
 test("posts a conference and mentions the organizer", async () => {
   await tweet({ ...offlineEvent, twitter: "devternity" });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
-    status: `🆕 DevTernity by @devternity
+    status: `🆕 DevTernity
+ℹ️ #fullstack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 
-❤️ Retweet to support!
+❤️ Retweet to support! @devternity
 
 More information: https://dev.events/conferences/id-123`,
   });
@@ -156,6 +166,7 @@ const onlineEvent = {
   city: "Online",
   countryCode: "ON",
   name: "Webinario",
+  topics: ["it"],
   startDate: new Date("2020-10-10T00:00:00.000Z"),
   url: "https://webinario.com",
 };
@@ -164,6 +175,7 @@ test("posts an online event", async () => {
   await tweet(onlineEvent);
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 Webinario
+ℹ️ #it conference
 🌍 Online
 🗓 October 10 2020
 
@@ -178,6 +190,7 @@ const freeEvent = {
   city: "Online",
   countryCode: "ON",
   name: "Freebie",
+  topics: ["vue", "angular"],
   free: true,
   startDate: new Date("2021-10-03T00:00:00.000Z"),
   url: "https://freebie.net",
@@ -187,6 +200,7 @@ test("posts a free event", async () => {
   await tweet(freeEvent);
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 Freebie
+ℹ️ #vue · #angular conference
 🌍 Online
 🗓 October 3 2021
 💰 FREE
@@ -203,6 +217,7 @@ test("posts a free event with cfp", async () => {
   await tweet({ ...freeEvent, cfpEndDate });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 Freebie
+ℹ️ #vue · #angular conference
 🌍 Online
 🗓 October 3 2021
 💰 FREE
