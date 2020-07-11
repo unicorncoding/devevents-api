@@ -10,6 +10,13 @@ app.use(cors());
 app.use(morgan("tiny"));
 app.use(bodyParser.json());
 
+const dnsCache = require("dnscache");
+dnsCache({
+  enable : true,
+  ttl : 300,
+  cachesize : 1000
+});
+
 require("./utils/mixins");
 require("./routes/index")(app);
 
