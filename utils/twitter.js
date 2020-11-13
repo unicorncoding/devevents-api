@@ -42,17 +42,11 @@ module.exports.tweet = (event) => {
     );
 };
 
-function price({ free, priceFrom, priceTo, priceCurrency }) {
-  if (free === undefined) {
-    return undefined;
-  }
-
+function price({ free }) {
   if (free) {
     return "💰 FREE";
-  } else if (!priceTo || priceFrom === priceTo) {
-    return `💰 ${priceFrom} ${priceCurrency}`;
   } else {
-    return `💰 ${priceFrom} – ${priceTo} ${priceCurrency}`;
+    return undefined;
   }
 }
 

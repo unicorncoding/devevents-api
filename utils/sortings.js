@@ -8,10 +8,10 @@ module.exports.cheapestFirst = function (arr) {
     if (item.free === true) {
       return Number.MIN_SAFE_INTEGER + 1;
     }
-    if (item.free === undefined || item.localPrice === undefined) {
+    if (item.free === undefined) {
       return Number.MAX_SAFE_INTEGER;
     }
-    return item.localPrice.from;
+    return item.free;
   });
 };
 

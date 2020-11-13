@@ -3,7 +3,6 @@ const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const { countryName } = require("../utils/geo");
 const { search, byName } = require("../utils/datastore");
-const { localPrice } = require("../utils/pricing");
 const { chunk, chain } = require("lodash");
 const { startDate, cheapestFirst, newestFirst } = require("../utils/sortings");
 console.timeEnd("initializing search");
@@ -26,12 +25,7 @@ router.get(
       start = 0,
     } = req.query;
 
-    const targetCurrency = continent === "EU" ? "EUR" : "USD";
-
-    const events = (await search(continent)).map((event) => ({
-      ...event,
-      localPrice: localPrice(event, targetCurrency),
-    }));
+    const events = await search(continent);
 
     const countries = events
       .filter(({ topics }) => !topic || topics.includes(topic))

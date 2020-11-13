@@ -44,16 +44,12 @@ test("posts a conference with price", async () => {
   await tweet({
     ...offlineEvent,
     free: false,
-    priceFrom: 100,
-    priceTo: 200,
-    priceCurrency: "EUR",
   });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
 ℹ️ #fullstack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
-💰 100 – 200 EUR
 
 ❤️ Retweet to support!
 
@@ -63,16 +59,12 @@ More information: https://dev.events/conferences/id-123`,
   await tweet({
     ...offlineEvent,
     free: false,
-    priceFrom: 100,
-    priceTo: 100,
-    priceCurrency: "EUR",
   });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
 ℹ️ #fullstack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
-💰 100 EUR
 
 ❤️ Retweet to support!
 
@@ -83,16 +75,12 @@ More information: https://dev.events/conferences/id-123`,
     ...offlineEvent,
     free: false,
     topics: ["fullstack", "softskills"],
-    priceFrom: 101,
-    priceTo: undefined,
-    priceCurrency: "EUR",
   });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
 ℹ️ #fullstack · #softskills conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
-💰 101 EUR
 
 ❤️ Retweet to support!
 

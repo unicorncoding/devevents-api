@@ -76,36 +76,20 @@ test("cheapest first sorting", () => {
     free: true,
   };
 
-  const startsAtZero = {
+  const notFree = {
+    name: "i am free",
     free: false,
-    localPrice: {
-      from: 0,
-    },
-  };
-
-  const oneBuck = {
-    free: false,
-    localPrice: {
-      from: 1,
-    },
   };
 
   const top = {
     top: true,
     free: false,
-    localPrice: {
-      from: 5,
-    },
   };
 
-  const twoBucks = {
-    free: false,
-    localPrice: {
-      from: 2,
-    },
-  };
-
-  expect(
-    cheapestFirst([noPricing, free, top, oneBuck, startsAtZero, twoBucks])
-  ).toEqual([top, free, startsAtZero, oneBuck, twoBucks, noPricing]);
+  expect(cheapestFirst([noPricing, free, notFree, top])).toEqual([
+    top,
+    free,
+    notFree,
+    noPricing,
+  ]);
 });

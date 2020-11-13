@@ -27,13 +27,7 @@ const required = () => {
     body("price")
       .exists()
       .bail()
-      .custom(({ from, to, currency, free }) => {
-        return (
-          free ||
-          (((from === 0 && to > 0) || (from > 0 && (!to || to > from))) &&
-            currency.length === 3)
-        );
-      }),
+      .custom(({ free }) => free !== undefined),
     body("dates")
       .custom(is.not.empty)
       .bail()
@@ -105,9 +99,6 @@ async function newEventFrom(req) {
     topics: body.topics,
     free: body.price.free,
     description: body.description,
-    priceFrom: body.price.from,
-    priceTo: body.price.to,
-    priceCurrency: body.price.currency,
     creator: uid,
     creationDate: new Date(),
     startDate: body.dates.start.toDate(),
