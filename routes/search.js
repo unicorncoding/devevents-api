@@ -2,7 +2,6 @@ console.time("initializing search");
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const { countryName } = require("../utils/geo");
-const { count } = require("../utils/arrays");
 const { search, byName } = require("../utils/datastore");
 const { localPrice } = require("../utils/pricing");
 const { chunk, chain } = require("lodash");
@@ -27,11 +26,6 @@ router.get(
       start = 0,
     } = req.query;
 
-    if (!continent) {
-      res.status(404).send("Query param [continent] is missing");
-      return;
-    }
-
     const targetCurrency = continent === "EU" ? "EUR" : "USD";
 
     const events = (await search(continent)).map((event) => ({
@@ -41,13 +35,15 @@ router.get(
 
     const countries = events
       .filter(({ topics }) => !topic || topics.includes(topic))
-      .reduce(
-        count(
-          (it) => it.countryCode,
-          (it) => it.country
-        ),
-        []
-      )
+      .reduce((acc, it) => {
+        const code = it.countryCode;
+        const continent = it.continentCode;
+        const name = it.country;
+        const item = acc.find((item) => item.code === code) || { count: 0 };
+        return acc
+          .filter((that) => that != item)
+          .concat({ count: item.count + 1, code, name, continent });
+      }, [])
       .ordered(byName);
 
     const topics = chain(events)

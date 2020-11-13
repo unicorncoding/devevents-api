@@ -82,3 +82,9 @@ npm run serve
 ```bash
   npm test
 ```
+
+### Lint
+
+```bash
+  npm run lint
+```

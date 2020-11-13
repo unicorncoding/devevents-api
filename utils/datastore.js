@@ -7,23 +7,25 @@ const { Datastore } = require("@google-cloud/datastore");
 const datastore = new Datastore();
 console.timeEnd("initializing datastore");
 
-const search = (continent) =>
-  datastore
-    .runQuery(
-      datastore
-        .createQuery("Event")
-        .filter("startDate", ">=", new Date())
-        .filter("continentCode", "=", continent)
-    )
-    .then(([events]) =>
-      events.map((event) => ({
-        ...event,
-        id: event[datastore.KEY].name,
-        country: countryName(event.countryCode),
-        state: stateName(event.stateCode),
-        topics: flatten([event.topicCode, event.topics]).filter(Boolean),
-      }))
-    );
+const search = (continent) => {
+  let query = datastore
+    .createQuery("Event")
+    .filter("startDate", ">=", new Date());
+
+  if (continent) {
+    query = query.filter("continentCode", "=", continent);
+  }
+
+  return datastore.runQuery(query).then(([events]) =>
+    events.map((event) => ({
+      ...event,
+      id: event[datastore.KEY].name,
+      country: countryName(event.countryCode),
+      state: stateName(event.stateCode),
+      topics: flatten([event.topicCode, event.topics]).filter(Boolean),
+    }))
+  );
+};
 
 const karma = (userId) =>
   datastore
