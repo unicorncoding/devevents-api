@@ -22,7 +22,9 @@ const search = (continent) => {
       id: event[datastore.KEY].name,
       country: countryName(event.countryCode),
       state: stateName(event.stateCode),
-      topics: flatten([event.topicCode, event.topics]).filter(Boolean),
+      topics: [
+        ...new Set(flatten([event.topicCode, event.topics]).filter(Boolean)),
+      ],
     }))
   );
 };
@@ -55,6 +57,11 @@ const storeIfNew = async (id, data, stats) => {
   }
 };
 
+const updateOne = async (id, data) => {
+  const key = datastore.key(["Event", id]);
+  await datastore.update({ key, data });
+};
+
 const deleteOne = async (id) => {
   const key = datastore.key(["Event", id]);
   await datastore.delete(key);
@@ -67,11 +74,14 @@ const fetchOne = async (id) => {
     country: countryName(event.countryCode),
     state: stateName(event.stateCode),
     id: event[datastore.KEY].name,
-    topics: flatten([event.topicCode, event.topics]).filter(Boolean),
+    topics: [
+      ...new Set(flatten([event.topicCode, event.topics]).filter(Boolean)),
+    ],
   }));
 };
 
 module.exports.deleteOne = deleteOne;
+module.exports.updateOne = updateOne;
 module.exports.fetchOne = fetchOne;
 module.exports.karma = karma;
 module.exports.searchForever = searchForever;
