@@ -24,13 +24,8 @@ router.post(
       return;
     }
 
-    // dynamically calculated fields, should not be stored.
-    delete body.country;
-    delete body.state;
-    delete body.previewAvailable;
     body.startDate = new Date(body.startDate);
     body.endDate = new Date(body.endDate);
-    body.creationDate = new Date(body.creationDate);
 
     const info = await updateOne(eventId, body);
     res.send(info);

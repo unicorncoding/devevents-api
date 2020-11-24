@@ -59,7 +59,8 @@ const storeIfNew = async (id, data, stats) => {
 
 const updateOne = async (id, data) => {
   const key = datastore.key(["Event", id]);
-  await datastore.update({ key, data });
+  console.log(data);
+  await datastore.merge({ key, data });
 };
 
 const deleteOne = async (id) => {
