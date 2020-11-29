@@ -2,6 +2,7 @@ console.time("initializing twitter");
 const Twit = require("twit");
 const { countryName, countryEmoji } = require("./geo");
 const { isFuture } = require("./dates");
+const { topics: allTopics } = require("./topics");
 const dayjs = require("dayjs");
 dayjs.extend(require("dayjs/plugin/relativeTime"));
 
@@ -63,7 +64,9 @@ function what({ name }) {
 }
 
 function about({ topics }) {
-  return `ℹ️ ${topics.map((each) => "#" + each).join(" · ")} conference`;
+  return `ℹ️ ${topics
+    .map((each) => allTopics[each].name)
+    .join(" · ")} conference`;
 }
 
 function date({ startDate, endDate }) {

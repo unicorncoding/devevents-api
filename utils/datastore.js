@@ -7,7 +7,7 @@ const { Datastore } = require("@google-cloud/datastore");
 const datastore = new Datastore();
 console.timeEnd("initializing datastore");
 
-const search = (continent) => {
+const search = (continent = undefined) => {
   let query = datastore
     .createQuery("Event")
     .filter("startDate", ">=", new Date());
