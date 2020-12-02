@@ -6,7 +6,7 @@ test("extracts twitter handle from a string", () => {
   expect(twitterHandle(null)).toBe(undefined);
   expect(twitterHandle("devternity#xx")).toBe(undefined);
   expect(twitterHandle("instagram.com/devternity")).toBe(undefined);
-
+  expect(twitterHandle("twitter.com/share?text=GitHub")).toBe(undefined);
   expect(twitterHandle("devternity123")).toBe("devternity123");
   expect(twitterHandle("devternity")).toBe("devternity");
   expect(twitterHandle("@devternity")).toBe("devternity");
