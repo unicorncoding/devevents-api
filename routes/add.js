@@ -11,7 +11,7 @@ const is = require("is_js");
 const utc = dayjs.utc;
 const Stats = require("../utils/stats");
 const { storeIfNew } = require("../utils/datastore");
-const { countries, states } = require("../utils/geo");
+const { countries, countryName, states } = require("../utils/geo");
 const { normalizedUrl } = require("../utils/urls");
 const { emojiStrip } = require("../utils/emoji");
 
@@ -112,7 +112,8 @@ async function newEventFrom(req) {
 
 function conflictsWith(conflictingEvent) {
   const when = dayjs(conflictingEvent.startDate).format("DD MMMM YYYY");
-  return `${conflictingEvent.name} already scheduled in ${conflictingEvent.country} on ${when}`;
+  const country = countryName(conflictingEvent.countryCode);
+  return `${conflictingEvent.name} already scheduled in ${country} on ${when}`;
 }
 
 module.exports = router;
