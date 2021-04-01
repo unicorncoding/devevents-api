@@ -5,6 +5,7 @@ const { isFuture } = require("./dates");
 const { topics: allTopics } = require("./topics");
 const dayjs = require("dayjs");
 dayjs.extend(require("dayjs/plugin/relativeTime"));
+dayjs.extend(require("dayjs/plugin/utc"));
 
 const config = {
   consumer_key: process.env.twitter_consumer_key || "none",
@@ -70,12 +71,12 @@ function about({ topics }) {
 }
 
 function date({ startDate, endDate }) {
-  const start = dayjs(startDate);
+  const start = dayjs.utc(startDate);
   const oneDayEvent = !endDate || start.isSame(dayjs(endDate), "day");
   if (oneDayEvent) {
     return start.format("MMMM D YYYY");
   }
-  const end = dayjs(endDate);
+  const end = dayjs.utc(endDate);
   const sameMonth = start.month() == end.month();
   if (sameMonth) {
     return end.format(`MMMM ${start.format("D")}-D YYYY`);
