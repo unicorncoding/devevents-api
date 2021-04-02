@@ -7,8 +7,9 @@ function uid({ name, city, startDate }) {
   }
 
   const year = dayjs(startDate).year();
+  const month = dayjs(startDate).month();
 
-  return slugify(`${name.replace(year, "")}-${city}-${year}`);
+  return slugify(`${name.replace(year, "")}-${city}-${month}-${year}`);
 }
 
 module.exports.uid = uid;
