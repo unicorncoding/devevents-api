@@ -15,6 +15,8 @@ const { countries, countryName, states } = require("../utils/geo");
 const { normalizedUrl } = require("../utils/urls");
 const { emojiStrip } = require("../utils/emoji");
 
+const eventTypes = ["conference", "training", "meetup"];
+
 const required = () => {
   const { body, header } = require("express-validator");
   return [
@@ -23,7 +25,7 @@ const required = () => {
     body("url").customSanitizer(normalizedUrl).isURL(),
     body("topics").isArray({ min: 1, max: 3 }),
     body("countryCode").isIn(countries),
-    body("category").isIn(["meetup", "conference", "training"]).optional(),
+    body("category").isIn(eventTypes).optional(),
     body("name").customSanitizer(emojiStrip).trim().notEmpty(),
     body("price")
       .exists()
@@ -58,6 +60,7 @@ router.get(
     const { countriesOrdered } = require("../utils/geo");
     const info = {
       countries: countriesOrdered,
+      types: eventTypes,
     };
     res.json(info);
   })
