@@ -116,9 +116,9 @@ async function newEventFrom(req) {
 }
 
 function conflictsWith(conflictingEvent) {
-  const when = dayjs(conflictingEvent.startDate).format("DD MMMM YYYY");
+  const when = dayjs(conflictingEvent.startDate).format("MMMM YYYY");
   const country = countryName(conflictingEvent.countryCode);
-  return `${conflictingEvent.name} already scheduled in ${country} on ${when}`;
+  return `${conflictingEvent.name} already scheduled on ${when} (${country})`;
 }
 
 module.exports = router;
