@@ -40,6 +40,23 @@ More information: https://dev.events/conferences/id-123`,
   });
 });
 
+test("posts an event other than a conference", async () => {
+  await tweet({
+    ...offlineEvent,
+    category: "meetup",
+  });
+  expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
+    status: `🆕 DevTernity
+ℹ️ Full-stack meetup
+🇱🇻 Riga, Latvia
+🗓 November 3 2020
+
+❤️ Retweet to support!
+
+More information: https://dev.events/conferences/id-123`,
+  });
+});
+
 test("posts a conference with price", async () => {
   await tweet({
     ...offlineEvent,

@@ -64,10 +64,10 @@ function what({ name }) {
   return `🆕 ${name}`;
 }
 
-function about({ topics }) {
+function about({ topics, category = "conference" }) {
   return `ℹ️ ${topics
     .map((each) => allTopics[each].name)
-    .join(" · ")} conference`;
+    .join(" · ")} ${category}`;
 }
 
 function date({ startDate, endDate }) {

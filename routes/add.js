@@ -23,6 +23,7 @@ const required = () => {
     body("url").customSanitizer(normalizedUrl).isURL(),
     body("topics").isArray({ min: 1, max: 3 }),
     body("countryCode").isIn(countries),
+    body("category").isIn(["meetup", "conference", "training"]).optional(),
     body("name").customSanitizer(emojiStrip).trim().notEmpty(),
     body("price")
       .exists()
@@ -98,6 +99,7 @@ async function newEventFrom(req) {
     continentCode: countries[body.countryCode].continent,
     topics: body.topics,
     free: body.price.free,
+    category: body.category || "conference",
     description: body.description,
     creator: uid,
     creationDate: new Date(),
