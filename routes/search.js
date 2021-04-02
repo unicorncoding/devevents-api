@@ -25,7 +25,10 @@ router.get(
       start = 0,
     } = req.query;
 
-    const events = await search(continent);
+    const events = (await search()).filter(
+      ({ featured, continentCode }) =>
+        !continent || featured || continentCode === continent
+    );
 
     const countries = events
       .filter(({ topics }) => !topic || topics.includes(topic))
@@ -41,15 +44,19 @@ router.get(
       .ordered(byName);
 
     const topics = chain(events)
-      .filter(({ countryCode }) => !country || country === countryCode)
+      .filter(
+        ({ countryCode, featured }) =>
+          featured || !country || country === countryCode
+      )
       .flatMap(({ topics }) => topics)
       .countBy();
 
     const matches = sortings[sorting](
       events.filter(
-        ({ topics, countryCode }) =>
-          (!topic || topics.includes(topic)) &&
-          (!country || country === countryCode)
+        ({ topics, countryCode, featured }) =>
+          featured ||
+          ((!topic || topics.includes(topic)) &&
+            (!country || country === countryCode))
       )
     );
 

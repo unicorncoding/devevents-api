@@ -9,8 +9,8 @@ test("start date sorting", () => {
     startDate: new Date(2020, 4, 10),
   };
 
-  const topStartingInMay = {
-    top: true,
+  const featuredStartingInMay = {
+    featured: true,
     startDate: new Date(2020, 5, 10),
   };
 
@@ -21,12 +21,12 @@ test("start date sorting", () => {
   expect(
     startDate([
       startingInDecember,
-      topStartingInMay,
+      featuredStartingInMay,
       startingInMarch,
       startingInApril,
     ])
   ).toEqual([
-    topStartingInMay,
+    featuredStartingInMay,
     startingInMarch,
     startingInApril,
     startingInDecember,
@@ -42,8 +42,8 @@ test("newest first sorting", () => {
     creationDate: new Date(2020, 4, 10),
   };
 
-  const topCreatedInMay = {
-    top: true,
+  const featuredCreatedInMay = {
+    featured: true,
     creationDate: new Date(2020, 5, 10),
   };
 
@@ -55,11 +55,11 @@ test("newest first sorting", () => {
     newestFirst([
       createdInMarch,
       createdInApril,
-      topCreatedInMay,
+      featuredCreatedInMay,
       createdInDecember,
     ])
   ).toEqual([
-    topCreatedInMay,
+    featuredCreatedInMay,
     createdInDecember,
     createdInApril,
     createdInMarch,
@@ -81,13 +81,13 @@ test("cheapest first sorting", () => {
     free: false,
   };
 
-  const top = {
-    top: true,
+  const featured = {
+    featured: true,
     free: false,
   };
 
-  expect(cheapestFirst([noPricing, free, notFree, top])).toEqual([
-    top,
+  expect(cheapestFirst([noPricing, free, notFree, featured])).toEqual([
+    featured,
     free,
     notFree,
     noPricing,

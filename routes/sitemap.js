@@ -3,7 +3,6 @@ const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const { searchForever } = require("../utils/datastore");
 const { flatten } = require("../utils/arrays");
-const continents = Object.keys(require("../utils/geo").continents);
 
 console.timeEnd("initializing sitemap");
 
@@ -18,9 +17,7 @@ router.get(
 
     const links = new Set();
 
-    const events = flatten(
-      await Promise.all(continents.map((it) => searchForever(it, {})))
-    );
+    const events = flatten(await searchForever());
 
     events.forEach((it) => {
       links.add(`/${it.continentCode}`);

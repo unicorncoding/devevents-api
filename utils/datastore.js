@@ -7,14 +7,10 @@ const { Datastore } = require("@google-cloud/datastore");
 const datastore = new Datastore();
 console.timeEnd("initializing datastore");
 
-const search = (continent = undefined) => {
+const search = () => {
   let query = datastore
     .createQuery("Event")
     .filter("startDate", ">=", new Date());
-
-  if (continent) {
-    query = query.filter("continentCode", "=", continent);
-  }
 
   return datastore.runQuery(query).then(([events]) =>
     events.map((event) => ({
@@ -28,13 +24,6 @@ const search = (continent = undefined) => {
     }))
   );
 };
-
-const karma = (userId) =>
-  datastore
-    .runQuery(
-      datastore.createQuery("Event").select("__key__").filter("creator", userId)
-    )
-    .then(([hits]) => hits.length);
 
 const searchForever = memoize(search, { promise: true });
 
@@ -84,7 +73,6 @@ const fetchOne = async (id) => {
 module.exports.deleteOne = deleteOne;
 module.exports.updateOne = updateOne;
 module.exports.fetchOne = fetchOne;
-module.exports.karma = karma;
 module.exports.searchForever = searchForever;
 module.exports.search = search;
 module.exports.storeIfNew = storeIfNew;

@@ -1,8 +1,8 @@
-const _ = require("lodash");
+const { sortBy, orderBy } = require("lodash");
 
 module.exports.cheapestFirst = function (arr) {
-  return _.sortBy(arr, (item) => {
-    if (item.top === true) {
+  return sortBy(arr, (item) => {
+    if (item.featured === true) {
       return Number.MIN_SAFE_INTEGER;
     }
     if (item.free === true) {
@@ -16,9 +16,9 @@ module.exports.cheapestFirst = function (arr) {
 };
 
 module.exports.newestFirst = function (arr) {
-  return _.orderBy(arr, ["top", "creationDate"], ["asc", "desc"]);
+  return orderBy(arr, ["featured", "creationDate"], ["asc", "desc"]);
 };
 
 module.exports.startDate = function (arr) {
-  return _.orderBy(arr, ["top", "startDate"], ["asc", "asc"]);
+  return orderBy(arr, ["featured", "startDate"], ["asc", "asc"]);
 };
