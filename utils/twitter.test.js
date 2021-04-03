@@ -195,7 +195,7 @@ const freeEvent = {
   city: "Online",
   countryCode: "ON",
   name: "Freebie",
-  topics: ["scala", "kotlin"],
+  topics: ["elixir", "php"],
   free: true,
   startDate: new Date("2021-10-03T00:00:00.000Z"),
   url: "https://freebie.net",
@@ -205,7 +205,7 @@ test("posts a free event", async () => {
   await tweet(freeEvent);
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 Freebie
-ℹ️ Scala · Kotlin conference
+ℹ️ Elixir · PHP conference
 🌍 Online
 🗓 October 3 2021
 💰 FREE
@@ -222,7 +222,7 @@ test("posts a free event with cfp", async () => {
   await tweet({ ...freeEvent, cfpEndDate });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 Freebie
-ℹ️ Scala · Kotlin conference
+ℹ️ Elixir · PHP conference
 🌍 Online
 🗓 October 3 2021
 💰 FREE

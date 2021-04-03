@@ -41,12 +41,6 @@ const topics = {
   java: {
     name: "Java",
   },
-  kotlin: {
-    name: "Kotlin",
-  },
-  scala: {
-    name: "Scala",
-  },
   javascript: {
     name: "JavaScript",
   },
