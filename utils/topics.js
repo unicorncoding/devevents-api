@@ -90,10 +90,6 @@ const topics = {
     required: 3,
     name: "Serverless",
   },
-  scrum: {
-    required: 3,
-    name: "Scrum",
-  },
   management: {
     required: 3,
     name: "Management",
