@@ -174,10 +174,6 @@ const topics = {
     required: 3,
     name: "Functional programming",
   },
-  fsharp: {
-    required: 3,
-    name: "F sharp",
-  },
   fintech: {
     required: 3,
     name: "Fintech",
