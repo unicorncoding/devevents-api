@@ -47,9 +47,6 @@ const topics = {
   game: {
     name: "Game development",
   },
-  architecture: {
-    name: "Software architecture",
-  },
   agile: {
     name: "Agile",
   },
