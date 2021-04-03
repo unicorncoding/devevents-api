@@ -91,11 +91,11 @@ More information: https://dev.events/conferences/id-123`,
   await tweet({
     ...offlineEvent,
     free: false,
-    topics: ["fullstack", "softskills"],
+    topics: ["fullstack", "web"],
   });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
-ℹ️ Full-stack · Soft skills conference
+ℹ️ Full-stack · Web/Frontend conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 
@@ -171,7 +171,7 @@ const onlineEvent = {
   city: "Online",
   countryCode: "ON",
   name: "Webinario",
-  topics: ["it"],
+  topics: ["web"],
   startDate: new Date("2020-10-10T00:00:00.000Z"),
   url: "https://webinario.com",
 };
@@ -180,7 +180,7 @@ test("posts an online event", async () => {
   await tweet(onlineEvent);
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 Webinario
-ℹ️ IT conference
+ℹ️ Web/Frontend conference
 🌍 Online
 🗓 October 10 2020
 

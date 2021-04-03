@@ -7,12 +7,12 @@ test("calculates uid", () => {
     city: "Riga",
     startDate: date,
   });
-  expect(id1).toEqual(expect.stringMatching("dev-ternity-riga-2020"));
+  expect(id1).toEqual(expect.stringMatching("dev-ternity-riga-10-2020"));
 
   const id2 = uid({
     name: "DevTernity",
     city: "Riga",
     startDate: date,
   });
-  expect(id2).toEqual(expect.stringMatching("dev-ternity-riga-2020"));
+  expect(id2).toEqual(expect.stringMatching("dev-ternity-riga-10-2020"));
 });

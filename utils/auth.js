@@ -10,7 +10,7 @@ module.exports.makeAdmin = (email) => {
     );
 };
 
-module.exports.whois = (req) => {
+module.exports.whois = async (req) => {
   if (!!req.headers.authorization) {
     return admin
       .auth()

@@ -1,9 +1,37 @@
 console.time("initializing admin");
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
-const { deleteOne, updateOne } = require("../utils/datastore");
+const { deleteOne, updateOne, search } = require("../utils/datastore");
+
+const { chain, merge, mapValues } = require("lodash");
+const topicNames = require("../utils/topics").topics;
 
 console.timeEnd("initializing admin");
+
+router.get(
+  "/work",
+  asyncHandler(async (req, res) => {
+    const { whois } = require("../utils/auth");
+    const { admin } = await whois(req);
+    if (!admin) {
+      res.status(403).send("Sorry, you don't have access to view work queue");
+      return;
+    }
+
+    const topicCounts = chain(await search())
+      .flatMap(({ topics }) => topics)
+      .countBy()
+      .mapValues((count) => ({ count }))
+      .value();
+
+    const response = mapValues(merge(topicNames, topicCounts), (it) => ({
+      ...it,
+      count: it.count || 0,
+    }));
+
+    res.status(200).send(response);
+  })
+);
 
 router.post(
   "/:eventId/update",
