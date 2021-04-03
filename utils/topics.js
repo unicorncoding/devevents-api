@@ -22,14 +22,6 @@ const topics = {
     required: 3,
     name: "API",
   },
-  vue: {
-    required: 3,
-    name: "Vue",
-  },
-  angular: {
-    required: 3,
-    name: "Angular",
-  },
   web: {
     required: 5,
     name: "Web/Frontend",
