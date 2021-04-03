@@ -86,9 +86,6 @@ const topics = {
   vr: {
     name: "AR/VR/XR",
   },
-  cloud: {
-    name: "Cloud",
-  },
   fp: {
     name: "Functional programming",
   },
