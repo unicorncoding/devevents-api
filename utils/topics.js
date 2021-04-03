@@ -29,9 +29,6 @@ const topics = {
   elixir: {
     name: "Elixir",
   },
-  react: {
-    name: "React",
-  },
   fullstack: {
     name: "Full-stack",
   },
