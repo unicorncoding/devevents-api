@@ -16,7 +16,7 @@ const topics = {
   },
   iot: {
     required: 3,
-    name: "IoT",
+    name: "Hardware/IoT",
   },
   api: {
     required: 3,
@@ -29,10 +29,6 @@ const topics = {
   angular: {
     required: 3,
     name: "Angular",
-  },
-  hardware: {
-    required: 3,
-    name: "Hardware",
   },
   web: {
     required: 5,
