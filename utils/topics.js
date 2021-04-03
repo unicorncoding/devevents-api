@@ -140,7 +140,7 @@ const topics = {
   },
   qa: {
     required: 3,
-    name: "Testing and QA",
+    name: "Testing/QA",
   },
   blockchain: {
     required: 3,
@@ -180,7 +180,7 @@ const topics = {
   },
   ml: {
     required: 3,
-    name: "Machine learning & AI",
+    name: "ML/AI",
   },
 };
 
