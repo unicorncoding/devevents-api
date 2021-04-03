@@ -66,7 +66,7 @@ const topics = {
     name: "Open source",
   },
   product: {
-    name: "Product development",
+    name: "Product/UX",
   },
   python: {
     name: "Python",
@@ -76,9 +76,6 @@ const topics = {
   },
   security: {
     name: "Security",
-  },
-  ux: {
-    name: "UX",
   },
   qa: {
     name: "Testing/QA",
