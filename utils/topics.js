@@ -86,10 +86,6 @@ const topics = {
     required: 3,
     name: "Leadership",
   },
-  serverless: {
-    required: 3,
-    name: "Serverless",
-  },
   management: {
     required: 3,
     name: "Management",
