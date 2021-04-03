@@ -30,7 +30,7 @@ test("posts a conference", async () => {
   await tweet(offlineEvent);
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
-ℹ️ Full-stack/Architecture conference
+ℹ️ Architecture/Full-stack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 
@@ -47,7 +47,7 @@ test("posts an event other than a conference", async () => {
   });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
-ℹ️ Full-stack/Architecture meetup
+ℹ️ Architecture/Full-stack meetup
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 
@@ -64,7 +64,7 @@ test("posts a conference with price", async () => {
   });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
-ℹ️ Full-stack/Architecture conference
+ℹ️ Architecture/Full-stack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 
@@ -79,7 +79,7 @@ More information: https://dev.events/conferences/id-123`,
   });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
-ℹ️ Full-stack/Architecture conference
+ℹ️ Architecture/Full-stack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 
@@ -95,7 +95,7 @@ More information: https://dev.events/conferences/id-123`,
   });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
-ℹ️ Full-stack/Architecture · Web/Frontend conference
+ℹ️ Architecture/Full-stack · Web/Frontend conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 
@@ -110,7 +110,7 @@ test("posts a multi-day conference", async () => {
   await tweet({ ...offlineEvent, endDate });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
-ℹ️ Full-stack/Architecture conference
+ℹ️ Architecture/Full-stack conference
 🇱🇻 Riga, Latvia
 🗓 November 3-4 2020
 
@@ -125,7 +125,7 @@ test("posts a multi-day conference that spans multiple months", async () => {
   await tweet({ ...offlineEvent, endDate });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
-ℹ️ Full-stack/Architecture conference
+ℹ️ Architecture/Full-stack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 - December 4 2020
 
@@ -141,7 +141,7 @@ test("posts a conference with cfp", async () => {
   await tweet({ ...offlineEvent, cfpEndDate });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
-ℹ️ Full-stack/Architecture conference
+ℹ️ Architecture/Full-stack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 📢 ${remainingDays} to submit a talk
@@ -156,7 +156,7 @@ test("posts a conference and mentions the organizer", async () => {
   await tweet({ ...offlineEvent, twitter: "devternity" });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 DevTernity
-ℹ️ Full-stack/Architecture conference
+ℹ️ Architecture/Full-stack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
 
