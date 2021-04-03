@@ -18,10 +18,10 @@ const topics = {
     name: "Web/Frontend",
   },
   data: {
-    name: "Data",
+    name: "Data/AI/ML",
   },
   devops: {
-    name: "DevOps",
+    name: "DevOps/Cloud",
   },
   dotnet: {
     name: ".NET",
@@ -97,9 +97,6 @@ const topics = {
   },
   rust: {
     name: "Rust",
-  },
-  ml: {
-    name: "ML/AI",
   },
 };
 
