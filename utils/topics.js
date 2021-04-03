@@ -36,11 +36,7 @@ const topics = {
   },
   data: {
     required: 5,
-    name: "Data science",
-  },
-  database: {
-    required: 3,
-    name: "Databases",
+    name: "Data",
   },
   devops: {
     required: 5,
