@@ -18,10 +18,6 @@ const topics = {
     required: 3,
     name: "Hardware/IoT",
   },
-  api: {
-    required: 3,
-    name: "API",
-  },
   web: {
     required: 5,
     name: "Web/Frontend",
@@ -126,9 +122,9 @@ const topics = {
     required: 3,
     name: "Blockchain",
   },
-  career: {
+  recruit: {
     required: 3,
-    name: "Career",
+    name: "Career/Hiring/HR",
   },
   vr: {
     required: 3,
