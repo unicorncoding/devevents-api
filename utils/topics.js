@@ -110,14 +110,6 @@ const topics = {
     required: 3,
     name: "Ruby and Rails",
   },
-  android: {
-    required: 3,
-    name: "Android",
-  },
-  ios: {
-    required: 3,
-    name: "iOS",
-  },
   security: {
     required: 3,
     name: "Security",
