@@ -195,7 +195,7 @@ const freeEvent = {
   city: "Online",
   countryCode: "ON",
   name: "Freebie",
-  topics: ["vue", "angular"],
+  topics: ["scala", "kotlin"],
   free: true,
   startDate: new Date("2021-10-03T00:00:00.000Z"),
   url: "https://freebie.net",
@@ -205,7 +205,7 @@ test("posts a free event", async () => {
   await tweet(freeEvent);
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 Freebie
-ℹ️ Vue · Angular conference
+ℹ️ Scala · Kotlin conference
 🌍 Online
 🗓 October 3 2021
 💰 FREE
@@ -222,7 +222,7 @@ test("posts a free event with cfp", async () => {
   await tweet({ ...freeEvent, cfpEndDate });
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 Freebie
-ℹ️ Vue · Angular conference
+ℹ️ Scala · Kotlin conference
 🌍 Online
 🗓 October 3 2021
 💰 FREE
