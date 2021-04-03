@@ -17,13 +17,17 @@ const { emojiStrip } = require("../utils/emoji");
 
 const eventTypes = ["conference", "training", "meetup"];
 
+const orderAlphabetically = (items) => [...items].sort();
+
 const required = () => {
   const { body, header } = require("express-validator");
   return [
     header("authorization").exists().notEmpty(),
     body("city").exists(),
     body("url").customSanitizer(normalizedUrl).isURL(),
-    body("topics").isArray({ min: 1, max: 3 }),
+    body("topics")
+      .isArray({ min: 1, max: 3 })
+      .customSanitizer(orderAlphabetically),
     body("countryCode").isIn(countries),
     body("category").isIn(eventTypes).optional(),
     body("name").customSanitizer(emojiStrip).trim().notEmpty(),
