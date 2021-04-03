@@ -45,10 +45,7 @@ const topics = {
     name: "JavaScript",
   },
   leadership: {
-    name: "Leadership",
-  },
-  management: {
-    name: "Management",
+    name: "Leadership/Management",
   },
   game: {
     name: "Game development",
