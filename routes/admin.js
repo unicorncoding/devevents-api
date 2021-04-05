@@ -5,6 +5,9 @@ const { deleteOne, updateOne, search } = require("../utils/datastore");
 
 const { chain, merge, mapValues } = require("lodash");
 const topicNames = require("../utils/topics").topics;
+const dayjs = require("dayjs");
+dayjs.extend(require("dayjs/plugin/utc"));
+const utc = dayjs.utc;
 
 console.timeEnd("initializing admin");
 
@@ -24,12 +27,17 @@ router.get(
       .mapValues((count) => ({ count }))
       .value();
 
-    const response = mapValues(merge(topicNames, topicCounts), (it) => ({
+    const topicStats = mapValues(merge(topicNames, topicCounts), (it) => ({
       ...it,
       count: it.count || 0,
     }));
 
-    res.status(200).send(response);
+    const expiredEvents = await search({ fromInclusive: utc().subtract(14, 'day'), toInclusive: utc() })
+
+    res.status(200).send({
+      topicStats,
+      expiredEvents
+    });
   })
 );
 

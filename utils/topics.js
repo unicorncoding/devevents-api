@@ -2,9 +2,6 @@
 // Don't fotget to update topics in devevents-web
 // !!!
 const topics = {
-  clojure: {
-    name: "Clojure",
-  },
   cpp: {
     name: "C/C++",
   },

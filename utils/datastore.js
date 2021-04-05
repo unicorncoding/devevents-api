@@ -1,16 +1,22 @@
 console.time("initializing datastore");
 const memoize = require("memoizee");
+
+const dayjs = require("dayjs");
+dayjs.extend(require("dayjs/plugin/utc"));
+const utc = dayjs.utc;
+
 const { countryName, stateName } = require("./geo");
 const { flatten } = require("./arrays");
-
 const { Datastore } = require("@google-cloud/datastore");
 const datastore = new Datastore();
 console.timeEnd("initializing datastore");
 
-const search = () => {
-  let query = datastore
+
+const search = async ( params = { fromInclusive: utc(), toInclusive: utc().add(3, 'year') } ) => {
+  const query = datastore
     .createQuery("Event")
-    .filter("startDate", ">=", new Date());
+    .filter("startDate", ">=", params.fromInclusive.toDate())
+    .filter("startDate", "<=", params.toInclusive.toDate())
 
   return datastore.runQuery(query).then(([events]) =>
     events.map((event) => ({
@@ -37,7 +43,7 @@ const storeIfNew = async (id, data, stats) => {
       await tx.rollback();
       stats.skip();
     } else {
-      await tx.save({ key, data, excludeFromIndexes: ["description"] });
+      await tx.save({ key, data });
       await tx.commit();
       stats.store(data);
     }
