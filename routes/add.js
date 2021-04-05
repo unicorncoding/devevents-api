@@ -14,6 +14,8 @@ const { storeIfNew } = require("../utils/datastore");
 const { countries, countryName, states } = require("../utils/geo");
 const { normalizedUrl } = require("../utils/urls");
 const { emojiStrip } = require("../utils/emoji");
+const { topics } = require("../utils/topics");
+
 
 const eventTypes = ["conference", "training", "meetup"];
 
@@ -27,6 +29,7 @@ const required = () => {
     body("url").customSanitizer(normalizedUrl).isURL(),
     body("topics")
       .isArray({ min: 1, max: 3 })
+      .isIn(Object.keys(topics))
       .customSanitizer(orderAlphabetically),
     body("countryCode").isIn(countries),
     body("category").isIn(eventTypes).optional(),
