@@ -1,7 +1,7 @@
 console.time("initializing sitemap");
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
-const { searchForever } = require("../utils/datastore");
+const { searchUpcomingForever } = require("../utils/datastore");
 const { flatten } = require("../utils/arrays");
 
 console.timeEnd("initializing sitemap");
@@ -17,7 +17,7 @@ router.get(
 
     const links = new Set();
 
-    const events = flatten(await searchForever());
+    const events = flatten(await searchUpcomingForever());
 
     events.forEach((it) => {
       links.add(`/${it.continentCode}`);

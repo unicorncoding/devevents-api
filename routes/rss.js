@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const dayjs = require("dayjs");
-const { searchForever } = require("../utils/datastore");
+const { searchUpcomingForever } = require("../utils/datastore");
 const { topics: allTopics } = require("../utils/topics");
 
 const pretty = (it) => dayjs(it).format("D MMMM");
@@ -11,7 +11,7 @@ router.get(
   "/",
   asyncHandler(async (req, res) => {
     console.time("rss fetch");
-    const events = await searchForever();
+    const events = await searchUpcomingForever();
     console.timeEnd("rss fetch");
 
     const someEvents = events;

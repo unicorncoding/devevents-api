@@ -2,7 +2,7 @@ console.time("initializing search");
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const { countryName } = require("../utils/geo");
-const { search, byName } = require("../utils/datastore");
+const { searchUpcoming, byName } = require("../utils/datastore");
 const { chunk, chain } = require("lodash");
 const { startDate, cheapestFirst, newestFirst } = require("../utils/sortings");
 console.timeEnd("initializing search");
@@ -25,7 +25,7 @@ router.get(
       start = 0,
     } = req.query;
 
-    const events = (await search()).filter(
+    const events = (await searchUpcoming()).filter(
       ({ featured, continentCode }) =>
         !continent || featured || continentCode === continent
     );

@@ -11,27 +11,27 @@ const { Datastore } = require("@google-cloud/datastore");
 const datastore = new Datastore();
 console.timeEnd("initializing datastore");
 
-
-const search = async ( params = { fromInclusive: utc(), toInclusive: utc().add(3, 'year') } ) => {
+const searchExpiredBefore = async (date) => {
   const query = datastore
     .createQuery("Event")
-    .filter("startDate", ">=", params.fromInclusive.toDate())
-    .filter("startDate", "<=", params.toInclusive.toDate())
+    .filter("startDate", "<=", date.toDate())
+    .order("startDate", {
+      descending: true,
+    })
+    .limit(15);
 
-  return datastore.runQuery(query).then(([events]) =>
-    events.map((event) => ({
-      ...event,
-      id: event[datastore.KEY].name,
-      country: countryName(event.countryCode),
-      state: stateName(event.stateCode),
-      topics: [
-        ...new Set(flatten([event.topicCode, event.topics]).filter(Boolean)),
-      ],
-    }))
-  );
+  return datastore.runQuery(query).then(([events]) => events.map(enrich));
 };
 
-const searchForever = memoize(search, { promise: true });
+const searchUpcoming = async () => {
+  const query = datastore
+    .createQuery("Event")
+    .filter("startDate", ">=", utc().toDate());
+
+  return datastore.runQuery(query).then(([events]) => events.map(enrich));
+};
+
+const searchUpcomingForever = memoize(searchUpcoming, { promise: true });
 
 const storeIfNew = async (id, data, stats) => {
   const key = datastore.key(["Event", id]);
@@ -65,7 +65,11 @@ const deleteOne = async (id) => {
 
 const fetchOne = async (id) => {
   const key = datastore.key(["Event", id]);
-  return datastore.get(key).then(([event]) => ({
+  return datastore.get(key).then(([event]) => enrich(event));
+};
+
+function enrich(event) {
+  return {
     ...event,
     country: countryName(event.countryCode),
     state: stateName(event.stateCode),
@@ -73,14 +77,15 @@ const fetchOne = async (id) => {
     topics: [
       ...new Set(flatten([event.topicCode, event.topics]).filter(Boolean)),
     ],
-  }));
-};
+  };
+}
 
 module.exports.deleteOne = deleteOne;
 module.exports.updateOne = updateOne;
 module.exports.fetchOne = fetchOne;
-module.exports.searchForever = searchForever;
-module.exports.search = search;
+module.exports.searchExpiredBefore = searchExpiredBefore;
+module.exports.searchUpcomingForever = searchUpcomingForever;
+module.exports.searchUpcoming = searchUpcoming;
 module.exports.storeIfNew = storeIfNew;
 
 module.exports.byCountry = (country) => (it) =>

@@ -1,7 +1,14 @@
 console.time("initializing admin");
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
-const { deleteOne, updateOne, search } = require("../utils/datastore");
+const {
+  deleteOne,
+  updateOne,
+  searchUpcoming,
+  searchExpiredBefore,
+} = require("../utils/datastore");
+
+const emojis = require("../utils/countries-emoji.json");
 
 const { chain, merge, mapValues } = require("lodash");
 const topicNames = require("../utils/topics").topics;
@@ -21,7 +28,7 @@ router.get(
       return;
     }
 
-    const topicCounts = chain(await search())
+    const topicCounts = chain(await searchUpcoming())
       .flatMap(({ topics }) => topics)
       .countBy()
       .mapValues((count) => ({ count }))
@@ -32,11 +39,13 @@ router.get(
       count: it.count || 0,
     }));
 
-    const expiredEvents = await search({ fromInclusive: utc().subtract(14, 'day'), toInclusive: utc() })
+    const twoWeeksAgo = utc().subtract(14, "day");
+    const expiredEvents = await searchExpiredBefore(twoWeeksAgo);
 
     res.status(200).send({
       topicStats,
-      expiredEvents
+      expiredEvents,
+      emojis,
     });
   })
 );
