@@ -16,7 +16,6 @@ const { normalizedUrl } = require("../utils/urls");
 const { emojiStrip } = require("../utils/emoji");
 const { topics } = require("../utils/topics");
 
-
 const eventTypes = ["conference", "training", "meetup"];
 
 const orderAlphabetically = (items) => [...items].sort();

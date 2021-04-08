@@ -1,14 +1,13 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
-const bodyParser = require("body-parser");
 const app = express();
 
 require("dotenv").config();
 
 app.use(cors());
 app.use(morgan("tiny"));
-app.use(bodyParser.json());
+app.use(express.json());
 
 const dnsCache = require("dnscache");
 dnsCache({
