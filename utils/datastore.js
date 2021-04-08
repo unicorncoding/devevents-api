@@ -11,6 +11,9 @@ const { Datastore } = require("@google-cloud/datastore");
 const datastore = new Datastore();
 console.timeEnd("initializing datastore");
 
+const taim = require("taim");
+const runQuery = taim("datastore search", (query) => datastore.runQuery(query));
+
 const searchExpiredBefore = async (date) => {
   const query = datastore
     .createQuery("Event")
@@ -20,7 +23,7 @@ const searchExpiredBefore = async (date) => {
     })
     .limit(15);
 
-  return datastore.runQuery(query).then(([events]) => events.map(enrich));
+  return runQuery(query).then(([events]) => events.map(enrich));
 };
 
 const searchUpcoming = async () => {
@@ -28,7 +31,7 @@ const searchUpcoming = async () => {
     .createQuery("Event")
     .filter("startDate", ">=", utc().toDate());
 
-  return datastore.runQuery(query).then(([events]) => events.map(enrich));
+  return runQuery(query).then(([events]) => events.map(enrich));
 };
 
 const searchUpcomingForever = memoize(searchUpcoming, { promise: true });
