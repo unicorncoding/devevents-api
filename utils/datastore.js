@@ -69,6 +69,9 @@ const fetchOne = async (id) => {
 };
 
 function enrich(event) {
+  if (!event) {
+    return event;
+  }
   return {
     ...event,
     country: countryName(event.countryCode),
