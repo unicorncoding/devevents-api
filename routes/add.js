@@ -24,10 +24,11 @@ const required = () => {
     header("authorization").exists().notEmpty(),
     body("city").exists(),
     body("url").customSanitizer(normalizedUrl).isURL(),
+    body("topic").isIn(Object.keys(topics)).optional(),
     body("topics")
       .isArray({ min: 1, max: 3 })
       .isIn(Object.keys(topics))
-      .customSanitizer(orderAlphabetically),
+      .optional(),
     body("countryCode").isIn(countries),
     body("category").isIn(eventTypes).optional(),
     body("name").customSanitizer(emojiStrip).trim().notEmpty(),
@@ -104,7 +105,7 @@ async function newEventFrom(req) {
     countryCode: body.countryCode,
     stateCode: body.stateCode,
     continentCode: countries[body.countryCode].continent,
-    topics: body.topics,
+    topics: body.topic ? [body.topic] : body.topics,
     free: body.price.free,
     category: body.category || "conference",
     description: body.description,
