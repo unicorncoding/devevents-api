@@ -46,7 +46,7 @@ function price({ free }) {
   if (free) {
     return "💰 FREE";
   } else {
-    return undefined;
+    return "💰 PAID";
   }
 }
 

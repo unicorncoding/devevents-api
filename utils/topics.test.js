@@ -29,3 +29,7 @@ test("javascript -> web (frontend)", () => {
 test("elixir -> fp", () => {
   expect(relevantTopics("elixir")).toStrictEqual(["elixir", "fp"]);
 });
+
+test("blockchain -> fintech", () => {
+  expect(relevantTopics("blockchain")).toStrictEqual(["blockchain", "fintech"]);
+});

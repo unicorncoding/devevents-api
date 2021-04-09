@@ -32,6 +32,7 @@ test("posts a conference", async () => {
 ℹ️ Full-stack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
+💰 PAID
 
 ❤️ Retweet to support!
 
@@ -49,6 +50,7 @@ test("posts an event other than a conference", async () => {
 ℹ️ Full-stack meetup
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
+💰 PAID
 
 ❤️ Retweet to support!
 
@@ -66,6 +68,7 @@ test("posts a conference with price", async () => {
 ℹ️ Full-stack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
+💰 PAID
 
 ❤️ Retweet to support!
 
@@ -81,6 +84,7 @@ More information: https://dev.events/conferences/id-123`,
 ℹ️ Full-stack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
+💰 PAID
 
 ❤️ Retweet to support!
 
@@ -96,6 +100,7 @@ More information: https://dev.events/conferences/id-123`,
 ℹ️ Full-stack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
+💰 PAID
 
 ❤️ Retweet to support!
 
@@ -111,6 +116,7 @@ test("posts a multi-day conference", async () => {
 ℹ️ Full-stack conference
 🇱🇻 Riga, Latvia
 🗓 November 3-4 2020
+💰 PAID
 
 ❤️ Retweet to support!
 
@@ -126,6 +132,7 @@ test("posts a multi-day conference that spans multiple months", async () => {
 ℹ️ Full-stack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 - December 4 2020
+💰 PAID
 
 ❤️ Retweet to support!
 
@@ -142,6 +149,7 @@ test("posts a conference with cfp", async () => {
 ℹ️ Full-stack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
+💰 PAID
 📢 ${remainingDays} to submit a talk
 
 ❤️ Retweet to support!
@@ -157,6 +165,7 @@ test("posts a conference and mentions the organizer", async () => {
 ℹ️ Full-stack conference
 🇱🇻 Riga, Latvia
 🗓 November 3 2020
+💰 PAID
 
 ❤️ Retweet to support! @devternity
 
@@ -181,6 +190,7 @@ test("posts an online event", async () => {
 ℹ️ Frontend conference
 🌍 Online
 🗓 October 10 2020
+💰 PAID
 
 ❤️ Retweet to support!
 

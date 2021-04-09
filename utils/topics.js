@@ -44,7 +44,7 @@ const topics = {
     aliases: ["web"],
   },
   leadership: {
-    name: "Leadership",
+    name: "Tech leadership",
   },
   game: {
     name: "Game dev",
@@ -72,6 +72,7 @@ const topics = {
   },
   blockchain: {
     name: "Blockchain",
+    aliases: ["fintech"],
   },
   recruit: {
     name: "Career / Hiring / HR",
