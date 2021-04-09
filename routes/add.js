@@ -16,8 +16,6 @@ const { topics } = require("../utils/topics");
 
 const eventTypes = ["conference", "training", "meetup"];
 
-const orderAlphabetically = (items) => [...items].sort();
-
 const required = () => {
   const { body, header } = require("express-validator");
   return [

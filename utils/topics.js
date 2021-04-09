@@ -1,6 +1,3 @@
-// !!!
-// Don't fotget to update topics in devevents-web
-// !!!
 const topics = {
   cpp: {
     name: "C/C++",
@@ -9,16 +6,16 @@ const topics = {
     name: "Mobile",
   },
   iot: {
-    name: "Hardware/IoT",
+    name: "Hardware / IoT",
   },
   web: {
-    name: "Web/Frontend",
+    name: "Web / Frontend",
   },
   data: {
-    name: "Data/AI/ML",
+    name: "Data / AI / ML",
   },
   devops: {
-    name: "DevOps/Cloud",
+    name: "DevOps / Cloud",
   },
   dotnet: {
     name: ".NET",
@@ -26,8 +23,12 @@ const topics = {
   elixir: {
     name: "Elixir",
   },
+  architecture: {
+    name: "Software Architecture",
+    aliases: ["fullstack"],
+  },
   fullstack: {
-    name: "Architecture/Full-stack",
+    name: "Full-stack",
   },
   golang: {
     name: "Golang",
@@ -39,7 +40,7 @@ const topics = {
     name: "JavaScript",
   },
   leadership: {
-    name: "Leadership/Management",
+    name: "Leadership",
   },
   game: {
     name: "Game development",
@@ -51,28 +52,28 @@ const topics = {
     name: "PHP",
   },
   product: {
-    name: "Product/UX",
+    name: "Product / UX",
   },
   python: {
     name: "Python",
   },
   ruby: {
-    name: "Ruby and Rails",
+    name: "Ruby",
   },
   security: {
     name: "Security",
   },
   qa: {
-    name: "Testing/QA",
+    name: "QA / Testing",
   },
   blockchain: {
     name: "Blockchain",
   },
   recruit: {
-    name: "Career/Hiring/HR",
+    name: "Career / Hiring / HR",
   },
   vr: {
-    name: "AR/VR/XR",
+    name: "AR / VR / XR",
   },
   fp: {
     name: "Functional programming",

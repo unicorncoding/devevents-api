@@ -63,9 +63,8 @@ function what({ name }) {
 }
 
 function about({ topics, category = "conference" }) {
-  return `ℹ️ ${topics
-    .map((each) => allTopics[each].name)
-    .join(" · ")} ${category}`;
+  const [mainTopic] = topics;
+  return `ℹ️ ${allTopics[mainTopic].name} ${category}`;
 }
 
 function date({ startDate, endDate }) {
