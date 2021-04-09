@@ -1,10 +1,7 @@
 console.time("initializing datastore");
 const memoize = require("memoizee");
 
-const dayjs = require("dayjs");
-dayjs.extend(require("dayjs/plugin/utc"));
-const utc = dayjs.utc;
-
+const { dayjs: utc } = require("./dates");
 const { countryName, stateName } = require("./geo");
 const { flatten } = require("./arrays");
 const { Datastore } = require("@google-cloud/datastore");

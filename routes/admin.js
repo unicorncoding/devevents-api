@@ -12,9 +12,7 @@ const emojis = require("../utils/countries-emoji.json");
 
 const { chain, merge, mapValues } = require("lodash");
 const topicNames = require("../utils/topics").topics;
-const dayjs = require("dayjs");
-dayjs.extend(require("dayjs/plugin/utc"));
-const utc = dayjs.utc;
+const { dayjs: utc } = require("../utils/dates");
 
 console.timeEnd("initializing admin");
 

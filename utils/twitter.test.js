@@ -1,7 +1,6 @@
 const Twit = require("twit");
 const { tweet } = require("./twitter");
-const dayjs = require("dayjs");
-dayjs.extend(require("dayjs/plugin/relativeTime"));
+const { dayjs } = require("./dates");
 
 jest.mock("Twit");
 

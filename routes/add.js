@@ -2,13 +2,11 @@ console.time("initializing add");
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 
-const dayjs = require("dayjs");
-dayjs.extend(require("dayjs/plugin/isSameOrAfter"));
-dayjs.extend(require("dayjs/plugin/utc"));
+const { dayjs } = require("../utils/dates");
+const utc = dayjs.utc;
 
 const { twitterHandle } = require("../utils/twitter-handle");
 const is = require("is_js");
-const utc = dayjs.utc;
 const Stats = require("../utils/stats");
 const { storeIfNew } = require("../utils/datastore");
 const { countries, countryName, states } = require("../utils/geo");
