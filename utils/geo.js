@@ -3,7 +3,7 @@ const countries = require("./countries");
 const emojis = require("./countries-emoji.json");
 
 const continents = {
-  EU: "Europe",
+  EU: "EU",
   AM: "America",
   AS: "Asia",
   AF: "Africa",

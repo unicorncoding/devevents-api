@@ -25,7 +25,7 @@ const required = () => {
     body("city").exists(),
     body("url").customSanitizer(normalizedUrl).isURL(),
     body("topic").isIn(Object.keys(topics)).optional(),
-    body("topics")
+    body("topics") // deprecated
       .isArray({ min: 1, max: 3 })
       .isIn(Object.keys(topics))
       .optional(),
