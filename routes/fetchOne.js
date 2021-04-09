@@ -14,7 +14,7 @@ router.get(
     const conf = await fetchOne(id);
     const httpsUrl = normalizeUrl(conf.url, { forceHttps: true });
     const previewAvailable = await axios
-      .get(httpsUrl)
+      .get(httpsUrl, { timeout: 5000 })
       .then((response) => !response.headers["x-frame-options"])
       .catch(() => false);
 

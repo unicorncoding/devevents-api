@@ -178,7 +178,7 @@ test("posts an online event", async () => {
   await tweet(onlineEvent);
   expect(twitter.post).toHaveBeenCalledWith("statuses/update", {
     status: `🆕 Webinario
-ℹ️ Web / Frontend conference
+ℹ️ Frontend conference
 🌍 Online
 🗓 October 10 2020
 

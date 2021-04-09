@@ -3,25 +3,27 @@ const topics = {
     name: "C/C++",
   },
   mobile: {
-    name: "Mobile",
+    name: "Mobile / Android / iOS",
   },
   iot: {
     name: "Hardware / IoT",
   },
   web: {
-    name: "Web / Frontend",
+    name: "Frontend",
+    aliases: ["javascript"],
   },
   data: {
-    name: "Data / AI / ML",
+    name: "Data science / ML",
   },
   devops: {
-    name: "DevOps / Cloud",
+    name: "DevOps",
   },
   dotnet: {
     name: ".NET",
   },
   elixir: {
     name: "Elixir",
+    aliases: ["fp"],
   },
   architecture: {
     name: "Software Architecture",
@@ -29,6 +31,7 @@ const topics = {
   },
   fullstack: {
     name: "Full-stack",
+    aliases: ["architecture"],
   },
   golang: {
     name: "Golang",
@@ -38,12 +41,13 @@ const topics = {
   },
   javascript: {
     name: "JavaScript",
+    aliases: ["web"],
   },
   leadership: {
     name: "Leadership",
   },
   game: {
-    name: "Game development",
+    name: "Game dev",
   },
   agile: {
     name: "Agile",
@@ -87,3 +91,7 @@ const topics = {
 };
 
 module.exports.topics = topics;
+module.exports.relevantTopics = (mainTopic) => {
+  const aliases = topics[mainTopic].aliases || [];
+  return [mainTopic, ...aliases];
+};
