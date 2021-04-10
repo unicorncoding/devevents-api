@@ -33,6 +33,7 @@ router.get(
 
     const mapper = (event) => {
       event.topics = [...new Set(flatten(event.topics.map(relevantTopics)))];
+      event.category = event.category || 'conference';
       delete event.description;
       delete event.source;
       delete event.country;
