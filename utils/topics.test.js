@@ -1,7 +1,15 @@
 const { relevantTopics } = require("./topics");
 
-test("rust is rust", () => {
+test("rust -> rust", () => {
   expect(relevantTopics("rust")).toStrictEqual(["rust"]);
+});
+
+test("unknown-topic -> unknown-topic", () => {
+  expect(relevantTopics("unknown-topic")).toStrictEqual(["unknown-topic"]);
+});
+
+test("undefined -> undefined", () => {
+  expect(relevantTopics(undefined)).toStrictEqual([undefined]);
 });
 
 test("fullstack -> architecture", () => {

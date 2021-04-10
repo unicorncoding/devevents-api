@@ -26,7 +26,7 @@ const topics = {
     aliases: ["fp"],
   },
   architecture: {
-    name: "Software Architecture",
+    name: "Software architecture",
     aliases: ["fullstack"],
   },
   fullstack: {
@@ -93,6 +93,6 @@ const topics = {
 
 module.exports.topics = topics;
 module.exports.relevantTopics = (mainTopic) => {
-  const aliases = topics[mainTopic].aliases || [];
+  const { aliases = [] } = topics[mainTopic] || {};
   return [mainTopic, ...aliases];
 };

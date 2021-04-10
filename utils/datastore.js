@@ -1,6 +1,6 @@
 console.time("initializing datastore");
 const memoize = require("memoizee");
-
+const jsonDiff = require("json-diff");
 const { dayjs: utc } = require("./dates");
 const { countryName, stateName } = require("./geo");
 const { flatten } = require("./arrays");
@@ -10,6 +10,27 @@ console.timeEnd("initializing datastore");
 
 const taim = require("taim");
 const runQuery = taim("datastore search", (query) => datastore.runQuery(query));
+
+const mapAll = (mapper = (data) => data) => {
+  let changed = 0;
+  datastore
+    .runQueryStream(datastore.createQuery("Event"))
+    .on("error", console.error)
+    .on("data", (data) => {
+      const key = data[datastore.KEY];
+      const copy = { ...data };
+      mapper(copy);
+      const diff = jsonDiff.diffString(data, copy);
+      if (diff) {
+        changed++;
+        console.log(diff);
+      }
+      datastore.update({ key, data: copy });
+    })
+    .on("end", () =>
+      console.log(`Migration has completed. ${changed} entities updated.`)
+    );
+};
 
 const searchExpiredBefore = async (date) => {
   const query = datastore
@@ -88,6 +109,7 @@ module.exports.updateOne = updateOne;
 module.exports.fetchOne = fetchOne;
 module.exports.searchExpiredBefore = searchExpiredBefore;
 module.exports.searchUpcomingForever = searchUpcomingForever;
+module.exports.mapAll = mapAll;
 module.exports.searchUpcoming = searchUpcoming;
 module.exports.storeIfNew = storeIfNew;
 

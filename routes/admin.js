@@ -6,15 +6,54 @@ const {
   updateOne,
   searchUpcoming,
   searchExpiredBefore,
+  mapAll,
 } = require("../utils/datastore");
 
 const emojis = require("../utils/countries-emoji.json");
 
+const { flatten } = require("../utils/arrays");
 const { chain, merge, mapValues } = require("lodash");
 const topicNames = require("../utils/topics").topics;
 const { dayjs: utc } = require("../utils/dates");
+const { relevantTopics } = require("../utils/topics");
 
 console.timeEnd("initializing admin");
+
+router.get(
+  "/migrate",
+  asyncHandler(async (req, res) => {
+    const { whois } = require("../utils/auth");
+    const { admin } = await whois(req);
+    if (!admin) {
+      res
+        .status(403)
+        .send("Sorry, you don't have enough privilege to migrate data");
+      return;
+    }
+
+    const mapper = (event) => {
+      const topicsNow = flatten([event.topicCode, event.topics]).filter(
+        Boolean
+      );
+      const topicsNew = [...new Set(flatten(topicsNow.map(relevantTopics)))];
+      delete event.description;
+      delete event.source;
+      delete event.country;
+      delete event.pending;
+      delete event.priceCurrency;
+      delete event.priceFrom;
+      delete event.priceTo;
+      delete event.top;
+      event.topics = topicsNew;
+      delete event.topicCode;
+      delete event.topic;
+    };
+
+    mapAll(mapper);
+
+    res.status(200).send("OK");
+  })
+);
 
 router.get(
   "/work",
