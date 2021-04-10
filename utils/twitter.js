@@ -62,7 +62,7 @@ function what({ name }) {
   return `🆕 ${name}`;
 }
 
-function about({ topics, category = "conference" }) {
+function about({ topics, category }) {
   const [mainTopic] = topics;
   return `ℹ️ ${allTopics[mainTopic].name} ${category}`;
 }

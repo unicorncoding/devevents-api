@@ -101,7 +101,7 @@ async function newEventFrom(req) {
     continentCode: countries[body.countryCode].continent,
     topics: relevantTopics(body.topic),
     free: body.price.free,
-    category: body.category || "conference",
+    category: body.category,
     description: body.description,
     creator: uid,
     creationDate: new Date(),

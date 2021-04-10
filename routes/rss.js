@@ -21,7 +21,7 @@ router.get(
     const infoAbout = ({
       name,
       topics: [topic],
-      category = "conference",
+      category,
       startDate,
       city,
       country,
