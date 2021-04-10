@@ -39,10 +39,7 @@ module.exports.stateName = stateName;
 module.exports.countries = countries;
 module.exports.countriesOrdered = Object.keys(countries)
   .map((code) => ({
-    code: code,
-    currency: countries[code].currency,
+    code,
     name: countries[code].name,
   }))
-  .sort((it, that) =>
-    it.name === "Online" ? -1 : it.name.localeCompare(that.name)
-  );
+  .sort((it, that) => it.name.localeCompare(that.name));
