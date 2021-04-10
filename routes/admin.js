@@ -32,10 +32,7 @@ router.get(
     }
 
     const mapper = (event) => {
-      const topicsNow = flatten([event.topicCode, event.topics]).filter(
-        Boolean
-      );
-      const topicsNew = [...new Set(flatten(topicsNow.map(relevantTopics)))];
+      event.topics = [...new Set(flatten(event.topics.map(relevantTopics)))];
       delete event.description;
       delete event.source;
       delete event.country;
@@ -44,7 +41,6 @@ router.get(
       delete event.priceFrom;
       delete event.priceTo;
       delete event.top;
-      event.topics = topicsNew;
       delete event.topicCode;
       delete event.topic;
     };

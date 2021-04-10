@@ -3,7 +3,6 @@ const memoize = require("memoizee");
 const jsonDiff = require("json-diff");
 const { dayjs: utc } = require("./dates");
 const { countryName, stateName } = require("./geo");
-const { flatten } = require("./arrays");
 const { Datastore } = require("@google-cloud/datastore");
 const datastore = new Datastore();
 console.timeEnd("initializing datastore");
@@ -98,9 +97,6 @@ function enrich(event) {
     country: countryName(event.countryCode),
     state: stateName(event.stateCode),
     id: event[datastore.KEY].name,
-    topics: [
-      ...new Set(flatten([event.topicCode, event.topics]).filter(Boolean)),
-    ],
   };
 }
 
@@ -112,9 +108,3 @@ module.exports.searchUpcomingForever = searchUpcomingForever;
 module.exports.mapAll = mapAll;
 module.exports.searchUpcoming = searchUpcoming;
 module.exports.storeIfNew = storeIfNew;
-
-module.exports.byCountry = (country) => (it) =>
-  !country || country === it.countryCode;
-
-module.exports.byTopic = (topic) => (it) => !topic || topic === it.topicCode;
-module.exports.byName = (it, that) => it.name.localeCompare(that.name);

@@ -2,7 +2,7 @@ console.time("initializing search");
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const { countryName } = require("../utils/geo");
-const { searchUpcoming, byName } = require("../utils/datastore");
+const { searchUpcoming } = require("../utils/datastore");
 const { chunk, chain } = require("lodash");
 const { startDate, cheapestFirst, newestFirst } = require("../utils/sortings");
 console.timeEnd("initializing search");
@@ -41,7 +41,7 @@ router.get(
           .filter((that) => that != item)
           .concat({ count: item.count + 1, code, name, continent });
       }, [])
-      .ordered(byName);
+      .ordered((it, that) => it.name.localeCompare(that.name));
 
     const topics = chain(events)
       .filter(
