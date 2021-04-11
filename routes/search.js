@@ -1,7 +1,8 @@
 console.time("initializing search");
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
-const { countryName } = require("../utils/geo");
+const { countryName, countriesOrdered } = require("../utils/geo");
+const { topics } = require("../utils/topics");
 const { searchUpcoming } = require("../utils/datastore");
 const { chunk, chain } = require("lodash");
 const { startDate, cheapestFirst, newestFirst } = require("../utils/sortings");
@@ -27,29 +28,27 @@ router.get(
 
     const events = (await searchUpcoming()).filter(
       ({ featured, continentCode }) =>
-        !continent || featured || continentCode === continent
+      featured || !continent || continentCode === continent
     );
 
-    const countries = events
-      .filter(({ topics }) => !topic || topics.includes(topic))
-      .reduce((acc, it) => {
-        const code = it.countryCode;
-        const continent = it.continentCode;
-        const name = it.country;
-        const item = acc.find((item) => item.code === code) || { count: 0 };
-        return acc
-          .filter((that) => that != item)
-          .concat({ count: item.count + 1, code, name, continent });
-      }, [])
-      .ordered((it, that) => it.name.localeCompare(that.name));
+    const eventsByCountry = chain(events)
+      .map(({countryCode}) => countryCode)
+      .countBy()
+      .value();
 
-    const topics = chain(events)
-      .filter(
-        ({ countryCode, featured }) =>
-          featured || !country || country === countryCode
-      )
+    const countryStats = countriesOrdered
+      .map(({code, name, continent}) => ({code, name, continent, count: eventsByCountry[code] || 0}))
+      .filter(it => !continent || it.continent === continent)
+
+    const countByTopic = chain(events)
       .flatMap(({ topics }) => topics)
-      .countBy();
+      .countBy()
+      .value();
+
+    const topicStats = chain(topics)
+      .mapValues((_, code) => countByTopic[code])
+      .pickBy(Boolean)
+      .value();
 
     const matches = sortings[sorting](
       events.filter(
@@ -61,7 +60,6 @@ router.get(
     );
 
     const shown = chunk(matches, limit)[start] || [];
-
     const next = +start + 1;
     const more = matches.length > limit * next;
 
@@ -70,8 +68,8 @@ router.get(
       {
         limit,
         more,
-        countries,
-        topics,
+        countries: countryStats,
+        topics: topicStats,
         cursor: next,
         total: matches.length,
         countryName: country ? countryName(country) : undefined,

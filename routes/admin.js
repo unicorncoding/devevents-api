@@ -11,11 +11,9 @@ const {
 
 const emojis = require("../utils/countries-emoji.json");
 
-const { flatten } = require("../utils/arrays");
 const { chain, merge, mapValues } = require("lodash");
 const topicNames = require("../utils/topics").topics;
 const { dayjs: utc } = require("../utils/dates");
-const { relevantTopics } = require("../utils/topics");
 
 console.timeEnd("initializing admin");
 

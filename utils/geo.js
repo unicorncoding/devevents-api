@@ -37,9 +37,9 @@ module.exports.continents = continents;
 module.exports.states = states;
 module.exports.stateName = stateName;
 module.exports.countries = countries;
-module.exports.countriesOrdered = Object.keys(countries)
-  .map((code) => ({
+module.exports.countriesOrdered = Object.entries(countries)
+  .map(([code, {name, continent}]) => ({
     code,
-    name: countries[code].name,
+    name,
+    continent
   }))
-  .sort((it, that) => it.name.localeCompare(that.name));
