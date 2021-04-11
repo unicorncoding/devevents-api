@@ -11,18 +11,6 @@
     "name": "United Arab Emirates",
     "continent": "AS"
   },
-  "AF": {
-    "name": "Afghanistan",
-    "continent": "AS"
-  },
-  "AG": {
-    "name": "Antigua and Barbuda",
-    "continent": "NA"
-  },
-  "AI": {
-    "name": "Anguilla",
-    "continent": "NA"
-  },
   "AL": {
     "name": "Albania",
     "continent": "EU"
@@ -38,10 +26,6 @@
   "AR": {
     "name": "Argentina",
     "continent": "SA"
-  },
-  "AS": {
-    "name": "American Samoa",
-    "continent": "OC"
   },
   "AT": {
     "name": "Austria",
@@ -75,10 +59,6 @@
     "name": "Belgium",
     "continent": "EU"
   },
-  "BF": {
-    "name": "Burkina Faso",
-    "continent": "AF"
-  },
   "BG": {
     "name": "Bulgaria",
     "continent": "EU"
@@ -95,10 +75,6 @@
     "name": "Benin",
     "continent": "AF"
   },
-  "BL": {
-    "name": "Saint Barthélemy",
-    "continent": "NA"
-  },
   "BM": {
     "name": "Bermuda",
     "continent": "NA"
@@ -111,10 +87,6 @@
     "name": "Bolivia",
     "continent": "SA"
   },
-  "BQ": {
-    "name": "Bonaire",
-    "continent": "NA"
-  },
   "BR": {
     "name": "Brazil",
     "continent": "SA"
@@ -126,10 +98,6 @@
   "BT": {
     "name": "Bhutan",
     "continent": "AS"
-  },
-  "BV": {
-    "name": "Bouvet Island",
-    "continent": "AN"
   },
   "BW": {
     "name": "Botswana",
@@ -147,41 +115,17 @@
     "name": "Canada",
     "continent": "NA"
   },
-  "CC": {
-    "name": "Cocos [Keeling] Islands",
-    "continent": "AS"
-  },
-  "CD": {
-    "name": "Democratic Republic of the Congo",
-    "continent": "AF"
-  },
   "CF": {
     "name": "Central African Republic",
-    "continent": "AF"
-  },
-  "CG": {
-    "name": "Republic of the Congo",
     "continent": "AF"
   },
   "CH": {
     "name": "Switzerland",
     "continent": "EU"
   },
-  "CI": {
-    "name": "Ivory Coast",
-    "continent": "AF"
-  },
-  "CK": {
-    "name": "Cook Islands",
-    "continent": "OC"
-  },
   "CL": {
     "name": "Chile",
     "continent": "SA"
-  },
-  "CM": {
-    "name": "Cameroon",
-    "continent": "AF"
   },
   "CN": {
     "name": "China",
@@ -207,10 +151,6 @@
     "name": "Curacao",
     "continent": "NA"
   },
-  "CX": {
-    "name": "Christmas Island",
-    "continent": "AS"
-  },
   "CY": {
     "name": "Cyprus",
     "continent": "EU"
@@ -230,10 +170,6 @@
   "DK": {
     "name": "Denmark",
     "continent": "EU"
-  },
-  "DM": {
-    "name": "Dominica",
-    "continent": "NA"
   },
   "DO": {
     "name": "Dominican Republic",
@@ -271,14 +207,6 @@
     "name": "Finland",
     "continent": "EU"
   },
-  "FJ": {
-    "name": "Fiji",
-    "continent": "OC"
-  },
-  "FK": {
-    "name": "Falkland Islands",
-    "continent": "SA"
-  },
   "FO": {
     "name": "Faroe Islands",
     "continent": "EU"
@@ -298,14 +226,6 @@
   "GE": {
     "name": "Georgia",
     "continent": "AS"
-  },
-  "GF": {
-    "name": "French Guiana",
-    "continent": "SA"
-  },
-  "GG": {
-    "name": "Guernsey",
-    "continent": "EU"
   },
   "GH": {
     "name": "Ghana",
@@ -338,10 +258,6 @@
   "GT": {
     "name": "Guatemala",
     "continent": "NA"
-  },
-  "GU": {
-    "name": "Guam",
-    "continent": "OC"
   },
   "GW": {
     "name": "Guinea-Bissau",
@@ -435,14 +351,6 @@
     "name": "Kiribati",
     "continent": "OC"
   },
-  "KM": {
-    "name": "Comoros",
-    "continent": "AF"
-  },
-  "KN": {
-    "name": "Saint Kitts and Nevis",
-    "continent": "NA"
-  },
   "KP": {
     "name": "North Korea",
     "continent": "AS"
@@ -531,12 +439,8 @@
     "name": "Madagascar",
     "continent": "AF"
   },
-  "MH": {
-    "name": "Marshall Islands",
-    "continent": "OC"
-  },
   "MK": {
-    "name": "North Macedonia",
+    "name": "Macedonia",
     "continent": "EU"
   },
   "ML": {
@@ -599,10 +503,6 @@
     "name": "Niger",
     "continent": "AF"
   },
-  "NF": {
-    "name": "Norfolk Island",
-    "continent": "OC"
-  },
   "NG": {
     "name": "Nigeria",
     "continent": "AF"
@@ -623,10 +523,6 @@
     "name": "Nepal",
     "continent": "AS"
   },
-  "NR": {
-    "name": "Nauru",
-    "continent": "OC"
-  },
   "NZ": {
     "name": "New Zealand",
     "continent": "OC"
@@ -643,14 +539,6 @@
     "name": "Peru",
     "continent": "SA"
   },
-  "PF": {
-    "name": "French Polynesia",
-    "continent": "OC"
-  },
-  "PG": {
-    "name": "Papua New Guinea",
-    "continent": "OC"
-  },
   "PH": {
     "name": "Philippines",
     "continent": "AS"
@@ -662,10 +550,6 @@
   "PL": {
     "name": "Poland",
     "continent": "EU"
-  },
-  "PM": {
-    "name": "Saint Pierre and Miquelon",
-    "continent": "NA"
   },
   "PR": {
     "name": "Puerto Rico",
@@ -679,10 +563,6 @@
     "name": "Portugal",
     "continent": "EU"
   },
-  "PW": {
-    "name": "Palau",
-    "continent": "OC"
-  },
   "PY": {
     "name": "Paraguay",
     "continent": "SA"
@@ -690,10 +570,6 @@
   "QA": {
     "name": "Qatar",
     "continent": "AS"
-  },
-  "RE": {
-    "name": "Réunion",
-    "continent": "AF"
   },
   "RO": {
     "name": "Romania",
@@ -715,10 +591,6 @@
     "name": "Saudi Arabia",
     "continent": "AS"
   },
-  "SB": {
-    "name": "Solomon Islands",
-    "continent": "OC"
-  },
   "SC": {
     "name": "Seychelles",
     "continent": "AF"
@@ -735,10 +607,6 @@
     "name": "Singapore",
     "continent": "AS"
   },
-  "SH": {
-    "name": "Saint Helena",
-    "continent": "AF"
-  },
   "SI": {
     "name": "Slovenia",
     "continent": "EU"
@@ -746,10 +614,6 @@
   "SK": {
     "name": "Slovakia",
     "continent": "EU"
-  },
-  "SL": {
-    "name": "Sierra Leone",
-    "continent": "AF"
   },
   "SM": {
     "name": "San Marino",
@@ -759,44 +623,16 @@
     "name": "Senegal",
     "continent": "AF"
   },
-  "SO": {
-    "name": "Somalia",
-    "continent": "AF"
-  },
-  "SR": {
-    "name": "Suriname",
-    "continent": "SA"
-  },
   "SS": {
     "name": "South Sudan",
-    "continent": "AF"
-  },
-  "ST": {
-    "name": "São Tomé and Príncipe",
     "continent": "AF"
   },
   "SV": {
     "name": "El Salvador",
     "continent": "NA"
   },
-  "SX": {
-    "name": "Sint Maarten",
-    "continent": "NA"
-  },
-  "SY": {
-    "name": "Syria",
-    "continent": "AS"
-  },
-  "TC": {
-    "name": "Turks and Caicos Islands",
-    "continent": "NA"
-  },
   "TD": {
     "name": "Chad",
-    "continent": "AF"
-  },
-  "TG": {
-    "name": "Togo",
     "continent": "AF"
   },
   "TH": {
@@ -807,10 +643,6 @@
     "name": "Tajikistan",
     "continent": "AS"
   },
-  "TK": {
-    "name": "Tokelau",
-    "continent": "OC"
-  },
   "TM": {
     "name": "Turkmenistan",
     "continent": "AS"
@@ -819,21 +651,9 @@
     "name": "Tunisia",
     "continent": "AF"
   },
-  "TO": {
-    "name": "Tonga",
-    "continent": "OC"
-  },
   "TR": {
     "name": "Turkey",
     "continent": "AS"
-  },
-  "TT": {
-    "name": "Trinidad and Tobago",
-    "continent": "NA"
-  },
-  "TV": {
-    "name": "Tuvalu",
-    "continent": "OC"
   },
   "TW": {
     "name": "Taiwan",
@@ -863,14 +683,6 @@
     "name": "Uzbekistan",
     "continent": "AS"
   },
-  "VA": {
-    "name": "Vatican City",
-    "continent": "EU"
-  },
-  "VC": {
-    "name": "Saint Vincent and the Grenadines",
-    "continent": "NA"
-  },
   "VE": {
     "name": "Venezuela",
     "continent": "SA"
@@ -883,14 +695,6 @@
     "name": "Vietnam",
     "continent": "AS"
   },
-  "VU": {
-    "name": "Vanuatu",
-    "continent": "OC"
-  },
-  "WF": {
-    "name": "Wallis and Futuna",
-    "continent": "OC"
-  },
   "WS": {
     "name": "Samoa",
     "continent": "OC"
@@ -902,10 +706,6 @@
   "YE": {
     "name": "Yemen",
     "continent": "AS"
-  },
-  "YT": {
-    "name": "Mayotte",
-    "continent": "AF"
   },
   "ZA": {
     "name": "South Africa",
