@@ -37,9 +37,3 @@ module.exports.continents = continents;
 module.exports.states = states;
 module.exports.stateName = stateName;
 module.exports.countries = countries;
-module.exports.countriesOrdered = Object.entries(countries)
-  .map(([code, {name, continent}]) => ({
-    code,
-    name,
-    continent
-  }))

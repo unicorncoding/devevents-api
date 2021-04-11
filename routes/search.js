@@ -1,8 +1,8 @@
 console.time("initializing search");
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
-const { countryName, countriesOrdered } = require("../utils/geo");
-const { topics } = require("../utils/topics");
+const allCountries = require("../utils/geo").countries;
+const allTopics = require("../utils/topics").topics;
 const { searchUpcoming } = require("../utils/datastore");
 const { chunk, chain } = require("lodash");
 const { startDate, cheapestFirst, newestFirst } = require("../utils/sortings");
@@ -28,26 +28,43 @@ router.get(
 
     const events = (await searchUpcoming()).filter(
       ({ featured, continentCode }) =>
-      featured || !continent || continentCode === continent
+        featured || !continent || continentCode === continent
     );
 
-    const eventsByCountry = chain(events)
-      .map(({countryCode}) => countryCode)
+    const countByCountry = chain(events)
+      .map((it) => it.countryCode)
       .countBy()
       .value();
 
-    const countryStats = countriesOrdered
-      .map(({code, name, continent}) => ({code, name, continent, count: eventsByCountry[code] || 0}))
-      .filter(it => !continent || it.continent === continent)
+    const countries = chain(allCountries)
+      .map(({ name, continent }, code) => ({
+        code,
+        name,
+        continent,
+        count: countByCountry[code] || 0,
+      }))
+      .filter((it) => {
+        const isSelectedCountry = country === it.code;
+        const isInSelectedContinent = !continent || continent === it.continent;
+        const hasAtLeastOneEvent = it.count > 0;
+        return (
+          isSelectedCountry || (isInSelectedContinent && hasAtLeastOneEvent)
+        );
+      })
+      .value();
 
     const countByTopic = chain(events)
-      .flatMap(({ topics }) => topics)
+      .flatMap((it) => it.topics)
       .countBy()
       .value();
 
-    const topicStats = chain(topics)
-      .mapValues((_, code) => countByTopic[code])
-      .pickBy(Boolean)
+    const topics = chain(allTopics)
+      .map(({ name }, code) => ({ code, name, count: countByTopic[code] }))
+      .filter((it) => {
+        const isSelectedTopic = topic === it.code;
+        const hasAtLeastOneEvent = it.count > 0;
+        return isSelectedTopic || hasAtLeastOneEvent;
+      })
       .value();
 
     const matches = sortings[sorting](
@@ -68,11 +85,11 @@ router.get(
       {
         limit,
         more,
-        countries: countryStats,
-        topics: topicStats,
+        countries,
+        topics,
         cursor: next,
         total: matches.length,
-        countryName: country ? countryName(country) : undefined,
+        countryName: country ? allCountries[country].name : undefined,
       },
     ]);
   })

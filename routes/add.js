@@ -56,9 +56,9 @@ console.timeEnd("initializing add");
 router.get(
   "/prepare",
   asyncHandler(async (req, res) => {
-    const { countriesOrdered } = require("../utils/geo");
+    const { countries } = require("../utils/geo");
     const info = {
-      countries: countriesOrdered,
+      countries,
       types: eventTypes,
     };
     res.json(info);
