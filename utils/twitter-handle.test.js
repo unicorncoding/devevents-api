@@ -16,6 +16,7 @@ test("extracts twitter handle from a string", () => {
   expect(twitterHandle("https://twitter.com/devternity#contact")).toBe(
     "devternity"
   );
+  expect(twitterHandle("https://twitter.com/e3")).toBe("e3");
   expect(twitterHandle("https://twitter.com/devternity")).toBe("devternity");
   expect(twitterHandle("http://twitter.com/devternity")).toBe("devternity");
   expect(twitterHandle("twitter.com/devternity")).toBe("devternity");

@@ -14,7 +14,7 @@ module.exports.twitterHandle = (str) => {
     }
   }
 
-  const re = /^([A-Za-z0-9_]{3,15})$/;
+  const re = /^([A-Za-z0-9_]{2,15})$/;
   const matches = re.test(str);
 
   return matches ? str : undefined;
