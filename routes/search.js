@@ -2,7 +2,6 @@ console.time("initializing search");
 const asyncHandler = require("express-async-handler");
 const router = require("express").Router();
 const allCountries = require("../utils/geo").countries;
-const allTopics = require("../utils/topics").topics;
 const { searchUpcoming } = require("../utils/datastore");
 const { chunk, chain } = require("lodash");
 const { startDate, cheapestFirst, newestFirst } = require("../utils/sortings");
@@ -31,40 +30,28 @@ router.get(
         featured || !continent || continentCode === continent
     );
 
-    const countByCountry = chain(events)
-      .map((it) => it.countryCode)
+    const keepRelevant = ({ featured, topics, countryCode }) =>
+      countryCode !== "ON" && (featured || !topic || topics.includes(topic));
+    const mapToLocation = ({ countryCode, continentCode }) =>
+      `${continentCode}/${countryCode}`;
+
+    const countries = chain(events)
+      .filter(keepRelevant)
+      .map(mapToLocation)
+      .concat(country && continent ? `${continent}/${country}` : undefined)
+      .compact()
       .countBy()
       .value();
 
-    const countries = chain(allCountries)
-      .map(({ name, continent }, code) => ({
-        code,
-        name,
-        continent,
-        count: countByCountry[code] || 0,
-      }))
-      .filter((it) => {
-        const isSelectedCountry = country === it.code;
-        const isInSelectedContinent = !continent || continent === it.continent;
-        const hasAtLeastOneEvent = it.count > 0;
-        return (
-          isSelectedCountry || (isInSelectedContinent && hasAtLeastOneEvent)
-        );
-      })
-      .value();
-
-    const countByTopic = chain(events)
-      .flatMap((it) => it.topics)
+    const topics = chain(events)
+      .filter(
+        ({ countryCode, featured }) =>
+          featured || !country || country === countryCode
+      )
+      .flatMap(({ topics }) => topics)
+      .concat(topic)
+      .compact()
       .countBy()
-      .value();
-
-    const topics = chain(allTopics)
-      .map(({ name }, code) => ({ code, name, count: countByTopic[code] }))
-      .filter((it) => {
-        const isSelectedTopic = topic === it.code;
-        const hasAtLeastOneEvent = it.count > 0;
-        return isSelectedTopic || hasAtLeastOneEvent;
-      })
       .value();
 
     const matches = sortings[sorting](
