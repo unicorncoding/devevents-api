@@ -34,8 +34,8 @@ const mapAll = (mapper = (data) => data) => {
 const searchExpiredBefore = async (date) => {
   const query = datastore
     .createQuery("Event")
-    .filter("startDate", "<=", date.toDate())
-    .order("startDate", {
+    .filter("endDate", "<=", date.toDate())
+    .order("endDate", {
       descending: true,
     })
     .limit(15);
