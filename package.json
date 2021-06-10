@@ -34,7 +34,7 @@
     "lodash": "^4.17.15",
     "memoizee": "^0.4.14",
     "morgan": "^1.9.1",
-    "normalize-url": "^4.5.0",
+    "normalize-url": "^4.5.1",
     "sitemap": "^6.1.0",
     "taim": "^1.1.0",
     "twit": "^2.2.11",
